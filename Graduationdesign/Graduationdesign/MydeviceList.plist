@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>info</key>
+		<array>
+			<dict/>
+			<dict/>
+			<dict/>
+		</array>
+		<key>infotitle</key>
+		<string>生活信息</string>
+	</dict>
+	<dict>
+		<key>info</key>
+		<array>
+			<dict>
+				<key>deviceicon</key>
+				<string>  </string>
+				<key>devicename</key>
+				<string>在线设备1</string>
+			</dict>
+			<dict>
+				<key>deviceicon</key>
+				<string> </string>
+				<key>devicename</key>
+				<string>在线设备2</string>
+			</dict>
+			<dict>
+				<key>deviceicon</key>
+				<string> </string>
+				<key>devicename</key>
+				<string>在线设备3</string>
+			</dict>
+		</array>
+		<key>infotitle</key>
+		<string>智能设备列表</string>
+	</dict>
+	<dict>
+		<key>info</key>
+		<array>
+			<dict>
+				<key>icon</key>
+				<string> </string>
+				<key>name</key>
+				<string>体验设备1</string>
+			</dict>
+			<dict>
+				<key>icon</key>
+				<string> </string>
+				<key>name</key>
+				<string>体验设备2</string>
+			</dict>
+			<dict>
+				<key>icon</key>
+				<string> </string>
+				<key>name</key>
+				<string>体验设备3</string>
+			</dict>
+			<dict>
+				<key>icon</key>
+				<string> </string>
+				<key>name</key>
+				<string>体验设备4</string>
+			</dict>
+		</array>
+		<key>infotitle</key>
+		<string>体验馆</string>
+	</dict>
+	<dict>
+		<key>info</key>
+		<array>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string>  </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+			<dict>
+				<key>blogicon</key>
+				<string> </string>
+				<key>blogtitle</key>
+				<string>博客标题</string>
+				<key>blogdetail</key>
+				<string>博客描述</string>
+			</dict>
+		</array>
+		<key>infotitle</key>
+		<string>智能家庭论坛</string>
+	</dict>
+</array>
+</plist>

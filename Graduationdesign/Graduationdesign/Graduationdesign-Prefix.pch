@@ -1,0 +1,59 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "UIView+Extension.h"
+    #import "CPAppDelegate.h"
+    #import "MBProgressHUD.h"
+    #import "AFNetworking.h"
+    #import "NSDictionary+CPDictToPlist.h"
+    #import "UIView+Extension.h"
+    #import "NSString+CPExtension.h"
+    #import "NSDate+CPExtension.h"
+
+//判断是否为ios7
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+/**
+ *  导航栏字体大小
+ */
+#define MYITTMFONTSIZE [UIFont systemFontOfSize:13.0]
+
+#ifdef DEBUG // 调试状态, 打开LOG功能
+#define CPLog(...) NSLog(__VA_ARGS__)
+#else // 发布状态, 关闭LOG功能
+#define CPLog(...)
+#endif
+
+//颜色设置
+#define CP_RGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 \
+                                                green:(g)/255.0 \
+                                                blue:(b)/255.0 \
+                                                alpha:(a)]
+
+#define CP_RGB(r,g,b) CP_RGBA(r, g, b, 1.0)
+
+#define CPMAXSIZE CGSizeMake(MAXFLOAT, MAXFLOAT)
+
+/**
+ *  view的window宽度
+ */
+#define CPWINDOWWIDTH self.window.width
+#define CPWINDOWHEIGHT self.window.height
+#define CPAVERWIDTH self.width / 3
+
+#endif
+
+
+

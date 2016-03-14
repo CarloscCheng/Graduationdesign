@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>detail</key>
+		<string>头像</string>
+		<key>subdetail</key>
+		<string> </string>
+		<key>img</key>
+		<string>icon.jpg</string>
+		<key>selected</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>姓名</string>
+		<key>subdetail</key>
+		<string>程鹏</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>性别</string>
+		<key>subdetail</key>
+		<string>男</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>出生年月</string>
+		<key>subdetail</key>
+		<string>1994/8/19</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>手机号</string>
+		<key>subdetail</key>
+		<string>180******48</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>邮箱</string>
+		<key>subdetail</key>
+		<string>87******4@q*.com</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>帐号</string>
+		<key>subdetail</key>
+		<string>111111111</string>
+		<key>img</key>
+		<string>  </string>
+		<key>selected</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>修改权限</string>
+		<key>subdetail</key>
+		<string>   </string>
+		<key>img</key>
+		<string>   </string>
+		<key>selected</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>detail</key>
+		<string>修改密码</string>
+		<key>subdetail</key>
+		<string>   </string>
+		<key>img</key>
+		<string>   </string>
+		<key>selected</key>
+		<true/>
+	</dict>
+</array>
+</plist>
