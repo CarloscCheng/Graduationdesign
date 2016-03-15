@@ -28,13 +28,14 @@
 @property (weak,nonatomic) UIView *beforeCircleView_150_2;
 @property (weak,nonatomic) UIView *beforeCircleView_150_3;
 
-@property (weak,nonatomic) UIColor *beforeViewcolor_200;
-@property (weak,nonatomic) UIColor *beforeViewcolor_150;
+@property (strong,nonatomic) UIColor *beforeViewcolor_200;
+
+@property (strong,nonatomic) UIColor *beforeViewcolor_150;
 
 /**
  *  用于作r：150的圆(旋转后)的背景色
  */
-@property (weak,nonatomic) UIColor *afterViewcolor_150;
+@property (strong,nonatomic) UIColor *afterViewcolor_150;
 
 /**
  *  地点和定位图标的view容器
@@ -93,6 +94,8 @@
 @property (weak,nonatomic) UILabel *windDetail;
 @property (copy,nonatomic) NSString *windDetailstr;
 
+@property (copy,nonatomic) NSString *pm10;
+
 @end
 @implementation CPWDataMiddleView
 
@@ -101,8 +104,9 @@
     if (self = [super init]) {
         //获取数据
         [[[CPWeatherConnect alloc] init]setWeatherDataBlock:^(NSDictionary *data) {
-            int pm10_value = [data[@"pm10"] intValue];
-            [self setBackgroundColorWithPmValue:pm10_value];
+            self.pm10 = data[@"pm10"];
+            
+            [self setBackgroundColorWithPmValue:self.pm10];
             
             //获取省份城市名称
             NSString *cityname = data[@"city"];
@@ -137,6 +141,7 @@
             self.windDetailstr = [NSString stringWithFormat:@"%@%@",winddir,windspd];
             
         }];
+
         
         //旋转前的背景容器view及子view初始化
         UIView *beforeTransView = [[UIView alloc] init];
@@ -166,7 +171,6 @@
         
 #warning 一个重大的bug，把旋转的view放在这里初始化，旋转之后会出现意想不到的错误
         //旋转后的背景容器view及子view初始化
-        
         
         //地点和定位图标的view容器
         UIView *locationView = [[UIView alloc] init];
@@ -232,7 +236,6 @@
         windDeail.textColor = [UIColor whiteColor];
         self.windDetail = windDeail;
         [bottomView addSubview:windDeail];
-        
     }
     return self;
 }
@@ -250,33 +253,15 @@
     [self setMiddleViewData];
     
     //底部的信息
-    //天气字体尺寸
-    CGSize condSize = [NSString sizeWithText:self.condDetailstr font:self.condDetail.font maxSize:CPMAXSIZE];
-    //图标
-    UIImageView *condicon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"std_home_icon_sun_white"]];
-    condicon.frame = CGRectMake(0, 0, condSize.height, condSize.height);
-    [self.bottmoView addSubview:condicon];
-    
-    //天气
-    self.condDetail.text = self.condDetailstr;
-    self.condDetail.frame = CGRectMake(condSize.height + 3, 0, condSize.width, condSize.height);
-    
-    //风力
-    CGSize windSize = [NSString sizeWithText:self.windDetailstr font:self.windDetail.font maxSize:CPMAXSIZE];
-    self.windDetail.text = self.windDetailstr;
-    self.windDetail.frame = CGRectMake(condSize.height + 3 + condSize.width + 3, 0, windSize.width, windSize.height);
-
-    self.bottmoView.frame = CGRectMake(0, self.beforeTransView.width - self.beforeTransView.height / 5, self.windDetail.x + windSize.width, condSize.height);
-//    self.bottmoView.backgroundColor = [UIColor redColor];
-    self.bottmoView.centerX = self.locationView.centerX;
-
-    
+    [self setBottomData];
 }
 
 #pragma mark 根据pm10设置不同的背景颜色
-- (void)setBackgroundColorWithPmValue:(int)pm10_value
+- (void)setBackgroundColorWithPmValue:(NSString *)pm10
 {
+
     //设置不同的背景颜色
+    int pm10_value = [pm10 intValue];
     if (pm10_value < 50 || pm10_value == 50) {
         //优秀
         self.beforeViewcolor_200 = CP_RGB(65, 151, 242);
@@ -327,6 +312,7 @@
     self.beforeCircleView_200.backgroundColor = self.beforeViewcolor_200;
     self.beforeCircleView_200.layer.cornerRadius = self.beforeCircleView_200.width / 2;
     self.beforeCircleView_200.clipsToBounds = YES;
+//    self.beforeCircleView_200.backgroundColor = [UIColor redColor];
     
     //设置150圆
     self.beforeCircleView_150_0.frame = CGRectMake(0, 0, 150, 150);
@@ -354,7 +340,7 @@
     UIView *afterTransView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     afterTransView = afterTransView;
     afterTransView.centerX = self.centerX;
-    //    afterTransView.backgroundColor = [UIColor redColor];
+//        afterTransView.backgroundColor = [UIColor redColor];
     [self addSubview:afterTransView];
     [self sendSubviewToBack:afterTransView];
     
@@ -387,6 +373,7 @@
     
     //旋转角度
     afterTransView.transform = CGAffineTransformMakeRotation(M_PI_4);
+    
 }
 
 #pragma mark 设置定位地点等信息
@@ -463,4 +450,30 @@
     }
 
 }
+
+- (void)setBottomData
+{
+    //天气字体尺寸
+    CGSize condSize = [NSString sizeWithText:self.condDetailstr font:self.condDetail.font maxSize:CPMAXSIZE];
+    
+    //图标
+    UIImageView *condicon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"std_home_icon_sun_white"]];
+    condicon.frame = CGRectMake(0, 0, condSize.height, condSize.height);
+    [self.bottmoView addSubview:condicon];
+    
+    //天气
+    self.condDetail.text = self.condDetailstr;
+    self.condDetail.frame = CGRectMake(condSize.height + 3, 0, condSize.width, condSize.height);
+    
+    //风力
+    CGSize windSize = [NSString sizeWithText:self.windDetailstr font:self.windDetail.font maxSize:CPMAXSIZE];
+    self.windDetail.text = self.windDetailstr;
+    self.windDetail.frame = CGRectMake(condSize.height + 3 + condSize.width + 3, 0, windSize.width, windSize.height);
+    
+    self.bottmoView.frame = CGRectMake(0, self.beforeTransView.width - self.beforeTransView.height / 5, self.windDetail.x + windSize.width, condSize.height);
+    //    self.bottmoView.backgroundColor = [UIColor redColor];
+    self.bottmoView.centerX = self.locationView.centerX;
+}
+
+
 @end

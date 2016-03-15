@@ -39,7 +39,7 @@
     //判断
     if (![currentVersion isEqualToString:lastVersion]) {
 //        self.window.rootViewController = [[CPNewfeaturesController alloc] init];
-        NSLog(@"旧版本");
+        CPLog(@"旧版本");
         //存储新版本
         [defaults setObject:currentVersion forKey:VersionKey];
         [defaults synchronize];
