@@ -59,16 +59,46 @@
     
 }
 
+#pragma mark 界面消失和出现
 //添加一个通知的监听
 - (void)viewWillAppear:(BOOL)animated
 {
+    CPLog(@"我的设备界面将要出现");
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToWeatherData) name:@"CPLifedataViewCell" object:nil];
+    
+    //每次界面将要出现的时候判断用户登录状态
+    //判断用户退出app的状态
+    //获取UserDefault
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDictionary *login = [userDefault objectForKey:@"lastlogin"];
+    CPLog(@"login = %@",login);
+    CPNologinHeaderView *nologinview = [CPNologinHeaderView viewWithNologinView];
+    if (login) {
+        //如果已经登录了，则进入程序后就为登录状态
+        CPLog(@"登录状态");
+        UIView *loginview = [[UIView alloc] init];
+        self.tableView.tableHeaderView = loginview;
+    }else
+    {
+        CPLog(@"注销状态");
+        self.tableView.tableHeaderView = nologinview;
+    }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    CPLog(@"我的设备界面已经出现");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    CPLog(@"我的设备界面将要消失");
+}
 //移除通知
 - (void)viewDidDisappear:(BOOL)animated
 {
+    CPLog(@"我的设备界面已经消失");
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CPLifedataViewCell" object:nil];
 }

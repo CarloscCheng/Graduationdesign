@@ -18,17 +18,6 @@
 
 @implementation CPNologinHeaderView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-//        CPNologinHeaderView *view = [[CPNologinHeaderView alloc] init];
-//        self.nologinview = view;
-    }
-    return self;
-}
-
 + (instancetype)viewWithNologinView
 {
     // 从xib中加载cell

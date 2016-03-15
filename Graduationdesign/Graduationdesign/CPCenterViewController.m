@@ -73,10 +73,11 @@
     //自定义导航栏字体
     self.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:@"个人中心"];
     
-    
+
+#pragma mark（完成每次如果上次推出app的时候是登录状态自动刷新界面数据）
     //判断用户退出app的状态
     CPAppDelegate *appde = [[UIApplication sharedApplication] delegate];
-    CPLog(@"app login = %hhd",appde.iscCloseLogined);
+//    CPLog(@"app login = %hhd",appde.iscCloseLogined);
     if(appde.iscCloseLogined){
         CPLog(@"自动登录了");
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

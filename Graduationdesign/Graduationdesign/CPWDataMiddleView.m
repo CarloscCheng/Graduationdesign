@@ -10,7 +10,6 @@
 #import "CPWeatherConnect.h"
 #include "CPAreaIDModel.h"
 
-
 #define TMPSIZE [NSString sizeWithText:@"温度℃" font:[UIFont systemFontOfSize:9.0] maxSize:CPMAXSIZE]
 
 @interface CPWDataMiddleView()

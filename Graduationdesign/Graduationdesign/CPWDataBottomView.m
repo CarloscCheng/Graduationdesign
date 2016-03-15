@@ -78,13 +78,42 @@
     if (self = [super init]) {
         //设置参数
         [[[CPWeatherConnect alloc] init] setWeatherDataBlock:^(NSDictionary *suggestion) {
-            self.uvDetailLabelstr = suggestion[@"uv"];
-            CPLog(@"===============%@",self.uvDetailLabelstr);
-            self.drsgDetailLabelstr = suggestion[@"drsg"];
-            self.sportDetailLabelstr = suggestion[@"sport"];
-            self.cwDetailLabelstr = suggestion[@"cw"];
-            self.fluDetailLabelstr = suggestion[@"flu"];
-            self.travDetailLabelstr = suggestion[@"trav"];
+            if(suggestion[@"uv"] != nil)
+            {
+                self.uvDetailLabelstr = suggestion[@"uv"];
+            }else{
+                self.uvDetailLabelstr = @"暂无数据";
+            }
+            if(suggestion[@"drsg"] != nil)
+            {
+                self.drsgDetailLabelstr = suggestion[@"drsg"];
+            }else{
+                self.drsgDetailLabelstr = @"暂无数据";
+            }
+            if(suggestion[@"sport"] != nil)
+            {
+                self.sportDetailLabelstr = suggestion[@"sport"];
+            }else{
+                self.sportDetailLabelstr = @"暂无数据";
+            }
+            if(suggestion[@"cw"] != nil)
+            {
+                self.cwDetailLabelstr = suggestion[@"cw"];
+            }else{
+                self.cwDetailLabelstr = @"暂无数据";
+            }
+            if(suggestion[@"flu"] != nil)
+            {
+                self.fluDetailLabelstr = suggestion[@"flu"];
+            }else{
+                self.fluDetailLabelstr = @"暂无数据";
+            }
+            if(suggestion[@"trav"] != nil)
+            {
+                self.travDetailLabelstr = suggestion[@"trav"];
+            }else{
+                self.travDetailLabelstr = @"暂无数据";
+            }
         }];
         //紫外线指数
         UIView *view_0 = [[UIView alloc] init];
@@ -208,7 +237,7 @@
     CGSize uvSize = [NSString sizeWithText:self.uvDetailLabelstr font:CPDETAILFONT maxSize:CPMAXSIZE];
     self.uvDetailLabel.frame = CGRectMake(0, 0, uvSize.width, uvSize.height);
     self.uvDetailLabel.text = self.uvDetailLabelstr;
-    self.uvDetailLabel.centerY = self.view_0.centerY;
+    self.uvDetailLabel.centerY = self.view_0.centerY; 
     self.uvDetailLabel.x = self.view_0.width - uvSize.width - 20;
     
     //分割线
