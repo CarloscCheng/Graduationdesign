@@ -21,6 +21,7 @@
     #import "UIView+Extension.h"
     #import "NSString+CPExtension.h"
     #import "NSDate+CPExtension.h"
+    #import "UIButton+CPCountDown.h"
 
 //判断是否为ios7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)

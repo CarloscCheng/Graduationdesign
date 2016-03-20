@@ -26,7 +26,7 @@
     NSLog(@"=====");
     __block CPTabBarController *tabc = self;
     [self setMyTabBarBlock:^(CPTabBarController *tabbar) {
-        tabbar.viewControllers = tabc.tabBar.subviews;
+//        tabbar.viewControllers = tabc.tabBar.subviews;
     }];
 }
 

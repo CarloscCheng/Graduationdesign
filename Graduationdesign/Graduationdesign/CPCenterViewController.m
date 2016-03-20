@@ -12,6 +12,7 @@
 #import "CPCenterView.h"
 #import "CPHeaderView.h"
 #import "CPDeviceViewController.h"
+#import "CPNologinHeaderView.h"
 
 //cell头脚间距
 #define FOOTERHEIGHT 5
@@ -73,7 +74,6 @@
     //自定义导航栏字体
     self.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:@"个人中心"];
     
-
 #pragma mark（完成每次如果上次推出app的时候是登录状态自动刷新界面数据）
     //判断用户退出app的状态
     CPAppDelegate *appde = [[UIApplication sharedApplication] delegate];
@@ -89,8 +89,8 @@
         _logined = [login[@"curStatus"] intValue];
 
     }
-
 }
+
 
 #pragma mark 头像view触摸代理事件
 - (void)centerViewisTouched:(UIView *)Tview
@@ -100,9 +100,7 @@
     if (!self.isLogined) {
         //进入登录界面
         [self performSegueWithIdentifier:@"c2login" sender:nil];
-        
-    }else
-    {
+    }else{
         //进入个人资料界面
         [self performSegueWithIdentifier:@"c2cdata" sender:nil];
     }
@@ -187,6 +185,7 @@
     NSString *numdevice = self.numdevice.text;
     NSString *curStatus = @"1" ;
     
+
     //获取userdefault单例
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *loginDict = [NSDictionary dictionary];
@@ -196,6 +195,10 @@
     [userDefaults setObject:loginDict forKey:@"lastlogin"];
     [userDefaults synchronize];
 
+    
+    //设置的通知，名字叫helloname，object是一些参数，有时候发通知可能要随带的参数
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CPCenterViewController" object:nil];
+    
 }
 
 #pragma mark tableview代理

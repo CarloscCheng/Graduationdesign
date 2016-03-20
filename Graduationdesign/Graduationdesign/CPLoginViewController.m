@@ -10,6 +10,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "CPHeaderView.h"
 
+#import <SMS_SDK/SMSSDK.h>
+
 @interface CPLoginViewController ()<CPLoginViewControllerDelegate>
 /**
  *  登陆帐号
@@ -22,7 +24,7 @@
 /**
  *  新用户注册
  */
-@property (weak, nonatomic) IBOutlet UIButton *newaccount;
+- (IBAction)newUserReg;
 /**
  *  忘记密码
  */
@@ -144,6 +146,19 @@
         }
         
     });
+}
+
+//新用户注册
+- (IBAction)newUserReg
+{
+    CPLog(@"注册用户");
+    [self performSegueWithIdentifier:@"login2reg" sender:nil];
+}
+
+- (void)dealloc
+{
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 @end

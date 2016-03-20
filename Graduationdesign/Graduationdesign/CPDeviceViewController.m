@@ -2,9 +2,10 @@
 //  CPDeviceViewController.m
 //  Graduationdesign
 //
-//  Created by chengpeng on 16-2-24.
-//  Copyright (c) 2016年 chengpeng. All rights reserved.
+//  Created by cheng on 16/3/16.
+//  Copyright © 2016年 chengpeng. All rights reserved.
 //
+
 #import "CPDeviceViewController.h"
 #import "CPDeviceGroup.h"
 #import "CPHeaderView.h"
@@ -17,7 +18,8 @@
 #import "CPTopShow.h"
 #import "CPWeatherConnect.h"
 
-@interface CPDeviceViewController ()<UITableViewDataSource,CPHeaderViewDelegate,UITableViewDelegate,CPTopMenuDelegate,CPWeatherConnectDelegate>
+
+@interface CPDeviceViewController ()<UITableViewDataSource,CPHeaderViewDelegate,UITableViewDelegate,CPTopMenuDelegate,CPWeatherConnectDelegate,CPNologinHeaderViewDelegate>
 
 @property (weak,nonatomic) UITableViewCell *cell;
 /**
@@ -30,33 +32,49 @@
  */
 @property (strong,nonatomic) CPHeaderView *headerview;
 
-@end
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
+/**
+ *  头部tipsView
+ */
+@property (weak,nonatomic) CPNologinHeaderView *nologinView;
 
-@implementation CPDeviceViewController
+/**
+ *  是否要显示上方未登录的tips(未登录0-show，登录1-hide)
+ */
+@property (readonly,nonatomic,getter = isTipsStatus) BOOL tipsStatus;
+
+@end
 //@synthesize 自动生成property的同名变量
 
-- (void)viewDidLoad
-{
+
+@implementation CPDeviceViewController
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    //设置数据源和代理
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-
     //设置下拉刷新
     [self setupRefresh];
-
+    
+    //设置数据源和代理
+    self.myTableView.dataSource = self;
+    self.myTableView.delegate = self;
+    
     //隐藏右边的滑动条
-    self.tableView.showsVerticalScrollIndicator = NO;
+    self.myTableView.showsVerticalScrollIndicator = NO;
     
     //滑动速率
-    self.tableView.decelerationRate = 0.3;
+    self.myTableView.decelerationRate = 0.3;
     
     //设置nagvitionitem的titleview和代理
     CPTopMenu *topMenuView = [CPTopMenu topMenuWithView];
     self.navigationItem.titleView = topMenuView;
     topMenuView.delegate = self;
     
+    //初始化CPNologinHeaderView
+    self.nologinView = [CPNologinHeaderView viewWithNologinView];
+    self.nologinView.frame = CGRectMake(0, 64, 320, 44);
+    self.nologinView.delegate = self;
+    [self.view addSubview:self.nologinView];
 }
 
 #pragma mark 界面消失和出现
@@ -66,41 +84,56 @@
     CPLog(@"我的设备界面将要出现");
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToWeatherData) name:@"CPLifedataViewCell" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tipsStatusrefresh) name:@"CPCenterViewController" object:nil];
     
-    //每次界面将要出现的时候判断用户登录状态
-    //判断用户退出app的状态
     //获取UserDefault
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSDictionary *login = [userDefault objectForKey:@"lastlogin"];
-    CPLog(@"login = %@",login);
-    CPNologinHeaderView *nologinview = [CPNologinHeaderView viewWithNologinView];
-    if (login) {
-        //如果已经登录了，则进入程序后就为登录状态
-        CPLog(@"登录状态");
-        UIView *loginview = [[UIView alloc] init];
-        self.tableView.tableHeaderView = loginview;
-    }else
-    {
-        CPLog(@"注销状态");
-        self.tableView.tableHeaderView = nologinview;
+    
+    if (!_tipsStatus) {
+        if(login)
+        {
+            //登录不显示tips
+            self.myTableView.y = 0;
+            self.nologinView.hidden = YES;
+        }else{
+            //未登录显示tips
+            self.myTableView.y = 44;
+            self.nologinView.hidden = NO;
+        }
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    CPLog(@"我的设备界面已经出现");
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    CPLog(@"我的设备界面将要消失");
-}
 //移除通知
 - (void)viewDidDisappear:(BOOL)animated
 {
     CPLog(@"我的设备界面已经消失");
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CPLifedataViewCell" object:nil];
+    
+    //界面消失通知被注销
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"test" object:nil];
+    
+}
+
+#pragma mark nologinHeaderView的代理方法
+- (void)nologinViewisClickClose:(UIView *)view
+{
+    CPLog(@"关闭tips");
+    _tipsStatus = YES;
+    self.myTableView.y = 0;
+    self.nologinView.hidden = YES;
+}
+
+- (void)tipsStatusrefresh
+{
+    CPLog(@"==============&&&&&&&&&&&tipsStatusrefresh");
+    _tipsStatus = NO;
+    
+    //注销通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CPCenterViewController" object:nil];
+    
 }
 
 #pragma mark 跳转到天气信息的界面
@@ -118,11 +151,12 @@
 - (void)setupRefresh
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    [self.myTableView addHeaderWithTarget:self action:@selector(headerRereshing)];
 #warning 自动刷新(一进入程序就下拉刷新)
-//    [self.tableView headerBeginRefreshing];
-    self.tableView.headerPullToRefreshText = @"下拉刷新";
-    self.tableView.headerRefreshingText = @"载入中...";
+    //    [self.tableView headerBeginRefreshing];
+    
+    self.myTableView.headerPullToRefreshText = @"下拉刷新";
+    self.myTableView.headerRefreshingText = @"载入中...";
     
 }
 
@@ -132,8 +166,8 @@
     //2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        [self.tableView headerEndRefreshing];
-
+        [self.myTableView headerEndRefreshing];
+        
         //当刷新成功通知cell刷新天气数据
         CPWeatherConnect *weatherconnect = [[CPWeatherConnect alloc] init];
         [weatherconnect startRefreshWeatherData];
@@ -149,7 +183,7 @@
 {
     // 刷新表格
     CPLog(@"开始刷新表格");
-    [self.tableView reloadData];
+    [self.myTableView reloadData];
 }
 
 #pragma mark 模型懒加载
@@ -212,7 +246,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CPCellFrame *cellframe = self.cellFrames[indexPath.section];
-    NSLog(@"++++++++ row = %d",indexPath.section);
+    NSLog(@"++++++++ row = %ld",(long)indexPath.section);
     return cellframe.cellH;
 }
 
@@ -252,16 +286,18 @@
 - (void)headerViewDidTouchView:(CPHeaderView *)headerView
 {
     NSLog(@"头部View被点击");
-    [self.tableView reloadData];
+    [self.myTableView reloadData];
 }
 
 //选择完城市后刷新一次天气
 - (void)headerViewDidChooseCity:(CPHeaderView *)headerView
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
         // 刷新表格
-        CPLog(@"==============&&&&&&&&&&&开始刷新表格");
-        [self.tableView reloadData];
+        [self.myTableView reloadData];
     });
 }
+
+
 @end

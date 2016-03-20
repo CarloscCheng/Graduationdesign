@@ -23,10 +23,6 @@
 }
 
 
-//- (void)setCellGroup:(CPDeviceGroup *)cellGroup
-//{
-//    NSLog(@"blog set cellgroup");
-//}
 - (void)setcellData:(CPDeviceGroup *)group withIndex:(NSIndexPath *)indexPath
 {
 

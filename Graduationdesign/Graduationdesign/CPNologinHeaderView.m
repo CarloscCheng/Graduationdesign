@@ -20,33 +20,26 @@
 
 + (instancetype)viewWithNologinView
 {
-    // 从xib中加载cell
     CPNologinHeaderView *tipsView = [[CPNologinHeaderView alloc] init];
+    // 从xib中加载cell
     tipsView = [[[NSBundle mainBundle] loadNibNamed:@"CPNologinHeaderView" owner:nil options:nil] lastObject];
     return tipsView;
 }
 
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    NSLog(@"tips view is layout");
-    
-    
-}
-
+//关闭tips提醒
 - (IBAction)closeTips:(id)sender
 {
     NSLog(@"close tips");
-//    [self didMoveToSuperview];
+    if ([self.delegate respondsToSelector:@selector(nologinViewisClickClose:)]) {
+        [self.delegate nologinViewisClickClose:self];
+    }
 }
-
 //点击登录tips
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touch tips");
-    if ([self.delegate respondsToSelector:@selector(tipsViewisClicked:)]) {
-        [self.delegate tipsViewisClicked:self];
+    if ([self.delegate respondsToSelector:@selector(nologinViewisClicked:)]) {
+        [self.delegate nologinViewisClicked:self];
     }
 }
 @end

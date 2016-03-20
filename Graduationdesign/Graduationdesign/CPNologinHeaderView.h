@@ -12,7 +12,8 @@
 @protocol CPNologinHeaderViewDelegate <NSObject>
 
 @optional
-- (void)tipsViewisClicked:(UIView *)view;
+- (void)nologinViewisClicked:(UIView *)view;
+- (void)nologinViewisClickClose:(UIView *)view;
 
 @end
 

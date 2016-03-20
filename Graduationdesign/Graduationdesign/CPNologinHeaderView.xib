@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="device_cnnt_exclamation@2x副本" translatesAutoresizingMaskIntoConstraints="NO" id="ucn-m7-33Q">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="device_cnnt_exclamation" translatesAutoresizingMaskIntoConstraints="NO" id="ucn-m7-33Q">
                     <rect key="frame" x="20" y="12" width="20" height="20"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="你还没有登录，点击登录体验智能家庭" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKB-Gn-Wqe">
@@ -34,7 +34,7 @@
         </view>
     </objects>
     <resources>
-        <image name="device_cnnt_exclamation@2x副本" width="38" height="38"/>
+        <image name="device_cnnt_exclamation" width="19" height="19"/>
         <image name="tips_login_close" width="20" height="20"/>
     </resources>
 </document>
