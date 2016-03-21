@@ -12,7 +12,7 @@
 
 @optional
 - (void)codeShowViewWithKeyBoardHeight:(float)height withShowKeyBoard:(BOOL)show;
-
+- (void)codeShowViewWithOk:(BOOL)ok;
 @end
 
 @interface CPCodeShowView : UIView

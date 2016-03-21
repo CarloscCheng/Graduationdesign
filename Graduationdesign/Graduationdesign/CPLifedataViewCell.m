@@ -49,7 +49,7 @@
 //自定义cell
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"device";
+    static NSString *ID = @"Lifedata";
     CPLifedataViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         // 从xib中加载cell

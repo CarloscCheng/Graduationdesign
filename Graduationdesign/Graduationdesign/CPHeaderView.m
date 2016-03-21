@@ -73,56 +73,44 @@ static BOOL login;
 
 @implementation CPHeaderView
 
-+ (instancetype)headerViewWithTableView:(UITableView *)tableView
++ (instancetype)headerViewCreate;
 {
-    static NSString *ID = @"header";
-    CPHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:ID];
-    if (header == nil) {
-        header = [[CPHeaderView alloc] initWithReuseIdentifier:ID];
-    }
+    CPHeaderView *header = [[CPHeaderView alloc] init];
+    
+    //添加view
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    //添加label
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:10.0];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.textColor = [UIColor blackColor];
+    label.frame = CGRectMake(10, 15, 160, 12);
+    
+    //添加分割线
+    UIView *padding = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+    padding.backgroundColor = [UIColor lightGrayColor];
+    padding.alpha = 0.3;
+    
+    //添加右边导航图片
+    UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"crop"]];
+    //        rightView.backgroundColor = [UIColor redColor];
+    header.rightView = rightView;
+    
+    //添加控件
+    [view addSubview:rightView];
+    [view addSubview:padding];
+    [view addSubview:label];
+    header.infoTitle = label;
+    [header addSubview:view];
+    header.hView = view;
+    
     return header;
-}
-
-//设置头view的标签位置
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        //添加view
-        UIView *view = [[UIView alloc] init];
-        view.backgroundColor = [UIColor whiteColor];
-        
-        //添加label
-        UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:10.0];
-        label.textAlignment = NSTextAlignmentLeft;
-        label.textColor = [UIColor blackColor];
-        label.frame = CGRectMake(10, 15, 160, 12);
-        
-        //添加分割线
-        UIView *padding = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        padding.backgroundColor = [UIColor lightGrayColor];
-        padding.alpha = 0.3;
-        
-        //添加右边导航图片
-        UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"crop"]];
-//        rightView.backgroundColor = [UIColor redColor];
-        self.rightView = rightView;
-        
-        //添加控件
-        [view addSubview:rightView];
-        [view addSubview:padding];
-        [view addSubview:label];
-        self.infoTitle = label;
-        [self addSubview:view];
-        self.hView = view;
-
-    }
-    return self;
 }
 
 - (void)layoutSubviews
 {
-//    NSLog(@"layoutSubviews");
     [super layoutSubviews];
     self.hView.frame = CGRectMake(0, 0, 320, 44);
     self.rightView.frame = CGRectMake(280, 7, 30, 30);
@@ -139,7 +127,7 @@ static BOOL login;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //在这里判断如果app用户登录则进入下一步，否则提示登录
-    NSLog(@"logined$$$$$$$%hhd",login);
+
     
     // 1.修改组模型的标记(状态取反)
     NSLog(@"opened = %d",self.group.opened);
@@ -151,7 +139,6 @@ static BOOL login;
     }
 }
 
-#warning 这边的代码需要完善，太累赘了
 - (void)setGroup:(CPDeviceGroup *)group
 {
     _group = group;

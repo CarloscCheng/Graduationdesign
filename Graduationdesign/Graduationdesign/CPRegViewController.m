@@ -86,13 +86,46 @@
 
 - (IBAction)regAction
 {
+    //验证短信验证码
+//    NSString *phone = [self.phoneNumber.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    [SMSSDK commitVerificationCode:self.smsCode.text phoneNumber:phone zone:@"86" result:^(NSError *error) {
+//        if (!error) {
+//            NSLog(@"验证成功");
+//            
+//            //弹出验证输入界面，输入正确注册成功
+//            UIButton *maskButton = [[UIButton alloc] initWithFrame:self.view.window.frame];
+//            maskButton.backgroundColor = [UIColor lightGrayColor];
+//            maskButton.alpha = 0.8;
+//            self.maskButton = maskButton;
+//            [maskButton addTarget:self action:@selector(dismissCodeView) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            [self.view.window addSubview:maskButton];
+//            
+//            //弹出验证码界面view
+//            //codeshowview
+//            CPCodeShowView *codeShowView = [CPCodeShowView codeviewCreate];
+//            self.codeShowView = codeShowView;
+//            self.codeShowView.delegate = self;
+//            
+//            [UIView animateWithDuration:0.2 animations:^{
+//                [self.view endEditing:YES];
+//                self.codeShowView.center = self.view.window.center;
+//                [self.view.window addSubview:self.codeShowView];
+//            }];
+//            
+//        }else{
+//            NSLog(@"错误信息:%@",error);
+//        
+//        }
+//    }];
+
     //弹出验证输入界面，输入正确注册成功
     UIButton *maskButton = [[UIButton alloc] initWithFrame:self.view.window.frame];
     maskButton.backgroundColor = [UIColor lightGrayColor];
     maskButton.alpha = 0.8;
     self.maskButton = maskButton;
     [maskButton addTarget:self action:@selector(dismissCodeView) forControlEvents:UIControlEventTouchUpInside];
-    
+
     [self.view.window addSubview:maskButton];
     
     //弹出验证码界面view
@@ -125,6 +158,13 @@
     }];
 }
 
+
+- (void)codeShowViewWithOk:(BOOL)ok
+{
+    if (!ok) {
+        [self.codeShowView endEditing:YES];
+    }
+}
 #pragma mark 输入框发生改变的时候
 - (void)textChange
 {
@@ -292,5 +332,10 @@
         [self.sencodeBtn startWithTime:60 title:@"获取验证码" countDownTitle:@"重新发送" mainColor:[UIColor whiteColor] countColor:[UIColor whiteColor]];
         CPLog(@"注册手机号:%@",phone);
     }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 @end

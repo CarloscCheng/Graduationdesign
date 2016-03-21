@@ -15,13 +15,11 @@
 - (void)setCGroup:(CPDeviceGroup *)cGroup
 {
     _cGroup = cGroup;
-    
     if ([cGroup.infotitle isEqualToString:@"生活信息"]) {
         _cellH = 110;
     }else if([cGroup.infotitle isEqualToString:@"体验馆"]){
         _cellH = 80;
     }else if([cGroup.infotitle isEqualToString:@"智能设备列表"]){
-        //待做
         _cellH = 0;
     }else if([cGroup.infotitle isEqualToString:@"智能家庭论坛"]){
         _cellH = 80;

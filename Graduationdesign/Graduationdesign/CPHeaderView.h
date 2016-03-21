@@ -22,7 +22,7 @@ typedef BOOL(^loginStatusBlock)();
 @end
 
 @interface CPHeaderView : UITableViewHeaderFooterView
-+ (instancetype)headerViewWithTableView:(UITableView *)tableView;
++ (instancetype)headerViewCreate;
 
 @property (nonatomic, strong) CPDeviceGroup *group;
 

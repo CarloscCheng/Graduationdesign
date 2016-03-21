@@ -68,9 +68,28 @@
 
 - (IBAction)okBtn
 {
-    
+    //确认
+    //判断输入的是否为验证图片中显示的验证码（不区分大小写）
+    if([self.inputCode.text compare:self.authcodeView.authCodeStr options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame)
+    {
+        CPLog(@"验证码正确");
+        //next
+        if ([self.delegate respondsToSelector:@selector(codeShowViewWithOk:)]) {
+            [self.delegate codeShowViewWithOk:YES];
+        }
+    }else{
+        CPLog(@"验证码错误");
+        //刷新验证码
+        self.detailStr.text = @"验证码错误";
+        self.detailStr.font = [UIFont systemFontOfSize:11.0];
+        
+        if ([self.delegate respondsToSelector:@selector(codeShowViewWithOk:)]) {
+            [self.delegate codeShowViewWithOk:NO];
+        }
+        //刷新验证码
+        [self.authcodeView refreshAuthcode];
+    }
 }
-
 //当键盘出现或改变时调用
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {

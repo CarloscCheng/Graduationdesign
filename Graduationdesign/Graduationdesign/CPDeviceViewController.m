@@ -19,6 +19,8 @@
 #import "CPWeatherConnect.h"
 
 
+#import "CPLifedataViewCell.h"
+
 @interface CPDeviceViewController ()<UITableViewDataSource,CPHeaderViewDelegate,UITableViewDelegate,CPTopMenuDelegate,CPWeatherConnectDelegate,CPNologinHeaderViewDelegate>
 
 @property (weak,nonatomic) UITableViewCell *cell;
@@ -223,11 +225,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+
+//   NSLog(@"&&&&&&&&!!!!!!!!!!!!!^^^^^^^^^^^%d",section);
     CPCellFrame *cellframe = self.cellFrames[section];
     CPDeviceGroup *group = cellframe.cGroup;
-    
     return (group.isOpened ? group.info.count : 0);
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -237,7 +242,6 @@
     //set cell
     CPTotalCell *cell = [CPTotalCell cellWithTableView:tableView andWithGroups:group];
     [cell setcellData:group withIndex:indexPath];
-    
     
     return cell;
 }
@@ -257,7 +261,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // 1.创建头部控件
-    self.headerview= [CPHeaderView headerViewWithTableView:tableView];
+    self.headerview= [CPHeaderView headerViewCreate];
     
     //设置代理
     self.headerview.delegate = self;
@@ -267,6 +271,7 @@
     self.headerview.group = cellframe.cGroup;
     
     return self.headerview;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
