@@ -256,16 +256,16 @@ static BOOL login;
     if (pmValue < 50 || pmValue == 50) {
         //优秀
         airvlabel.backgroundColor = [UIColor colorWithRed:65.0/255 green:151.0/255 blue:242.0/255 alpha:1.0];
-    }else if((pmValue > 51 && pmValue < 100) || pmValue == 100){
+    }else if((pmValue > 50 && pmValue < 100) || pmValue == 100){
         //良好
         airvlabel.backgroundColor = [UIColor colorWithRed:196.0/255 green:190.0/255 blue:7.0/255 alpha:1.0];
-    }else if((pmValue > 101 && pmValue < 150) || pmValue == 150){
+    }else if((pmValue > 100 && pmValue < 150) || pmValue == 150){
         //轻度污染
         airvlabel.backgroundColor = [UIColor colorWithRed:223.0/255 green:125.0/255 blue:7.0/255 alpha:1.0];
-    }else if ((pmValue > 151 && pmValue < 200) || pmValue == 200){
+    }else if ((pmValue > 150 && pmValue < 200) || pmValue == 200){
         //中度污染
         airvlabel.backgroundColor = [UIColor colorWithRed:239.0/255 green:54.0/255 blue:43.0/255 alpha:1.0];
-    }else if ((pmValue > 201 && pmValue < 300) || pmValue == 300){
+    }else if ((pmValue > 200 && pmValue < 300) || pmValue == 300){
         //重度污染
         airvlabel.backgroundColor = [UIColor colorWithRed:255.0/255 green:28.0/255 blue:113.0/255 alpha:1.0];
     }else if (pmValue > 300){
@@ -286,6 +286,7 @@ static BOOL login;
     [self.window addSubview:self.addressview];
 }
 
+#pragma adressview代理
 - (void)addressViewCityNameIsChoosed:(CPAdressModel *)addressmodel
 {
     if ([self.delegate respondsToSelector:@selector(headerViewDidChooseCity:)]) {
@@ -294,7 +295,6 @@ static BOOL login;
     CPLog(@"$$$$$$$$$$%@",addressmodel.State);
     self.provice = addressmodel.State;
 }
-
 
 //一个控件被添加到父控件中就会调用
 - (void)didMoveToSuperview

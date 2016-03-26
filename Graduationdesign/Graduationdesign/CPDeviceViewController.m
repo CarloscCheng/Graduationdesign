@@ -91,7 +91,7 @@
     
     //获取UserDefault
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSDictionary *login = [userDefault objectForKey:@"lastlogin"];
+    NSDictionary *login = [userDefault objectForKey:@"lastLogin"];
     
     if (!_tipsStatus) {
         if(login)
@@ -113,10 +113,6 @@
     CPLog(@"我的设备界面已经消失");
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CPLifedataViewCell" object:nil];
-    
-    //界面消失通知被注销
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"test" object:nil];
-    
 }
 
 #pragma mark nologinHeaderView的代理方法
@@ -214,9 +210,6 @@
     return _cellFrames;
 }
 
-
-
-
 #pragma mark - 数据源方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -226,10 +219,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-//   NSLog(@"&&&&&&&&!!!!!!!!!!!!!^^^^^^^^^^^%d",section);
+//    CPLog(@"&&&&&&&&!!!!!!!!!!!!!^^^^^^^^^^^%ld",(long)section);
     CPCellFrame *cellframe = self.cellFrames[section];
+    
     CPDeviceGroup *group = cellframe.cGroup;
-    return (group.isOpened ? group.info.count : 0);
+    return (group.isOpened ? group.info.count : 0);   
 }
 
 
@@ -250,7 +244,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CPCellFrame *cellframe = self.cellFrames[indexPath.section];
-    NSLog(@"++++++++ row = %ld",(long)indexPath.section);
     return cellframe.cellH;
 }
 
@@ -290,7 +283,7 @@
  */
 - (void)headerViewDidTouchView:(CPHeaderView *)headerView
 {
-    NSLog(@"头部View被点击");
+    CPLog(@"头部View被点击");
     [self.myTableView reloadData];
 }
 

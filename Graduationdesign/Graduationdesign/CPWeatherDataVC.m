@@ -9,8 +9,7 @@
 #import "CPWeatherDataVC.h"
 #import "CPWeatherDataSV.h"
 #import "CPShareView.h"
-
-
+#import "CPShareDetailView.h"
 
 @interface CPWeatherDataVC ()
 
@@ -30,8 +29,8 @@
     
     CPWeatherDataSV *scroll = [[CPWeatherDataSV alloc] init];
     [self.view addSubview:scroll];
-}
 
+}
 
 - (IBAction)backAction:(id)sender
 {

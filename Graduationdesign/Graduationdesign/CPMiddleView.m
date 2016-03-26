@@ -101,15 +101,6 @@
     
     //按钮被点击
     [device addTarget:self action:@selector(personalMiddleisClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSLog(@"layoutsubviews");
-}
-
-//可能会死循环
-- (void)didAddSubview:(UIView *)subview
-{
-    NSLog(@"did add subview");
-
 }
 
 #pragma mark 自定义方法

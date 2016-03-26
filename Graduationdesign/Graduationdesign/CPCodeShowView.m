@@ -79,9 +79,16 @@
         }
     }else{
         CPLog(@"验证码错误");
+        
+        //页面动态抖动
+        [self shakeAnimationForView:self];
+        
         //刷新验证码
         self.detailStr.text = @"验证码错误";
+        self.detailStr.textColor = CP_RGB(255, 127, 0);
         self.detailStr.font = [UIFont systemFontOfSize:11.0];
+        
+        self.inputCode.text = nil;
         
         if ([self.delegate respondsToSelector:@selector(codeShowViewWithOk:)]) {
             [self.delegate codeShowViewWithOk:NO];
@@ -90,6 +97,8 @@
         [self.authcodeView refreshAuthcode];
     }
 }
+
+
 //当键盘出现或改变时调用
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
@@ -123,6 +132,45 @@
     CPLog(@"codeshow is dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
+#pragma mark uiview的抖动
+- (void)shakeAnimationForView:(UIView *)view
+{
+    // 获取到当前的View
+    CALayer *viewLayer = view.layer;
+    
+    // 获取当前View的位置
+    CGPoint position = viewLayer.position;
+    
+    // 移动的两个终点位置
+    CGPoint x = CGPointMake(position.x + 10, position.y);
+    CGPoint y = CGPointMake(position.x - 10, position.y);
+    
+    // 设置动画
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    // 设置运动形式
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+    
+    // 设置开始位置
+    [animation setFromValue:[NSValue valueWithCGPoint:x]];
+    
+    // 设置结束位置
+    [animation setToValue:[NSValue valueWithCGPoint:y]];
+    
+    // 设置自动反转
+    [animation setAutoreverses:YES];
+    
+    // 设置时间
+    [animation setDuration:.06];
+    
+    // 设置次数
+    [animation setRepeatCount:3];
+    
+    // 添加上动画
+    [viewLayer addAnimation:animation forKey:nil];
 }
 
 @end

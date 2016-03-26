@@ -20,6 +20,9 @@
     if (self = [super init])
     {
         [self setValuesForKeysWithDictionary:dict];
+        if (!self.img | [self.img isEqualToString:@""]) {
+            self.img = @"user_default.png";
+        }
     }
     return self;
 }

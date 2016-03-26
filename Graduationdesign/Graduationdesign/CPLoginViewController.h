@@ -11,8 +11,7 @@
 @protocol CPLoginViewControllerDelegate <NSObject>
 
 @optional
-//用户有没有登录
-- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc;
+- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc WithUserInfo:(NSArray *)userinfo;
 
 @end
 

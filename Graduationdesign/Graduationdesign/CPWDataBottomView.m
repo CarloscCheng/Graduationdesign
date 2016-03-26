@@ -224,6 +224,8 @@
 
 - (void)layoutSubviews
 {
+    self.backgroundColor = [UIColor whiteColor];
+    
     //紫外线指数
     self.view_0.frame = CGRectMake(0, 0, CPWINDOWWIDTH, CPAVERHEIGHT);
 //    self.view_0.backgroundColor = [UIColor redColor];

@@ -7,7 +7,6 @@
 //
 
 #import "CPLoginViewController.h"
-#import "MBProgressHUD+MJ.h"
 #import "CPHeaderView.h"
 
 #import <SMS_SDK/SMSSDK.h>
@@ -114,13 +113,37 @@
 #pragma mark 登录操作
 - (IBAction)loginAction
 {
-    if (![self.loginname.text isEqualToString:@"cheng"]) {
+    //写入数据
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *filename=[path stringByAppendingPathComponent:@"PersonlData.plist"];
+    
+    NSArray *dictArray = [NSArray arrayWithContentsOfFile:filename];
+    
+    //获取服务器注册用户的信息
+    NSMutableArray *phoneArray = [NSMutableArray array];
+    NSArray *userInfo = [NSArray array];
+    
+    //用户密码
+    NSString *password = [[NSString alloc] init];
+    for (NSDictionary *dict in dictArray) {
+        
+        [phoneArray addObject:dict[@"phonenumber"]];
+        if([dict[@"phonenumber"] isEqualToString:self.loginname.text])
+        {
+            userInfo = dict[@"otherdata"];
+            password = dict[@"password"];
+        }
+    }
+
+    //登录校验
+    if (![phoneArray containsObject:self.loginname.text]) {
         // 帐号不存在
         [MBProgressHUD showError:@"帐号不存在"];
         return;
     }
     
-    if (![self.loginpwd.text isEqualToString:@"123"]) {
+    if (![self.loginpwd.text isEqualToString:password]) {
         // 密码错误
         [MBProgressHUD showError:@"密码错误"];
         return;
@@ -130,7 +153,6 @@
     [MBProgressHUD showMessage:@"正在登录中...."];
     
     // 发送网络请求
-    
     // 模拟(1秒后执行跳转)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 移除遮盖
@@ -141,8 +163,8 @@
         //回到个人中心，加载用户资料
         [self.navigationController popViewControllerAnimated:YES];
         //告诉个人资料的代理是不是收到登录成功的信息
-        if ([self.delegate respondsToSelector:@selector(loginViewControllerisLogined:)]) {
-            [self.delegate loginViewControllerisLogined:self];
+        if ([self.delegate respondsToSelector:@selector(loginViewControllerisLogined:WithUserInfo:)]) {
+            [self.delegate loginViewControllerisLogined:self WithUserInfo:userInfo];
         }
         
     });

@@ -56,7 +56,7 @@
     
     //获取UserDefault
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSDictionary *login = [userDefault objectForKey:@"lastlogin"];
+    NSDictionary *login = [userDefault objectForKey:@"lastLogin"];
     CPLog(@"login = %@",login);
     if (login) {
         //如果已经登录了，则进入程序后就为登录状态
@@ -65,6 +65,18 @@
     }else
     {
         CPLog(@"退出前为注销状态，记录中没有登录信息");
+        _closeLogined = NO;
+    }
+
+    //此处是因为不当操作导致plist文件被删除(plist文件被删除直接初始化)，但是个人中心和个人资料没有被注销仍然显示数据点击再次崩溃的错误
+    NSString *filename=[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"PersonlData.plist"];
+    NSMutableArray *regArr = [NSMutableArray arrayWithContentsOfFile:filename];
+    
+    if(!regArr){
+        //没有数据创建默认的
+        [userDefault removeObjectForKey:@"lastLogin"];
+        [userDefault synchronize];
+        
         _closeLogined = NO;
     }
 

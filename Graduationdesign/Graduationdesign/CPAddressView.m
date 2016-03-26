@@ -15,7 +15,7 @@
 
 #define ROWHEIGHT 43.0;
 
-@interface CPAddressView()<UITableViewDataSource,UITableViewDelegate>
+@interface CPAddressView()<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
 
 @property (strong,nonatomic) NSArray *palceArray;
 
@@ -45,6 +45,12 @@
  */
 @property (weak,nonatomic) UIButton *button;
 
+@property (nonatomic , strong)CLLocationManager *locationManager;
+
+/**
+ *  定位城市
+ */
+@property (copy, nonatomic) NSString *locationCity;
 @end
 
 @implementation CPAddressView
@@ -84,13 +90,6 @@
     CGFloat proviceViewW = self.window.size.width;
     self.proviceView.frame = CGRectMake(0,proviceViewY,proviceViewW,proviceViewH);
 }
-
-- (void)buttonClicked
-{
-    CPLog(@"button clicked");
-    [self removeFromSuperview];
-}
-
 
 - (void)cityAfterChooseProvice:(CGRect)rect
 {
@@ -157,8 +156,9 @@
 {
     if (!_proSelected) {
         if (indexPath.row == 0) {
-            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"定位功能" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认", nil];
-            [alter show];
+            CPLog(@"定位功能");
+            [self getLocate];
+            [MBProgressHUD showMessage:nil];
         }else{
             //获取具体城市信息模型
             self.adressModel = self.palceArray[indexPath.row];
@@ -238,5 +238,98 @@
 }
 
 
+#pragma mark 定位功能
+//开始定位
+- (void)getLocate{
+    // 判断定位操作是否被允许
+    if([CLLocationManager locationServicesEnabled]) {
+        //定位初始化
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 100;
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8) {
+            [_locationManager requestWhenInUseAuthorization];
+        }
+        //更新用户位置
+        [_locationManager startUpdatingLocation];
+        CPLog(@"定位开启了");
+    }else {
+        //提示用户无法进行定位操作
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"定位不成功 ,请确认开启定位" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView show];
+    }
+    //更新用户位置
+    [_locationManager startUpdatingLocation];
+}
+
+#pragma mark - CoreLocation Delegate
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation
+    CLLocation *currentLocation = [locations lastObject];
+    // 获取当前所在的城市名
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    //根据经纬度反向地理编译出地址信息
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *array, NSError *error)
+     {
+         if (array.count > 0)
+         {
+             CLPlacemark *placemark = [array objectAtIndex:0];
+             //CPLog(@%@,placemark.name);//具体位置
+             //获取城市
+             NSString *city = placemark.locality;
+             if (!city) {
+                 //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
+                 city = placemark.administrativeArea;
+             }
+             
+             [MBProgressHUD hideHUD];
+             self.locationCity = [city stringByReplacingOccurrencesOfString:@"市" withString:@""];
+             
+             //把城市名称传递给areaid模型得到areaid
+             CPAreaIDModel *areaidmodel = [CPAreaIDModel areaIdWithStr:self.locationCity];
+             CPLog(@"定位城市为%@",self.locationCity);
+             
+             //刷新天气
+             CPWeatherConnect *wconn = [[CPWeatherConnect alloc] init];
+             [wconn refreshWeatherDataWithAreaid:areaidmodel.AREAID];
+             
+             //刷新我的设备表格数据
+             if ([self.delegate respondsToSelector:@selector(addressViewCityNameIsChoosed:)]) {
+                 [self.delegate addressViewCityNameIsChoosed:self.adressModel];
+             }
+             
+             //跳转等其他操作
+             [self performSelector:@selector(delectCell:) withObject:nil afterDelay:0.5];
+
+             //关闭位置选择器材
+             [self removeFromSuperview];
+             CPLog(@"定位完成:%@",city);
+             
+             //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
+             [manager stopUpdatingLocation];
+         }else if (error == nil && [array count] == 0)
+         {
+             CPLog(@"No results were returned.");
+         }else if (error != nil)
+         {
+             CPLog(@"An error occurred = %@", error);
+         }
+     }];
+}
+
+
+- (void)dealloc
+{
+    CPLog(@"dealloc");
+}
+
+- (void)buttonClicked
+{
+    CPLog(@"button clicked");
+    [self removeFromSuperview];
+}
 
 @end

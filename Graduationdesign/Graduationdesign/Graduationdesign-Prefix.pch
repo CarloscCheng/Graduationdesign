@@ -22,6 +22,11 @@
     #import "NSString+CPExtension.h"
     #import "NSDate+CPExtension.h"
     #import "UIButton+CPCountDown.h"
+    #import "MBProgressHUD+MJ.h"
+    #import "UIImage+Extension.h"
+    #import <AssetsLibrary/AssetsLibrary.h>
+//定位
+    #import <CoreLocation/CoreLocation.h>
 
 //判断是否为ios7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
@@ -53,6 +58,7 @@
 #define CPWINDOWWIDTH self.window.width
 #define CPWINDOWHEIGHT self.window.height
 #define CPAVERWIDTH self.width / 3
+
 
 #endif
 

@@ -24,10 +24,10 @@
     //自定义导航栏字体
     self.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:@"敬请期待"];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    button.backgroundColor = [UIColor redColor];
-    [button addTarget:self action:@selector(request:) forControlEvents:UIControlEventTouchDragInside];
-    [self.view addSubview:button];
+//    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+//    button.backgroundColor = [UIColor redColor];
+//    [button addTarget:self action:@selector(request:) forControlEvents:UIControlEventTouchDragInside];
+//    [self.view addSubview:button];
     
 }
 -(void)request: (NSString*)httpUrl

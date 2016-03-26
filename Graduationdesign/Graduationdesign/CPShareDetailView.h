@@ -10,4 +10,10 @@
 
 @interface CPShareDetailView : UIView
 
++ (instancetype)shareDetailViewCreate;
+
+//获取分享图片block
+@property (copy, nonatomic) void (^shareImageBlock)(UIImage *);
+
+- (void)transmitImage:(UIImage *)img;
 @end

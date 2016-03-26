@@ -7,10 +7,12 @@
 //
 
 #import "CPShareDetailView.h"
-
 #import <ShareSDK/ShareSDK.h>
 
+static UIImage *shareimage;
+
 @interface CPShareDetailView()
+
 - (IBAction)miliaoShare:(id)sender;
 - (IBAction)weixinShare:(id)sender;
 - (IBAction)friendShare:(id)sender;
@@ -20,23 +22,12 @@
 
 @implementation CPShareDetailView
 
-- (instancetype)init
++ (instancetype)shareDetailViewCreate
 {
-    if (self = [super init]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"CPShareDetailView" owner:nil options:nil] lastObject];
-    }
-    return self;
-
+    CPShareDetailView *shareDetailView = [[[NSBundle mainBundle] loadNibNamed:@"CPShareDetailView" owner:nil options:nil] lastObject];
+    return shareDetailView;
 }
 
-
-
-- (IBAction)miliaoShare:(id)sender{
-}
-
-- (IBAction)weixinShare:(id)sender{
-
-}
 
 - (IBAction)friendShare:(id)sender
 {
@@ -44,9 +35,11 @@
     //1、创建分享参数
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     
-    [shareParams SSDKSetupWeChatParamsByText:nil title:@"微信分享" url:nil thumbImage:nil image:[UIImage imageNamed:@"icon.jpg"] musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeImage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
+    // 定制微信朋友圈的分享内容
+    [shareParams SSDKSetupWeChatParamsByText:@"Graduationdesign天气分享" title:@"title" url:nil thumbImage:nil image:shareimage musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeAuto forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
     
-
+    
+    //2、分享
     [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
         
         switch (state) {
@@ -78,13 +71,68 @@
                 break;
             }
         }
+    }];
     
+}
+
+- (void)transmitImage:(UIImage *)img
+{
+    shareimage = img;
+}
+
+- (IBAction)weixinShare:(id)sender{
+    
+    //1、创建分享参数
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    
+    // 定制微信朋友圈的分享内容
+    [shareParams SSDKSetupWeChatParamsByText:@"Graduationdesign天气分享" title:@"title" url:nil thumbImage:nil image:shareimage musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeAuto forPlatformSubType:SSDKPlatformSubTypeWechatSession];
+    
+    //2、分享
+    [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+        
+        switch (state) {
+            case SSDKResponseStateBegin: {
+                
+                break;
+            }
+            case SSDKResponseStateSuccess: {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                    message:nil
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+                break;
+            }
+            case SSDKResponseStateFail: {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:[NSString stringWithFormat:@"%@",error]
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                break;
+            }
+            case SSDKResponseStateCancel: {
+                
+                break;
+            }
+        }
+        
         
         
         
     }];
 }
 
-- (IBAction)weiboShare:(id)sender {
+- (IBAction)miliaoShare:(id)sender
+{
+    
+}
+- (IBAction)weiboShare:(id)sender
+{
+
 }
 @end

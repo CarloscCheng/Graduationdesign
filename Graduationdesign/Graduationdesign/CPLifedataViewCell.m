@@ -49,7 +49,7 @@
 //自定义cell
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"Lifedata";
+    static NSString *ID = @"device";
     CPLifedataViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         // 从xib中加载cell
@@ -118,6 +118,7 @@
     //空气质量标题
     UILabel *qltytitle = [[UILabel alloc] init];
     qltytitle.font = [UIFont systemFontOfSize:10.0];
+    
     //空气质量详情
     UILabel *qltydetail = [[UILabel alloc] init];
 
@@ -130,6 +131,7 @@
     
     //设置标题位置
     title.frame = CGRectMake(50, 20, 200, 20);
+    
     //实时更新
     title.text = self.condstr;
     [view addSubview:title];
@@ -176,13 +178,13 @@
     }else if((pmValue > 51 && pmValue < 100) || pmValue == 100){
         //良好
         view.backgroundColor = [UIColor colorWithRed:196.0/255 green:190.0/255 blue:7.0/255 alpha:1.0];
-    }else if((pmValue > 101 && pmValue < 150) || pmValue == 150){
+    }else if((pmValue > 100 && pmValue < 150) || pmValue == 150){
         //轻度污染
         view.backgroundColor = [UIColor colorWithRed:223.0/255 green:125.0/255 blue:7.0/255 alpha:1.0];
-    }else if ((pmValue > 151 && pmValue < 200) || pmValue == 200){
+    }else if ((pmValue > 150 && pmValue < 200) || pmValue == 200){
         //中度污染
         view.backgroundColor = [UIColor colorWithRed:239.0/255 green:54.0/255 blue:43.0/255 alpha:1.0];
-    }else if ((pmValue > 201 && pmValue < 300) || pmValue == 300){
+    }else if ((pmValue > 200 && pmValue < 300) || pmValue == 300){
         //重度污染
         view.backgroundColor = [UIColor colorWithRed:255.0/255 green:28.0/255 blue:113.0/255 alpha:1.0];
     }else if (pmValue > 300){
@@ -335,6 +337,7 @@
     //不同的背景颜色
     view.backgroundColor = [UIColor colorWithRed:202.0/255 green:144.0/255 blue:255.0/255 alpha:1.0];
     [self.contentView addSubview:view];
+    
     //下方的黑色分割线
     [self.contentView addSubview:view];
     padding.frame = CGRectMake(0, 109, 320, 1);

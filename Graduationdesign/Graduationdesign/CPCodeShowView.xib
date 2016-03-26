@@ -20,7 +20,7 @@
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9sh-zJ-mtY">
                     <rect key="frame" x="18" y="86" width="102" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                    <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tSn-dS-VB3">
                     <rect key="frame" x="128" y="86" width="89" height="30"/>

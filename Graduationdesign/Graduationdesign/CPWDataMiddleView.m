@@ -21,12 +21,36 @@
 /**
  *  用于作r：200的圆
  */
-@property (weak,nonatomic) UIView *beforeCircleView_200;
-@property (weak,nonatomic) UIView *beforeCircleView_150_0;
-@property (weak,nonatomic) UIView *beforeCircleView_150_1;
-@property (weak,nonatomic) UIView *beforeCircleView_150_2;
-@property (weak,nonatomic) UIView *beforeCircleView_150_3;
+@property (weak, nonatomic) UIView *beforeCircleView_200;
+/**
+ *  用于作r：150的圆
+ */
+@property (weak, nonatomic) UIView *beforeCircleView_150_0;
+@property (weak, nonatomic) UIView *beforeCircleView_150_1;
+@property (weak, nonatomic) UIView *beforeCircleView_150_2;
+@property (weak, nonatomic) UIView *beforeCircleView_150_3;
 
+/**
+ *  旋转后的view容器
+ */
+@property (strong, nonatomic) UIView *afterTransView;
+/**
+ *  用于作r：200的圆
+ */
+@property (strong, nonatomic) UIView *afterCircleView_200;
+/**
+ *  用于作r：150的圆
+ */
+@property (strong, nonatomic) UIView *afterCircleView_150_0;
+@property (strong, nonatomic) UIView *afterCircleView_150_1;
+@property (strong, nonatomic) UIView *afterCircleView_150_2;
+@property (strong, nonatomic) UIView *afterCircleView_150_3;
+
+
+
+/**
+ *  用于作r：200，150的圆(旋转前)的背景色
+ */
 @property (strong,nonatomic) UIColor *beforeViewcolor_200;
 
 @property (strong,nonatomic) UIColor *beforeViewcolor_150;
@@ -141,6 +165,7 @@
             
         }];
 
+        self.backgroundColor = [UIColor whiteColor];
         
         //旋转前的背景容器view及子view初始化
         UIView *beforeTransView = [[UIView alloc] init];
@@ -167,9 +192,27 @@
         self.beforeCircleView_200 = beforeCircleView_200;
         [beforeTransView addSubview:beforeCircleView_200];
         
-        
-#warning 一个重大的bug，把旋转的view放在这里初始化，旋转之后会出现意想不到的错误
         //旋转后的背景容器view及子view初始化
+        UIView *afterTransView = [[UIView alloc] init];
+        self.afterTransView = afterTransView;
+        
+        UIView *afterCircleView_150_0 = [[UIView alloc] init];
+        self.afterCircleView_150_0 = afterCircleView_150_0;
+        
+        UIView *afterCircleView_150_1 = [[UIView alloc] init];
+        self.afterCircleView_150_1 = afterCircleView_150_1;
+        
+        UIView *afterCircleView_150_2 = [[UIView alloc] init];
+        self.afterCircleView_150_2 = afterCircleView_150_2;
+
+        
+        UIView *afterCircleView_150_3 = [[UIView alloc] init];
+        self.afterCircleView_150_3 = afterCircleView_150_3;
+
+        
+        UIView *afterCircleView_200 = [[UIView alloc] init];
+        self.afterCircleView_200 = afterCircleView_200;
+
         
         //地点和定位图标的view容器
         UIView *locationView = [[UIView alloc] init];
@@ -267,24 +310,24 @@
         self.beforeViewcolor_150 = CP_RGBA(65, 151, 242, 0.3);
         self.afterViewcolor_150 = CP_RGBA(65, 151, 242, 0.2);
         
-    }else if((pm10_value > 51 && pm10_value < 100) || pm10_value == 100){
+    }else if((pm10_value > 50 && pm10_value < 100) || pm10_value == 100){
         //良好
         self.beforeViewcolor_200 = CP_RGB(196, 190, 7);
         self.beforeViewcolor_150 = CP_RGBA(196, 190, 7, 0.3);
         self.afterViewcolor_150 = CP_RGBA(196, 190, 7, 0.2);
         
-    }else if((pm10_value > 101 && pm10_value < 150) || pm10_value == 150){
+    }else if((pm10_value > 100 && pm10_value < 150) || pm10_value == 150){
         //轻度污染
         self.beforeViewcolor_200 = CP_RGB(223, 125, 7);
         self.beforeViewcolor_150 = CP_RGBA(223, 125, 7, 0.3);
         self.afterViewcolor_150 = CP_RGBA(223, 125, 7, 0.2);
         
-    }else if ((pm10_value > 151 && pm10_value < 200) || pm10_value == 200){
+    }else if ((pm10_value > 150 && pm10_value < 200) || pm10_value == 200){
         //中度污染
         self.beforeViewcolor_200 = CP_RGB(239, 54, 43);
         self.beforeViewcolor_150 = CP_RGBA(239, 54, 43, 0.3);
         self.afterViewcolor_150 = CP_RGBA(239, 54, 43, 0.2);
-    }else if ((pm10_value > 201 && pm10_value < 300) || pm10_value == 300){
+    }else if ((pm10_value > 200 && pm10_value < 300) || pm10_value == 300){
         //重度污染
         self.beforeViewcolor_200 = CP_RGB(255, 28, 113);
         self.beforeViewcolor_150 = CP_RGBA(255, 28, 113, 0.3);
@@ -336,42 +379,38 @@
     
     
 #pragma mark 旋转后的背景容器view及子view数据设置
-    UIView *afterTransView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-    afterTransView = afterTransView;
-    afterTransView.centerX = self.centerX;
-//        afterTransView.backgroundColor = [UIColor redColor];
-    [self addSubview:afterTransView];
-    [self sendSubviewToBack:afterTransView];
+    self.afterTransView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    self.afterTransView.centerX = self.centerX;
+    [self addSubview:self.afterTransView];
+    [self sendSubviewToBack:self.afterTransView];
     
     //设置150圆
-    UIView *afterCircleView_150_0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
-    [afterTransView addSubview:afterCircleView_150_0];
-    afterCircleView_150_0.backgroundColor = self.afterViewcolor_150;
-    afterCircleView_150_0.layer.cornerRadius = afterCircleView_150_0.width / 2;
-    afterCircleView_150_0.clipsToBounds = YES;
+    self.afterCircleView_150_0.frame = CGRectMake(0, 0, 150, 150);
+    [self.afterTransView addSubview:self.afterCircleView_150_0];
+    self.afterCircleView_150_0.backgroundColor = self.afterViewcolor_150;
+    self.afterCircleView_150_0.layer.cornerRadius = self.afterCircleView_150_0.width / 2;
+    self.afterCircleView_150_0.clipsToBounds = YES;
     
-    UIView *afterCircleView_150_1 = [[UIView alloc] initWithFrame:CGRectMake(0, 50, 150, 150)];
-    [afterTransView addSubview:afterCircleView_150_1];
-    afterCircleView_150_1.backgroundColor = self.afterViewcolor_150;
-    afterCircleView_150_1.layer.cornerRadius = afterCircleView_150_1.width / 2;
-    afterCircleView_150_1.clipsToBounds = YES;
+    self.afterCircleView_150_1.frame = CGRectMake(0, 50, 150, 150);
+    [self.afterTransView addSubview:self.afterCircleView_150_1];
+    self.afterCircleView_150_1.backgroundColor = self.afterViewcolor_150;
+    self.afterCircleView_150_1.layer.cornerRadius = self.afterCircleView_150_1.width / 2;
+    self.afterCircleView_150_1.clipsToBounds = YES;
     
-    UIView *afterCircleView_150_2 = [[UIView alloc] initWithFrame:CGRectMake(50, 0, 150, 150)];
-    afterCircleView_150_2 = afterCircleView_150_2;
-    [afterTransView addSubview:afterCircleView_150_2];
-    afterCircleView_150_2.backgroundColor = self.afterViewcolor_150;
-    afterCircleView_150_2.layer.cornerRadius = afterCircleView_150_2.width / 2;
-    afterCircleView_150_2.clipsToBounds = YES;
+    self.afterCircleView_150_2.frame = CGRectMake(50, 0, 150, 150);
+    [self.afterTransView addSubview:self.afterCircleView_150_2];
+    self.afterCircleView_150_2.backgroundColor = self.afterViewcolor_150;
+    self.afterCircleView_150_2.layer.cornerRadius = self.afterCircleView_150_2.width / 2;
+    self.afterCircleView_150_2.clipsToBounds = YES;
     
-    UIView *afterCircleView_150_3 = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 150, 150)];
-    afterCircleView_150_3 = afterCircleView_150_3;
-    [afterTransView addSubview:afterCircleView_150_3];
-    afterCircleView_150_3.backgroundColor = self.afterViewcolor_150;
-    afterCircleView_150_3.layer.cornerRadius = afterCircleView_150_3.width / 2;
-    afterCircleView_150_3.clipsToBounds = YES;
+    self.afterCircleView_150_3.frame = CGRectMake(50, 50, 150, 150);
+    [self.afterTransView addSubview:self.afterCircleView_150_3];
+    self.afterCircleView_150_3.backgroundColor = self.afterViewcolor_150;
+    self.afterCircleView_150_3.layer.cornerRadius = self.afterCircleView_150_3.width / 2;
+    self.afterCircleView_150_3.clipsToBounds = YES;
     
     //旋转角度
-    afterTransView.transform = CGAffineTransformMakeRotation(M_PI_4);
+    self.afterTransView.transform = CGAffineTransformMakeRotation(M_PI_4);
     
 }
 

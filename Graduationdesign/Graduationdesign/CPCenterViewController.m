@@ -13,6 +13,7 @@
 #import "CPHeaderView.h"
 #import "CPDeviceViewController.h"
 #import "CPNologinHeaderView.h"
+#import "CPData.h"
 
 //cell头脚间距
 #define FOOTERHEIGHT 5
@@ -47,13 +48,18 @@
  */
 @property (assign,nonatomic) CGFloat footerH;
 
-
 /**
  *  headerView
  */
 @property (strong,nonatomic) CPHeaderView *headerView;
+/**
+ *  devicevc
+ */
 @property (strong,nonatomic) CPDeviceViewController *deviceVC;
-
+/**
+ *  登录的手机号
+ */
+@property (copy, nonatomic) NSString *loginPhonenumber;
 @end
 
 @implementation CPCenterViewController
@@ -70,32 +76,25 @@
     //设置当前控制器为centerview代理
     self.centerView.delegate = self;
     
-
     //自定义导航栏字体
     self.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:@"个人中心"];
     
-#pragma mark（完成每次如果上次推出app的时候是登录状态自动刷新界面数据）
+    //头像圆角
+    [self.userimg.layer setCornerRadius:CGRectGetHeight([self.userimg bounds]) / 2];
+    self.userimg.layer.masksToBounds = YES;
+    
     //判断用户退出app的状态
     CPAppDelegate *appde = [[UIApplication sharedApplication] delegate];
-//    CPLog(@"app login = %hhd",appde.iscCloseLogined);
     if(appde.iscCloseLogined){
-        CPLog(@"自动登录了");
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-         NSDictionary *login = [userDefaults objectForKey:@"lastlogin"];
-        
-        self.userimg.image = [UIImage imageNamed:login[@"userimg"]];
-        self.username.text = login[@"username"];
-        self.numdevice.text = login[@"numdevice"];
-        _logined = [login[@"curStatus"] intValue];
-
+        CPLog(@"已经登录过了");
+        [self refreshCenterViewData];
     }
 }
-
 
 #pragma mark 头像view触摸代理事件
 - (void)centerViewisTouched:(UIView *)Tview
 {
-    NSLog(@"is touched");
+    CPLog(@"is touched");
     //增加一个bool变量判断当前是否登录状态
     if (!self.isLogined) {
         //进入登录界面
@@ -106,61 +105,66 @@
     }
 }
 
-#warning 添加了segue一定要在这判断
+#pragma mark 添加segue进行判断
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     //获取目标控制起的vc类型代理
-    NSLog(@"sender = %@---indetifier = %@",sender, segue.identifier);
     if ([segue.identifier isEqualToString:@"c2cdata"]) {
-        
+        //跳转到个人资料界面
         CPDataViewController *datavc = segue.destinationViewController;
-        //设置个人资料控制器代理为个人中心控制器
         datavc.delegate = self;
+        [datavc transmitPhone:self.loginPhonenumber];
+        CPLog(@"用户手机号:%@",self.loginPhonenumber);
     }else if([segue.identifier isEqualToString:@"c2login"]){
+        //跳转到登录界面
         CPLoginViewController *loginvc = segue.destinationViewController;
-        //如果点击进入的是登录界面则设置登录vc代理为当前vc
         loginvc.delegate = self;
     }
 
 }
-#pragma mark 个人资料控制器注销操作通知代理方法实现
+#pragma mark- 个人资料控制器代理方法实现
+#pragma mark 注销
 - (void)dataViewLogoutisClicked:(CPDataViewController *)dataView
 {
-    NSLog(@"已经注销，回到个人中心控制器");
-    //注销后设置默认用户图片
+    //注销后设置界面默认数据
     self.userimg.image = [UIImage imageNamed:@"user_not_logged"];
-    //用户昵称
     self.username.text = @"点击登录";
-#warning 设备数应该为获取的网络中的设备个数
-    //设备数
     self.numdevice.text = @"0个智能设备";
     
-    //如果再次点击头像，应该跳转到登录、
     //设置bool为没有登录状态
     _logined = NO;
     
     CPHeaderView *headerview = [[CPHeaderView alloc] init];
-    
     [headerview setAppLoginStatus:^BOOL{
         return _logined;
     }];
     
-    //注销清楚信息
-    //获取userdefault单例
+    //注销清除信息
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     //存储到userfalut];
-    [userDefaults removeObjectForKey:@"lastlogin"];
+    [userDefaults removeObjectForKey:@"lastLogin"];
     [userDefaults synchronize];
-    
-    //调用view的block方法告诉我的设备用户为注销状态
-
 }
-#pragma mark 登录成功的代理方法实现
-#warning 登录成功后的数据是自己模拟的，显示需求是要从网络中获取数据
-- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc
+
+#pragma mark 修改资料
+- (void)dataViewHeaderPhotoIsAltered:(NSString *)alterImageName
 {
-    NSLog(@"个人中心收到登录成功通知");
+    CPLog(@"修改的图片:%@",alterImageName);
+    NSString *imgpath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    //模拟加载网络路径的图像
+    NSString *imagename = [imgpath stringByAppendingPathComponent:alterImageName];
+    self.userimg.image = [UIImage thumbnailWithImageWithoutScale:[UIImage imageWithContentsOfFile:imagename] size:CGSizeMake(self.userimg.width, self.userimg.height)];
+    
+    //获取用户登录的信息并存储
+    [self saveDataToUserDefaults:alterImageName];
+    
+}
+
+#pragma mark- 登录成功的代理方法实现（登录成功后的数据是自己模拟的，显示需求是要从网络中获取数据）
+- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc WithUserInfo:(NSArray *)userinfo
+{
+    CPLog(@"个人中心收到登录成功通知");
     //用户已经登录
     _logined = YES;
     
@@ -171,32 +175,36 @@
         return _logined;
     }];
     
-    //设置登录成功后的用户数据
-    self.userimg.image = [UIImage imageNamed:@"icon.jpg"];
-    [self.userimg setAccessibilityIdentifier:@"icon.jpg"];
-    self.username.text = @"程某人___";
+    //赋值模型获取登录用户的信息
+    for (NSDictionary *dict in userinfo){
+        CPData *data = [CPData dataWithDict:dict];
+        if ([data.detail isEqualToString:@"头像"]) {
+            //设置头像数据
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString *imgpath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+            //模拟加载网络路径的图像
+            NSString *imagename = [imgpath stringByAppendingPathComponent:data.img];
+            if ([fileManager fileExistsAtPath:imagename]) {
+                self.userimg.image = [UIImage thumbnailWithImageWithoutScale:[UIImage imageWithContentsOfFile:imagename] size:CGSizeMake(self.userimg.width, self.userimg.height)];
+            }else{
+                self.userimg.image = [UIImage imageNamed:data.img];
+            }
+            [self.userimg setAccessibilityIdentifier:data.img];
+            
+        }else if([data.detail isEqualToString:@"姓名"]){
+            self.username.text = data.subdetail;
+        }else if([data.detail isEqualToString:@"手机号"]){
+            //记录登录的用户手机号
+            self.loginPhonenumber = data.subdetail;
+        }
+    }
+    //在线的设备数量
     self.numdevice.text = @"10个智能设备";
     
-#pragma mark （测试）登录成功存储登录信息
+    //获取UserDefaults单例存储数据
+    [self saveDataToUserDefaults:[self.userimg accessibilityIdentifier]];
     
-    //获取用户输入的信息
-    NSString *userimg = [self.userimg accessibilityIdentifier];
-    NSString *username = self.username.text;
-    NSString *numdevice = self.numdevice.text;
-    NSString *curStatus = @"1" ;
-    
-
-    //获取userdefault单例
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *loginDict = [NSDictionary dictionary];
-    loginDict = @{@"userimg": userimg,@"username": username,@"numdevice": numdevice,@"curStatus": curStatus};
-    
-    //存储到userfalut];
-    [userDefaults setObject:loginDict forKey:@"lastlogin"];
-    [userDefaults synchronize];
-
-    
-    //设置的通知，名字叫helloname，object是一些参数，有时候发通知可能要随带的参数
+    //设置通知
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CPCenterViewController" object:nil];
     
 }
@@ -214,4 +222,44 @@
     return FOOTERHEIGHT;
 }
 
+#pragma mark 刷新个人中心的界面数据
+- (void)refreshCenterViewData
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *login = [userDefaults objectForKey:@"lastLogin"];
+    
+    //设置头像数据
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *imgpath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    NSString *imagename = [imgpath stringByAppendingPathComponent:login[@"userImg"]];
+    if ([fileManager fileExistsAtPath:imagename]) {
+        self.userimg.image = [UIImage thumbnailWithImageWithoutScale:[UIImage imageWithContentsOfFile:imagename] size:CGSizeMake(self.userimg.width, self.userimg.height)];
+    }else{
+        self.userimg.image = [UIImage imageNamed:login[@"userImg"]];
+    }
+    self.username.text = login[@"userName"];
+    self.numdevice.text = login[@"numDevice"];
+    _logined = [login[@"curStatus"] intValue];
+    self.loginPhonenumber = login[@"loginPhone"];
+    CPLog(@"登录的手机号是%@",self.loginPhonenumber);
+}
+
+#pragma mark 存储数据到userDefaults
+- (void)saveDataToUserDefaults:(NSString *)alterImg
+{
+    //获取用户登录的信息并存储
+    NSString *userimg = alterImg;
+    NSString *username = self.username.text;
+    NSString *numdevice = self.numdevice.text;
+    NSString *curStatus = @"1";
+    
+    //获取userdefault单例
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *loginDict = [NSDictionary dictionary];
+    loginDict = @{@"userImg": userimg,@"userName": username,@"numDevice": numdevice,@"curStatus": curStatus,@"loginPhone": self.loginPhonenumber};
+    
+    //存储到userfalut];
+    [userDefaults setObject:loginDict forKey:@"lastLogin"];
+    [userDefaults synchronize];
+}
 @end

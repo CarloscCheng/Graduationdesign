@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		141BD3AB1CA576380062DC08 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BD3A91CA576380062DC08 /* Toast.m */; };
 		141E6E461C9A98C80035CA0A /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E6E441C9A98C80035CA0A /* MOBFoundation.framework */; };
 		141E6E471C9A98C80035CA0A /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E6E451C9A98C80035CA0A /* SMS_SDK.framework */; };
 		141E6EE31C9A9D770035CA0A /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E6EB81C9A9D770035CA0A /* ShareSDK.framework */; };
@@ -30,6 +31,8 @@
 		148010F31C984F2900E4BC7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 148010F21C984F2900E4BC7D /* libstdc++.tbd */; };
 		148010F51C984F7500E4BC7D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 148010F41C984F7500E4BC7D /* libsqlite3.tbd */; };
 		14A5DF981C993227007E5A8F /* CPDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A5DF971C993227007E5A8F /* CPDeviceViewController.m */; };
+		14BCD5E61CA3ACB900093964 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BCD5E51CA3ACB900093964 /* CoreLocation.framework */; };
+		14BCD5E91CA4221400093964 /* CPDataGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BCD5E81CA4221400093964 /* CPDataGroup.m */; };
 		14DE92461C9B06B000F2F085 /* CPRegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE92451C9B06B000F2F085 /* CPRegViewController.m */; };
 		14F79D881C9BCD8900547175 /* CPAuthcodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F79D871C9BCD8900547175 /* CPAuthcodeView.m */; };
 		14FAADF81C9E35B700E9B191 /* CPDataViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FAADF61C9E35B700E9B191 /* CPDataViewCell.m */; };
@@ -106,7 +109,6 @@
 		65A9B01D1C7C10A80046BE80 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A9B0151C7C10A80046BE80 /* UIImage+ImageEffects.m */; };
 		65A9B0261C7C1EAB0046BE80 /* CPCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A9B0251C7C1EAB0046BE80 /* CPCenterViewController.m */; };
 		65A9B0291C7C222A0046BE80 /* CPCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A9B0281C7C222A0046BE80 /* CPCenterView.m */; };
-		65C057521C7C6B1200499E3F /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65C057511C7C6B1200499E3F /* icon.jpg */; };
 		65C7BA111C8890BF00453E15 /* CPAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C7BA0F1C8890BF00453E15 /* CPAdressCell.m */; };
 		65C7BA121C8890BF00453E15 /* CPAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C7BA101C8890BF00453E15 /* CPAdressCell.xib */; };
 		65C7BA181C88918800453E15 /* CPCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C7BA161C88918800453E15 /* CPCitiesModel.m */; };
@@ -127,7 +129,6 @@
 		65F126581C893AA7008D2977 /* CPAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F38CBA1C88862A00369C77 /* CPAddressView.m */; };
 		65F328541C7FE0C300C821AB /* CPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F328531C7FE0C300C821AB /* CPLoginViewController.m */; };
 		65F3935E1C7C8BB4004DE192 /* CPAlterPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F3935D1C7C8BB4004DE192 /* CPAlterPwdController.m */; };
-		65F5A4C81C8BC55100C32B8F /* PersonlData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65F5A4C71C8BC55100C32B8F /* PersonlData.plist */; };
 		65F9E7511C81B3B00072173C /* CPNologinHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F9E7501C81B3B00072173C /* CPNologinHeaderView.m */; };
 		65F9E7531C81B3EE0072173C /* CPNologinHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65F9E7521C81B3EE0072173C /* CPNologinHeaderView.xib */; };
 		65FB92571C7E7C8E007E6BFD /* CPLifedataViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FB92551C7E7C8E007E6BFD /* CPLifedataViewCell.m */; };
@@ -146,6 +147,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		141BD3A61CA575B80062DC08 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		141BD3A71CA575B80062DC08 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		141BD3A81CA575B80062DC08 /* Font.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		141BD3A91CA576380062DC08 /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
+		141BD3AA1CA576380062DC08 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
 		141E6E441C9A98C80035CA0A /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		141E6E451C9A98C80035CA0A /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		141E6EB81C9A9D770035CA0A /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
@@ -189,6 +195,9 @@
 		148010F41C984F7500E4BC7D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		14A5DF961C993227007E5A8F /* CPDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDeviceViewController.h; sourceTree = "<group>"; };
 		14A5DF971C993227007E5A8F /* CPDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDeviceViewController.m; sourceTree = "<group>"; };
+		14BCD5E51CA3ACB900093964 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		14BCD5E71CA4221400093964 /* CPDataGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDataGroup.h; sourceTree = "<group>"; };
+		14BCD5E81CA4221400093964 /* CPDataGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDataGroup.m; sourceTree = "<group>"; };
 		14DE92441C9B06B000F2F085 /* CPRegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRegViewController.h; sourceTree = "<group>"; };
 		14DE92451C9B06B000F2F085 /* CPRegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRegViewController.m; sourceTree = "<group>"; };
 		14F79D861C9BCD8900547175 /* CPAuthcodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAuthcodeView.h; sourceTree = "<group>"; };
@@ -327,7 +336,6 @@
 		65A9B0251C7C1EAB0046BE80 /* CPCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCenterViewController.m; sourceTree = "<group>"; };
 		65A9B0271C7C222A0046BE80 /* CPCenterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCenterView.h; sourceTree = "<group>"; };
 		65A9B0281C7C222A0046BE80 /* CPCenterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCenterView.m; sourceTree = "<group>"; };
-		65C057511C7C6B1200499E3F /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		65C7BA0E1C8890BF00453E15 /* CPAdressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAdressCell.h; sourceTree = "<group>"; };
 		65C7BA0F1C8890BF00453E15 /* CPAdressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAdressCell.m; sourceTree = "<group>"; };
 		65C7BA101C8890BF00453E15 /* CPAdressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPAdressCell.xib; sourceTree = "<group>"; };
@@ -364,7 +372,6 @@
 		65F38CBA1C88862A00369C77 /* CPAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAddressView.m; sourceTree = "<group>"; };
 		65F3935C1C7C8BB4004DE192 /* CPAlterPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAlterPwdController.h; sourceTree = "<group>"; };
 		65F3935D1C7C8BB4004DE192 /* CPAlterPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAlterPwdController.m; sourceTree = "<group>"; };
-		65F5A4C71C8BC55100C32B8F /* PersonlData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PersonlData.plist; sourceTree = "<group>"; };
 		65F9E74F1C81B3B00072173C /* CPNologinHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNologinHeaderView.h; sourceTree = "<group>"; };
 		65F9E7501C81B3B00072173C /* CPNologinHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNologinHeaderView.m; sourceTree = "<group>"; };
 		65F9E7521C81B3EE0072173C /* CPNologinHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPNologinHeaderView.xib; sourceTree = "<group>"; };
@@ -380,6 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14BCD5E61CA3ACB900093964 /* CoreLocation.framework in Frameworks */,
 				148010F11C984F1B00E4BC7D /* libz.tbd in Frameworks */,
 				141E6E471C9A98C80035CA0A /* SMS_SDK.framework in Frameworks */,
 				141E6EED1C9A9D770035CA0A /* libWeChatSDK.a in Frameworks */,
@@ -414,6 +422,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		141BD3AC1CA5768C0062DC08 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				141BD3AA1CA576380062DC08 /* Toast.h */,
+				141BD3A91CA576380062DC08 /* Toast.m */,
+				141BD3A61CA575B80062DC08 /* Color.h */,
+				141BD3A71CA575B80062DC08 /* Config.h */,
+				141BD3A81CA575B80062DC08 /* Font.h */,
+			);
+			name = Toast;
+			sourceTree = "<group>";
+		};
 		141E6E431C9A98C80035CA0A /* SMS_SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,7 +583,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		65266C211C888465009D043B /* address */ = {
+		65266C211C888465009D043B /* Address */ = {
 			isa = PBXGroup;
 			children = (
 				65266C221C888465009D043B /* area.plist */,
@@ -572,6 +592,7 @@
 				65266C251C888465009D043B /* YZAddressPicker.h */,
 				65266C261C888465009D043B /* YZAddressPicker.m */,
 			);
+			name = Address;
 			path = address;
 			sourceTree = "<group>";
 		};
@@ -611,13 +632,6 @@
 				6536F82E1C8B274D0031D2B3 /* CPWeatherDataSV.m */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		6536F82B1C8B271D0031D2B3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		6536F82C1C8B27220031D2B3 /* Controller */ = {
@@ -940,6 +954,8 @@
 		6553D89A1C81412E00AF17F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				14BCD5E71CA4221400093964 /* CPDataGroup.h */,
+				14BCD5E81CA4221400093964 /* CPDataGroup.m */,
 				65664C091C7C4B3E00E68744 /* CPData.h */,
 				65664C0A1C7C4B3E00E68744 /* CPData.m */,
 			);
@@ -1048,7 +1064,8 @@
 		6553D8A61C81436D00AF17F6 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				65266C211C888465009D043B /* address */,
+				141BD3AC1CA5768C0062DC08 /* Toast */,
+				65266C211C888465009D043B /* Address */,
 				6531B2C51C85307200756EC9 /* AFNetworking */,
 				65647DF51C7F481200ABF107 /* MJRefresh */,
 				65A9AFFB1C7C109F0046BE80 /* MBProgressHUD */,
@@ -1123,6 +1140,7 @@
 		65A9AFC21C7C0ECA0046BE80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14BCD5E51CA3ACB900093964 /* CoreLocation.framework */,
 				14F79D891C9C07D800547175 /* libxml2.tbd */,
 				144492291C99A5EA002D582B /* MessageUI.framework */,
 				148010F41C984F7500E4BC7D /* libsqlite3.tbd */,
@@ -1149,7 +1167,6 @@
 		65A9AFCA1C7C0ECA0046BE80 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				65C057511C7C6B1200499E3F /* icon.jpg */,
 				65A9AFDB1C7C0ECA0046BE80 /* Images.xcassets */,
 				65A9AFD51C7C0ECA0046BE80 /* Main.storyboard */,
 				65A9AFCB1C7C0ECA0046BE80 /* Graduationdesign-Info.plist */,
@@ -1276,10 +1293,9 @@
 		65DB71641C8B17870023E542 /* WeatherData(天气信息) */ = {
 			isa = PBXGroup;
 			children = (
-				65CA099B1C8FFB9C009E85F9 /* ShareData(天气分享) */,
-				6536F82B1C8B271D0031D2B3 /* Model */,
 				6536F82A1C8B27160031D2B3 /* View */,
 				6536F82C1C8B27220031D2B3 /* Controller */,
+				65CA099B1C8FFB9C009E85F9 /* ShareData(天气分享) */,
 			);
 			name = "WeatherData(天气信息)";
 			sourceTree = "<group>";
@@ -1316,7 +1332,6 @@
 		65FB92531C7E7A07007E6BFD /* Plist */ = {
 			isa = PBXGroup;
 			children = (
-				65F5A4C71C8BC55100C32B8F /* PersonlData.plist */,
 				65516BC61C8ABEA2009DBEB3 /* AreaID.plist */,
 				65E48B591C88527700158709 /* Address.plist */,
 				65DD6F8B1C7D947A0065FA9B /* MydeviceList.plist */,
@@ -1441,13 +1456,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6521A2111C7E95420003B189 /* CPDlistViewCell.xib in Resources */,
-				65F5A4C81C8BC55100C32B8F /* PersonlData.plist in Resources */,
 				65CA09A41C8FFC45009E85F9 /* CPShareDetailView.xib in Resources */,
 				65266C271C888465009D043B /* area.plist in Resources */,
 				141E6EEE1C9A9D770035CA0A /* read_me.txt in Resources */,
 				65FB92581C7E7C8E007E6BFD /* CPLifedataViewCell.xib in Resources */,
 				65F9E7531C81B3EE0072173C /* CPNologinHeaderView.xib in Resources */,
-				65C057521C7C6B1200499E3F /* icon.jpg in Resources */,
 				65A9AFDC1C7C0ECA0046BE80 /* Images.xcassets in Resources */,
 				146C42C61C9D804F005A3456 /* CPCodeShowView.xib in Resources */,
 				141E6EF01C9A9D770035CA0A /* ShareSDK.bundle in Resources */,
@@ -1528,9 +1541,11 @@
 				6531B2D91C85307200756EC9 /* AFHTTPRequestOperation.m in Sources */,
 				65D827731C7CB0420062F38E /* CPMiddleView.m in Sources */,
 				65647E071C7F481200ABF107 /* MJRefreshBaseView.m in Sources */,
+				141BD3AB1CA576380062DC08 /* Toast.m in Sources */,
 				65C7BA181C88918800453E15 /* CPCitiesModel.m in Sources */,
 				65128B111C7ECC3F00237C1C /* CPCellFrame.m in Sources */,
 				65DD6F921C7D9B6B0065FA9B /* CPDeviceList.m in Sources */,
+				14BCD5E91CA4221400093964 /* CPDataGroup.m in Sources */,
 				65CE0D361C8D5A1300D6A193 /* CPWDataMiddleView.m in Sources */,
 				6521A21E1C7EA7F50003B189 /* CPTotalCell.m in Sources */,
 				65A9B0161C7C10A80046BE80 /* SCLAlertView.m in Sources */,

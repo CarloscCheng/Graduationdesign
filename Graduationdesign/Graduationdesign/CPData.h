@@ -23,10 +23,7 @@
  */
 @property (nonatomic, copy) NSString *img;
 
-/**
- *  判断当前属性是否为可以编辑属性
- */
-@property (assign,nonatomic,getter = isSelected) BOOL selected;
+
 
 + (instancetype)dataWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;

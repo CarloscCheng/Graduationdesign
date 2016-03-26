@@ -13,6 +13,7 @@
 
 //用户没有登录点击叉关闭提醒
 - (IBAction)closeTips:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *closeBtn;
 
 @end
 
@@ -23,6 +24,8 @@
     CPNologinHeaderView *tipsView = [[CPNologinHeaderView alloc] init];
     // 从xib中加载cell
     tipsView = [[[NSBundle mainBundle] loadNibNamed:@"CPNologinHeaderView" owner:nil options:nil] lastObject];
+    
+    [tipsView.closeBtn setImageEdgeInsets:UIEdgeInsetsMake(30, 30, 30, 30)];
     return tipsView;
 }
 

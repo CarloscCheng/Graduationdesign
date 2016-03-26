@@ -10,15 +10,6 @@
 
 @implementation CPALoginView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 - (void)layoutSubviews
 {
     self.layer.borderWidth = 1;

@@ -354,6 +354,7 @@
         <!--Data View Controller-->
         <scene sceneID="GLs-KT-sh2">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lS5-Cl-kW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="nQl-CK-FB8" customClass="CPDataViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xQZ-lh-zW6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -392,11 +393,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="logout" destination="LQM-Oa-pix" id="iaZ-Kd-iUY"/>
-                        <outlet property="tabView" destination="30P-Zr-N2g" id="J08-Kk-2hP"/>
+                        <outlet property="myDataTabView" destination="30P-Zr-N2g" id="sup-fH-trb"/>
                         <segue destination="iAB-Yx-LBU" kind="push" identifier="data2xiugaimima" id="dEG-h4-oid"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lS5-Cl-kW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1501" y="949"/>
         </scene>
@@ -460,13 +460,13 @@
                                         <rect key="frame" x="5" y="7" width="275" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" adjustsFontSizeToFit="NO" minimumFontSize="17" id="odI-Qf-NtB" userLabel="密码text">
                                         <rect key="frame" x="5" y="50" width="235" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <view alpha="0.29999999999999999" contentMode="scaleToFill" id="egT-7I-SjO">
                                         <rect key="frame" x="0.0" y="45" width="280" height="1"/>
@@ -545,7 +545,7 @@
                                         <rect key="frame" x="69" y="5" width="162" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Oy-IY-YWA">
                                         <rect key="frame" x="10" y="45" width="46" height="30"/>
@@ -558,7 +558,7 @@
                                         <rect key="frame" x="69" y="45" width="243" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lUN-cl-J4z">
                                         <rect key="frame" x="10" y="85" width="46" height="30"/>
@@ -571,7 +571,7 @@
                                         <rect key="frame" x="69" y="83" width="243" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h4B-d9-QSF">
                                         <rect key="frame" x="10" y="5" width="46" height="30"/>

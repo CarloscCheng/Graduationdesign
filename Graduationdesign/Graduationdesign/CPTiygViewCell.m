@@ -23,7 +23,7 @@
 //自定义cell
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"Tiyg";
+    static NSString *ID = @"device";
     CPTiygViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         // 从xib中加载cell

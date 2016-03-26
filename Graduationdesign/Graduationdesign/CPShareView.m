@@ -34,7 +34,7 @@
         //添加点击事件
         [mybutton addTarget:self action:@selector(cancelShare) forControlEvents:UIControlEventTouchUpInside];
         
-        CPShareDetailView *sharedetailView = [[CPShareDetailView alloc] init];
+        CPShareDetailView *sharedetailView = [CPShareDetailView shareDetailViewCreate];
         self.sharedetailView = sharedetailView;
         [self addSubview:sharedetailView];
     }
