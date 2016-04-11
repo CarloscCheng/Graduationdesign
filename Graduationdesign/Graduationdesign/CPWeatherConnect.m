@@ -64,7 +64,7 @@
  */
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"接收到服务器的响应");
+    CPLog(@"接收到服务器的响应");
     self.weatherData = [NSMutableData data];
 
 }
@@ -74,7 +74,7 @@
  */
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"开始接收到服务器数据");
+    CPLog(@"开始接收到服务器数据");
     [self.weatherData appendData:data];
 }
 
@@ -83,7 +83,7 @@
  */
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"数据接受完毕");
+    CPLog(@"数据接受完毕");
     //服务器段json封装的数据解析成oc数据
     if (self.weatherData) {
         NSError *error = [[NSError alloc] init];
@@ -318,7 +318,7 @@
  */
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"连接失败%@",error);
+    CPLog(@"连接失败%@",error);
 }
 
 

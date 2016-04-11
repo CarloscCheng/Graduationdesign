@@ -17,7 +17,7 @@ const CGFloat MJRefreshSlowAnimationDuration = 0.4;
 NSString *const MJRefreshBundleName = @"MJRefresh.bundle";
 
 NSString *const MJRefreshFooterPullToRefresh = @"上拉可以加载更多数据";
-NSString *const MJRefreshFooterReleaseToRefresh = @"松开立即加载更多数据";
+NSString *const MJRefreshFooterReleaseToRefresh = @"松开刷新";
 NSString *const MJRefreshFooterRefreshing = @"MJ哥正在帮你加载数据...";
 
 NSString *const MJRefreshHeaderPullToRefresh = @"下拉可以刷新";
@@ -26,6 +26,5 @@ NSString *const MJRefreshHeaderReleaseToRefresh = @"松开刷新";
 NSString *const MJRefreshHeaderRefreshing = @"MJ哥正在帮你刷新...";
 
 NSString *const MJRefreshHeaderTimeKey = @"MJRefreshHeaderView";
-
 NSString *const MJRefreshContentOffset = @"contentOffset";
-NSString *const MJRefreshContentSize = @"contentSize";
+NSString *const MJRefreshContentSize = @"contentSize"; 

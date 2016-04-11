@@ -130,7 +130,7 @@ static BOOL login;
 
     
     // 1.修改组模型的标记(状态取反)
-    NSLog(@"opened = %d",self.group.opened);
+    CPLog(@"opened = %d",self.group.opened);
     self.group.opened = !self.group.isOpened;
     
     // 2.刷新表格

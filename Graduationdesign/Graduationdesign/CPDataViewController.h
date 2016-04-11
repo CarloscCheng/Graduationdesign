@@ -14,6 +14,8 @@
 - (void)dataViewLogoutisClicked:(CPDataViewController*)dataView;
 //个人信息的头像被修改
 - (void)dataViewHeaderPhotoIsAltered:(NSString *)alterImageName;
+//个人信息的昵称被修改
+- (void)dataViewHeaderNameIsAltered:(NSString *)alterName;
 @end
 
 @interface CPDataViewController : UIViewController

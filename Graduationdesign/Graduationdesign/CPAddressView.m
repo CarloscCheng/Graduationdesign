@@ -158,7 +158,6 @@
         if (indexPath.row == 0) {
             CPLog(@"定位功能");
             [self getLocate];
-            [MBProgressHUD showMessage:nil];
         }else{
             //获取具体城市信息模型
             self.adressModel = self.palceArray[indexPath.row];
@@ -204,7 +203,7 @@
         NSString *cityStr = [self.cityModel.Areaname stringByReplacingOccurrencesOfString:@"市" withString:@""];
         
         //把城市名称传递给areaid模型得到areaid
-        CPAreaIDModel *areaidmodel = [CPAreaIDModel areaIdWithStr:cityStr];
+        CPAreaIDModel *areaidmodel = [CPAreaIDModel areaIdWithStr:cityStr]; 
         
         //刷新天气
         CPWeatherConnect *wconn = [[CPWeatherConnect alloc] init];
@@ -244,6 +243,7 @@
     // 判断定位操作是否被允许
     if([CLLocationManager locationServicesEnabled]) {
         //定位初始化
+        [MBProgressHUD showMessage:nil];
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -259,6 +259,8 @@
         //提示用户无法进行定位操作
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"定位不成功 ,请确认开启定位" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
+        
+//        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"请确认是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
     }
     //更新用户位置
     [_locationManager startUpdatingLocation];
@@ -310,11 +312,9 @@
              
              //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
              [manager stopUpdatingLocation];
-         }else if (error == nil && [array count] == 0)
-         {
+         }else if (error == nil && [array count] == 0){
              CPLog(@"No results were returned.");
-         }else if (error != nil)
-         {
+         }else if (error != nil){
              CPLog(@"An error occurred = %@", error);
          }
      }];
@@ -324,6 +324,7 @@
 - (void)dealloc
 {
     CPLog(@"dealloc");
+//    [super dealloc];
 }
 
 - (void)buttonClicked

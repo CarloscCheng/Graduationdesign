@@ -54,7 +54,7 @@
     if (cell == nil) {
         // 从xib中加载cell
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CPLifedataViewCell" owner:nil options:nil] lastObject];
-        NSLog(@"---init life data");
+        CPLog(@"init life data");
     }
     return cell;
 }
@@ -351,8 +351,6 @@
 - (void)oneCellIsTouched
 {
     CPLog(@"one is touched");
-    //改变属性值
-    //设置的通知，名字叫helloname，object是一些参数，有时候发通知可能要随带的参数
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CPLifedataViewCell" object:nil];
 }
 

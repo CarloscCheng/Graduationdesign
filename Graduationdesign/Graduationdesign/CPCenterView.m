@@ -20,7 +20,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(centerViewisTouched:)]) {
         [self.delegate centerViewisTouched:self];
-        NSLog(@"头像处被触摸");
+        CPLog(@"头像处被触摸");
     }
 }
 

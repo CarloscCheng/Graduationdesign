@@ -29,20 +29,23 @@
     return tipsView;
 }
 
+#pragma mark 关闭tips提醒
 //关闭tips提醒
 - (IBAction)closeTips:(id)sender
 {
-    NSLog(@"close tips");
+    CPLog(@"close tips");
     if ([self.delegate respondsToSelector:@selector(nologinViewisClickClose:)]) {
         [self.delegate nologinViewisClickClose:self];
     }
 }
+
+#pragma mark 点击tios登录
 //点击登录tips
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touch tips");
+    CPLog(@"touch tips");
     if ([self.delegate respondsToSelector:@selector(nologinViewisClicked:)]) {
-        [self.delegate nologinViewisClicked:self];
+        [self.delegate nologinViewisClicked:self]; 
     }
 }
 @end

@@ -10,7 +10,7 @@
 #import "CPAuthcodeView.h"
 #import "CPCodeShowView.h"
 #import "Toast.h"
-
+#import "CPDataHeader.h"
 #import <SMS_SDK/SMSSDK.h>
 
 //提醒字体大小
@@ -89,23 +89,7 @@
     self.phoneNumber.delegate = self;
     self.smsCode.delegate = self;
     self.pwdStr.delegate = self;
-    
 
-    //查找服务器数据判断账号是否已经注册过（plist模拟服务器数据）
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *path=[paths objectAtIndex:0];
-    NSString *filename=[path stringByAppendingPathComponent:@"PersonlData.plist"];
-
-    //读文件
-    NSMutableArray *regArr = [NSMutableArray arrayWithContentsOfFile:filename];
-    
-    //获取服务器注册用户的信息
-    self.phoneArray = [NSMutableArray array];
-    for (NSDictionary *dict in regArr) {
-        //获取服务器所有注册手机号
-        [self.phoneArray addObject:dict[@"phonenumber"]];
-        CPLog(@"所有的号码:%@",self.phoneArray);
-    }
 }
 
 - (void)test
@@ -146,6 +130,22 @@
 #pragma mark 用户注册
 - (IBAction)regAction
 {
+    //查找服务器数据判断账号是否已经注册过（plist模拟服务器数据）
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *filename=[path stringByAppendingPathComponent:@"PersonlData.plist"];
+    
+    //读文件
+    NSMutableArray *regArr = [NSMutableArray arrayWithContentsOfFile:filename];
+    
+    //获取服务器注册用户的信息
+    self.phoneArray = [NSMutableArray array];
+    for (NSDictionary *dict in regArr) {
+        //获取服务器所有注册手机号
+        [self.phoneArray addObject:dict[@"phonenumber"]];
+    }
+    CPLog(@"所有的号码:%@",self.phoneArray);
+    
     //判断密码是否合法
     NSCharacterSet *cs;
     cs = [[NSCharacterSet characterSetWithCharactersInString:ALPHANUM] invertedSet];
@@ -154,7 +154,7 @@
         NSString *s = [self.pwdStr.text substringWithRange:NSMakeRange(i, 1)];
         CPLog(@"string is %@",s);
         NSString *filtered = [[s componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-        if (![s isEqualToString:filtered]) {
+        if (![s isEqualToString:filtered] && (self.pwdStr.text.length < 6)) {
             CPLog(@"密码不合法");
         }
     }
@@ -162,30 +162,30 @@
     [MBProgressHUD showMessage:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
+        //弹出验证输入界面，输入正确注册成功
+        UIButton *maskButton = [[UIButton alloc] initWithFrame:self.view.window.frame];
+        maskButton.backgroundColor = [UIColor lightGrayColor];
+        maskButton.alpha = 0.8;
+        self.maskButton = maskButton;
+        [maskButton addTarget:self action:@selector(dismissCodeView) forControlEvents:UIControlEventTouchUpInside];
 
-    //弹出验证输入界面，输入正确注册成功
-    UIButton *maskButton = [[UIButton alloc] initWithFrame:self.view.window.frame];
-    maskButton.backgroundColor = [UIColor lightGrayColor];
-    maskButton.alpha = 0.8;
-    self.maskButton = maskButton;
-    [maskButton addTarget:self action:@selector(dismissCodeView) forControlEvents:UIControlEventTouchUpInside];
+        [self.view.window addSubview:maskButton];
 
-    [self.view.window addSubview:maskButton];
+        //弹出验证码界面view
+        CPCodeShowView *codeShowView = [CPCodeShowView codeviewCreate];
+        self.codeShowView = codeShowView;
+        self.codeShowView.delegate = self;
 
-    //弹出验证码界面view
-    //codeshowview
-    CPCodeShowView *codeShowView = [CPCodeShowView codeviewCreate];
-    self.codeShowView = codeShowView;
-    self.codeShowView.delegate = self;
-
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view endEditing:YES];
-        self.codeShowView.center = self.view.window.center;
-        [self.view.window addSubview:self.codeShowView];
-        [MBProgressHUD hideHUD];
-    }];
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.view endEditing:YES];
+            self.codeShowView.center = self.view.window.center;
+            [self.view.window addSubview:self.codeShowView];
+            [MBProgressHUD hideHUD];
+        }];
     
     });
+    
+
 }
 
 
@@ -207,34 +207,28 @@
 #pragma mark 验证码校验
 - (void)codeShowViewWithOk:(BOOL)ok
 {
-    if (!ok) {
-        //验证码不正确
-    }else{
-        
-#pragma mark 有问题
-        [MBProgressHUD showMessage:nil];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *phone = [self.phoneNumber.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-            if ([self.phoneArray containsObject:phone]) {
-                //已经注册
-                CPLog(@"该号码已经注册");
-                //移除codeview
-                [UIView animateWithDuration:0.1 animations:^{
-                    [self dismissCodeView];
-                    [MBProgressHUD hideHUD];
-                } completion:^(BOOL finished) {
-                    //显示提示界面
-                    [Toast toast:@"该手机号已被注册"];
-                }];
-                
-            }else{
-                //还没有注册,模拟写入plist为传递数据到服务器
-                CPLog(@"准备注册");
-                [self regDataToServer];
-            }
-        });
-        
-    }
+    if (ok) return;
+
+    //验证码不正确
+    [MBProgressHUD showMessage:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *phone = [self.phoneNumber.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        CPLog(@"%@注册判断,%@",self.phoneArray, phone);
+        if ([self.phoneArray containsObject:phone]) {
+            //已经注册
+            CPLog(@"%@该号码已经注册,%@",self.phoneArray, phone);
+            [MBProgressHUD hideHUD];
+            [self dismissCodeView];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //显示提示界面
+                [Toast toast:@"此手机已注册过，请直接登录"];
+            });
+        }else{
+            //还没有注册,模拟写入plist为传递数据到服务器
+            CPLog(@"准备注册");
+            [self regDataToServer];
+        }
+    });
 }
 #pragma mark 输入框发生改变的时候
 - (void)textChange
@@ -387,18 +381,17 @@
     NSString *pwd = self.pwdStr.text;
     
     //存储数据
-    NSDictionary *regDict = @{@"otherdata": @[@{@"detail": @"头像" , @"img": @""},
-                                              @{@"detail": @"姓名" , @"subdetail": phone},
-                                              @{@"detail": @"性别" , @"subdetail": @"男"},
-                                              @{@"detail": @"出生年月" , @"subdetail": @"2001/1/1"},
-                                              @{@"detail": @"手机号" , @"subdetail": phone},
-                                              @{@"detail": @"账号" , @"subdetail": @"123456"},
-                                              @{@"detail": @"邮箱" , @"subdetail": @"未绑定"},
-                                              @{@"detail": @"修改密码"},
-                                              @{@"detail": @"修改权限"}],
+    NSDictionary *regDict = @{@"otherdata": @[@{@"detail": CPDATA_HEADIMG_DETAIL , @"img": @""},
+                                              @{@"detail": CPDATA_NAME_DETAIL , @"subdetail": phone},
+                                              @{@"detail": CPDATA_SEX_DETAIL , @"subdetail": @"男"},
+                                              @{@"detail": CPDATA_BIRTH_DETAIL , @"subdetail": @"2001/1/1"},
+                                              @{@"detail": CPDATA_PHONE_DETAIL , @"subdetail": phone},
+                                              @{@"detail": CPDATA_ACCOUNT_DETAIL , @"subdetail": @"未绑定"},
+                                              @{@"detail": CPDATA_MAIL_DETAIL , @"subdetail": @"未绑定"},
+                                              @{@"detail": CPDATA_ALTERPWD_DETAIL},
+                                              @{@"detail": CPDATA_ALTERLIMIT_DETAIL}],
                               @"phonenumber": phone,
                               @"password": pwd};
-    
     
     //写入数据
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -407,6 +400,7 @@
     
     //读文件
     NSMutableArray *regArr = [NSMutableArray arrayWithContentsOfFile:filename];
+    
     if(!regArr)
     {
         //第一次更新数据
@@ -417,12 +411,14 @@
         [regArr writeToFile:filename atomically:YES];
     }
     
-    [UIView animateWithDuration:0.1 animations:^{
-        [self dismissCodeView];
-    } completion:^(BOOL finished) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showSuccess:@"注册成功"];
-    }];
+    CPLog(@"注册成功");
+    [MBProgressHUD hideHUD];
+    [self dismissCodeView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //显示提示界面
+        [Toast toast:@"注册成功"];
+    });
+    
 }
 
 @end

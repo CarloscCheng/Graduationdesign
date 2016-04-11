@@ -10,6 +10,9 @@
 #import "CPHeaderView.h"
 
 #import <SMS_SDK/SMSSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
+#import "CPDataHeader.h"
 
 @interface CPLoginViewController ()<CPLoginViewControllerDelegate>
 /**
@@ -47,6 +50,9 @@
 
 - (IBAction)back:(id)sender;
 
+//微信登录
+- (IBAction)weChatLogin;
+- (IBAction)weiboLogin;
 
 @end
 
@@ -102,7 +108,7 @@
 }
 
 
-#pragma mark 从帐号登录返回
+#pragma mark 返回
 - (IBAction)back:(id)sender
 {
     //收回键盘
@@ -110,7 +116,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark 登录操作
+#pragma mark 登录
 - (IBAction)loginAction
 {
     //写入数据
@@ -162,21 +168,93 @@
 
         //回到个人中心，加载用户资料
         [self.navigationController popViewControllerAnimated:YES];
+        
         //告诉个人资料的代理是不是收到登录成功的信息
-        if ([self.delegate respondsToSelector:@selector(loginViewControllerisLogined:WithUserInfo:)]) {
-            [self.delegate loginViewControllerisLogined:self WithUserInfo:userInfo];
+        if ([self.delegate respondsToSelector:@selector(loginViewControllerisLogined:WithUserInfo:AndThirdParty:)]) {
+            [self.delegate loginViewControllerisLogined:self WithUserInfo:userInfo AndThirdParty:NO];
         }
         
+    
     });
 }
 
-//新用户注册
+#pragma mark 微博授权登录
+- (IBAction)weiboLogin
+{
+    [SSEThirdPartyLoginHelper loginByPlatform:SSDKPlatformTypeSinaWeibo
+                                   onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler) {
+                                       
+                                       associateHandler (user.uid, user, user);
+                                       [self.navigationController popViewControllerAnimated:YES];
+                                       
+                                       if ([self.delegate respondsToSelector:@selector(loginViewControllerisLogined:WithUserInfo:AndThirdParty:)]) {
+                                           [self.delegate loginViewControllerisLogined:self WithUserInfo:@[user.rawData] AndThirdParty:YES];
+                                       }
+                                       
+                                       NSDictionary *regDict = @{@"otherdata": @[@{@"detail": CPDATA_HEADIMG_DETAIL , @"img": @""},
+                                                                                 @{@"detail": CPDATA_NAME_DETAIL , @"subdetail": user.rawData[@"name"]},
+                                                                                 @{@"detail": CPDATA_SEX_DETAIL , @"subdetail": @"男"},
+                                                                                 @{@"detail": CPDATA_BIRTH_DETAIL , @"subdetail": @"2001/1/1"},
+                                                                                 @{@"detail": CPDATA_PHONE_DETAIL , @"subdetail": @"未绑定"},
+                                                                                 @{@"detail": CPDATA_ACCOUNT_DETAIL , @"subdetail": @"未绑定"},
+                                                                                 @{@"detail": CPDATA_MAIL_DETAIL , @"subdetail": @"未绑定"},
+                                                                                 @{@"detail": CPDATA_ALTERPWD_DETAIL},
+                                                                                 @{@"detail": CPDATA_ALTERLIMIT_DETAIL}],
+                                                                 @"phonenumber": user.rawData[@"name"],
+                                                                 @"password": @""};
+                                       
+                                       
+                                       //写入数据
+                                       NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+                                       NSString *path=[paths objectAtIndex:0];
+                                       NSString *filename=[path stringByAppendingPathComponent:@"PersonlData.plist"];
+                                       
+                                       //读文件
+                                       NSMutableArray *regArr = [NSMutableArray arrayWithContentsOfFile:filename];
+                                       
+                                       BOOL thirdExit = false;
+                                       for (NSDictionary *dict in regArr) {
+                                           if([dict[@"phonenumber"] isEqualToString:user.rawData[@"name"]])
+                                           {
+                                               thirdExit = YES;
+                                           }
+                                       }
+                                       
+                                       if (thirdExit) return ;
+                                       
+                                       if(!regArr)
+                                       {
+                                           //第一次更新数据
+                                           [@[regDict] writeToFile:filename atomically:YES];
+                                       }else{
+                                           //在原来的文件上增加
+                                           [regArr addObject:regDict];
+                                           [regArr writeToFile:filename atomically:YES];
+                                       }
+                                   }
+                                onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
+                                    if (state == SSDKResponseStateSuccess)
+                                    {
+                                        CPLog(@"授权登录成功");
+                                        //可以显示mbprocess
+                                    }else{
+                                        CPLog(@"授权登录失败");
+                                    }
+                                }];
+}
+
+#pragma mark 微信授权登录
+- (IBAction)weChatLogin{
+}
+
+#pragma mark 新用户注册
 - (IBAction)newUserReg
 {
     CPLog(@"注册用户");
     [self performSegueWithIdentifier:@"login2reg" sender:nil];
 }
 
+#pragma mark dealloc
 - (void)dealloc
 {
     //移除通知

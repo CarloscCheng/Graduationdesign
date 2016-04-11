@@ -42,7 +42,7 @@
 + (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
 {
     UIImage *newimage;
-    if (nil == image) {
+    if (nil == image) { 
         newimage = nil;
     }
     else{

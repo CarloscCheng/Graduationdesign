@@ -8,6 +8,8 @@
 
 #import "CPDataViewCell.h"
 #import "CPData.h"
+#import "CPDataHeader.h"
+
 @interface CPDataViewCell()<UIActionSheetDelegate>
 /**
  *  标题
@@ -62,7 +64,7 @@
     self.subDetail.text = data.subdetail;
     
     //设置头像
-    if ([data.detail isEqualToString:@"头像"]) {
+    if ([data.detail isEqualToString:CPDATA_HEADIMG_DETAIL]) {
     
         //设置头像数据
         NSString *imgpath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
@@ -88,9 +90,9 @@
     }
 
     //设置cell的编辑属性
-    if (([data.detail isEqualToString:@"手机号"]
-         | [data.detail isEqualToString:@"邮箱"]
-         | [data.detail isEqualToString:@"账号"])){
+    if (([data.detail isEqualToString:CPDATA_PHONE_DETAIL]
+         | [data.detail isEqualToString:CPDATA_MAIL_DETAIL]
+         | [data.detail isEqualToString:CPDATA_ACCOUNT_DETAIL])){
         //设置该cell不可被选择操作
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }else{
@@ -103,32 +105,32 @@
 #pragma mark 修改对应选择的信息
 - (void)alterDataWith:(CPData *)data
 {
-    if ([data.detail isEqualToString:@"头像"]) {
+    if ([data.detail isEqualToString:CPDATA_HEADIMG_DETAIL]) {
         CPLog(@"修改头像");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterImage:)]) {
             [self.delegate dataViewCellChooseAlterImage:self];
         }
-    }else if ([data.detail isEqualToString:@"姓名"]){
+    }else if ([data.detail isEqualToString:CPDATA_NAME_DETAIL]){
         CPLog(@"修改姓名");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterName:)]) {
-            [self.delegate dataViewCellChooseAlterName:self];
+            [self.delegate dataViewCellChooseAlterName:data.subdetail];
         }
-    }else if ([data.detail isEqualToString:@"性别"]){
+    }else if ([data.detail isEqualToString:CPDATA_SEX_DETAIL]){
         CPLog(@"修改性别");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterSex:)]) {
             [self.delegate dataViewCellChooseAlterSex:self];
         }
-    }else if ([data.detail isEqualToString:@"出生年月"]){
+    }else if ([data.detail isEqualToString:CPDATA_BIRTH_DETAIL]){
         CPLog(@"修改出生年月");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterBirth:)]) {
             [self.delegate dataViewCellChooseAlterBirth:self];
         }
-    }else if ([data.detail isEqualToString:@"修改密码"]){
+    }else if ([data.detail isEqualToString:CPDATA_ALTERPWD_DETAIL]){
         CPLog(@"修改修改密码");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterPwd:)]) {
             [self.delegate dataViewCellChooseAlterPwd:self];
         }
-    }else if ([data.detail isEqualToString:@"修改权限"]){
+    }else if ([data.detail isEqualToString:CPDATA_ALTERLIMIT_DETAIL]){
         CPLog(@"修改修改权限");
         if ([self.delegate respondsToSelector:@selector(dataViewCellChooseAlterLimit:)]) {
             [self.delegate dataViewCellChooseAlterLimit:self];
@@ -146,7 +148,7 @@
     
     UIButton *maskButton = [[UIButton alloc] initWithFrame:self.container.frame];
     maskButton.backgroundColor = [UIColor lightGrayColor];
-    maskButton.alpha = 0.5;
+    maskButton.alpha = 0.8;
     [maskButton addTarget:self action:@selector(dismissMask) forControlEvents:UIControlEventTouchUpInside];
     
     //设置头像数据

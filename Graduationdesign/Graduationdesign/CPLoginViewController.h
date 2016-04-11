@@ -11,8 +11,8 @@
 @protocol CPLoginViewControllerDelegate <NSObject>
 
 @optional
-- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc WithUserInfo:(NSArray *)userinfo;
-
+//ThirdParty是否为第三方登录
+- (void)loginViewControllerisLogined:(CPLoginViewController *)loginvc WithUserInfo:(NSArray *)userinfo AndThirdParty:(BOOL)ThirdParty;
 @end
 
 @interface CPLoginViewController : UIViewController

@@ -26,7 +26,7 @@
     
     CPTotalCell *cell = [[CPTotalCell alloc] init];
     if ([group.infotitle isEqualToString:@"生活信息"]) {
-        NSLog(@"=====生活信息");
+        CPLog(@"生活信息");
         cell = (CPTotalCell *)[CPLifedataViewCell cellWithTableView:tableView];
     }else if ([group.infotitle isEqualToString:@"体验馆"])
     {
@@ -47,18 +47,4 @@
 {
 
 }
-
-- (void)awakeFromNib
-{
-    // Initialization code
-    NSLog(@"totalcellawake");
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

@@ -13,7 +13,7 @@
 
 @optional
 - (void)dataViewCellChooseAlterImage:(UITableViewCell *)tableviewcell;
-- (void)dataViewCellChooseAlterName:(UITableViewCell *)tableviewcell;
+- (void)dataViewCellChooseAlterName:(NSString *)oldName;
 - (void)dataViewCellChooseAlterSex:(UITableViewCell *)tableviewcell;
 - (void)dataViewCellChooseAlterBirth:(UITableViewCell *)tableviewcell;
 - (void)dataViewCellChooseAlterPwd:(UITableViewCell *)tableviewcell;

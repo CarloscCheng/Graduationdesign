@@ -16,7 +16,6 @@
     #import "UIView+Extension.h"
     #import "CPAppDelegate.h"
     #import "MBProgressHUD.h"
-    #import "AFNetworking.h"
     #import "NSDictionary+CPDictToPlist.h"
     #import "UIView+Extension.h"
     #import "NSString+CPExtension.h"
@@ -25,8 +24,11 @@
     #import "MBProgressHUD+MJ.h"
     #import "UIImage+Extension.h"
     #import <AssetsLibrary/AssetsLibrary.h>
-//定位
+    //定位
     #import <CoreLocation/CoreLocation.h>
+    #import "MJRefresh.h"
+    #import "AFNetworking/AFNetworking.h"
+    #import "SDWebImage/UIImageView+WebCache.h"
 
 //判断是否为ios7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
@@ -59,7 +61,11 @@
 #define CPWINDOWHEIGHT self.window.height
 #define CPAVERWIDTH self.width / 3
 
-
+#define gameCacheName @"gameHomeData"
+/**
+ *  跳转固定控制器的VC模型缓存名称
+ */
+#define vcGameCacheName @"vcGameListData"
 #endif
 
 

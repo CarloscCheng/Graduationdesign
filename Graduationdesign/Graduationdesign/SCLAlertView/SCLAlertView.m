@@ -734,7 +734,7 @@ SCLTimerDisplay *buttonTimer;
     }
     else
     {
-        NSLog(@"Unknown action type for button");
+        CPLog(@"Unknown action type for button");
     }
     
     if([self isVisible])
