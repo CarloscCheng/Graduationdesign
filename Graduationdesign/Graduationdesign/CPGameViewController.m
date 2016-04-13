@@ -13,6 +13,13 @@
 #import "CPCollectionReusableView.h"
 #import "CPGameModel.h"
 #import "CPVCTableViewController.h"
+#import "CPTimeFreeTableVC.h"
+#import "CPEachGameTableVC.h"
+
+typedef NS_ENUM(NSInteger, CPClickType){
+    CPClickTypeGarllary = 0,    //点击了上方的滚动相册
+    CPClickTypeMiddle = 1,      //点击了中间的某个按钮
+};
 
 #define ITEMSNUMBER 1
 #define SECTIONSNUMBER 3
@@ -24,17 +31,28 @@ static NSString *topIdentifier = @"topCell";
 static NSString *middleIdentifier = @"middleCell";
 static NSString *bottomIdentifier = @"bottomCell";
 static NSString *headerViewIdentifier = @"headerView";
-
 static NSUInteger getCount = 10;
 
 
-@interface CPGameViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CPTopCollectionViewCellDelegate>
+@interface CPGameViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CPTopCollectionViewCellDelegate,CPMiddleCollectionViewCellDelegate>
 
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSArray *newlistArray;
 @property (nonatomic, strong) NSArray *hotlistArray;
+
+@property (nonatomic, assign) CPClickType clickType;
+
+@property (nonatomic, strong) CPGallaryModel *gallaryModel;
+@property (nonatomic, strong) CPNewListModel *newlistModel;
+@property (nonatomic, strong) CPHotListModel *hotlistModel;
+
+/**
+ *  选中的是新游推荐还是游戏热榜
+ */
+@property (nonatomic, readonly, getter = isSelectedNewGame) BOOL selectedNewGame;
+
 @end
 
 @implementation CPGameViewController
@@ -71,7 +89,6 @@ static NSUInteger getCount = 10;
     
     //下拉刷新
     [self setupRefresh];
-    
 }
 
 #pragma mark 侧滑 
@@ -198,7 +215,7 @@ static NSUInteger getCount = 10;
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return SECTIONSNUMBER;
-}
+} 
 
 //定义展示的UICollectionViewCell的个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -224,8 +241,9 @@ static NSUInteger getCount = 10;
         cell = topcell;
     }else if (indexPath.section == 1){
         CPMiddleCollectionViewCell *middlecell = [collectionView dequeueReusableCellWithReuseIdentifier:middleIdentifier forIndexPath:indexPath];
+        middlecell.delegate = self;
         cell = middlecell;
-         
+          
     }else if (indexPath.section == 2){
         CPBottomCollectionViewCell *bottomcell = [collectionView dequeueReusableCellWithReuseIdentifier:bottomIdentifier forIndexPath:indexPath];
  
@@ -284,13 +302,63 @@ static NSUInteger getCount = 10;
         edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     }
     return edgeInsets;
-} 
+}
 
 #pragma mark- <UICollectionViewDelegate>
 #pragma mark  UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CPLog(@"第几个cell被选中row=%ld---section=%ld",(long)indexPath.row, (long)indexPath.section);
+    CPNewListModel *newlistmodel = [CPNewListModel newListModelWithDict:self.newlistArray[indexPath.row / 2]];
+    CPHotListModel *hotlistmodel = [CPHotListModel hotListModelWithDict:self.hotlistArray[indexPath.row / 2]];
+    self.newlistModel = newlistmodel;
+    self.hotlistModel = hotlistmodel;
+    
+    NSString *host = @"http://cdn.4399sj.com";
+    NSString *path = [[NSString alloc] init];
+    NSString *fileID = [[NSString alloc] init];
+    if (indexPath.row % 2 == 0) {
+        //点击的是新游推荐
+        path = [NSString stringWithFormat:@"/app/iphone/v2.2/game.html?id=%ld",(long)newlistmodel.id];
+        fileID = [NSString stringWithFormat:@"%@-%ld",vcGameCacheName, (long)newlistmodel.id];
+        _selectedNewGame = YES;
+    }else{
+        //点击的是游戏热榜
+        path = [NSString stringWithFormat:@"/app/iphone/v2.2/game.html?id=%ld",(long)hotlistmodel.id];
+        fileID = [NSString stringWithFormat:@"%@-%ld",vcGameCacheName, (long)hotlistmodel.id];
+        _selectedNewGame = NO;
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",host, path];
+    CPLog(@"请求的数据地址%@",urlStr);
+    
+    //获取缓存目录
+    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:fileID];
+         
+    //连接服务器get数据
+    AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
+    httpMrg.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [httpMrg GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            //写入文件
+            NSError *error;
+            if ([responseObject writeToFile:vccachefilename options:NSDataWritingAtomic error:&error]) {
+                CPLog(@"写入缓存成功");
+                [self performSegueWithIdentifier:@"gameView2eachGame" sender:fileID];
+                
+            }else{
+                CPLog(@"写入缓存失败");
+            }
+        }else{
+            CPLog(@"获取数据为空");
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        CPLog(@"失败%@",error);
+    }];
 }
 
 #pragma mark 返回这个UICollectionView是否可以被选择
@@ -304,14 +372,13 @@ static NSUInteger getCount = 10;
 - (void)topCollectionViewCell:(CPTopCollectionViewCell *)topCollectionViewCell VCGallaryModel:(CPGallaryModel *)gallaryModel
 {
     CPLog(@"固定UI");
-    [self performSegueWithIdentifier:@"gameHome2vc" sender:gallaryModel];
+    self.clickType = CPClickTypeGarllary;
+    self.gallaryModel = gallaryModel;
     
     //获取缓存目录
     NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:vcGameCacheName];
     
-    
-    //拼接请求网址
+    //拼接请求网址 
     NSString *host = @"http://cdn.4399sj.com";
     
     NSRange range = [gallaryModel.url rangeOfString:@"?"];
@@ -320,6 +387,10 @@ static NSUInteger getCount = 10;
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",host, path];
     CPLog(@"GET地址%@",urlStr);
+     
+    //路径
+    NSString *fileID = [NSString stringWithFormat:@"%@-%@",vcGameCacheName,[gallaryModel.url substringFromIndex:range.location + 1]];
+    NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:fileID];
     
     //连接服务器get数据
     AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
@@ -333,22 +404,26 @@ static NSUInteger getCount = 10;
             NSError *error;
             if ([responseObject writeToFile:vccachefilename options:NSDataWritingAtomic error:&error]) {
                 CPLog(@"写入缓存成功");
+                [self performSegueWithIdentifier:@"gameHome2vc" sender:fileID];
             }else{
                 CPLog(@"写入缓存失败");
             }
         }else{
-            CPLog(@"获取数据为空");
+            CPLog(@"获取数据为空"); 
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         CPLog(@"失败%@",error);
     }];
+    
 
 }
 
 - (void)topCollectionViewCell:(CPTopCollectionViewCell *)topCollectionViewCell WebArticleGallaryModel:(CPGallaryModel *)gallaryModel
 {
     CPLog(@"网页文章");
+    self.gallaryModel = gallaryModel;
+    
     UIViewController *webVC = [[UIViewController alloc] init];
     
     //自定义返回
@@ -379,7 +454,6 @@ static NSUInteger getCount = 10;
     
     //添加uiwebview
     UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.frame];
-//    webView.backgroundColor = [UIColor blueColor];
     
     //自动对页面进行缩放以适应屏幕
     webView.scalesPageToFit = YES;
@@ -391,7 +465,9 @@ static NSUInteger getCount = 10;
 
 - (void)topCollectionViewCell:(CPTopCollectionViewCell *)topCollectionViewCell WebGameGallaryModel:(CPGallaryModel *)gallaryModel
 {
-    CPLog(@"网页游戏"); 
+    CPLog(@"网页游戏");
+    self.gallaryModel = gallaryModel;
+    
     UIViewController *webVC = [[UIViewController alloc] init];
     UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:webVC];
     
@@ -405,6 +481,18 @@ static NSUInteger getCount = 10;
     webVC.navigationItem.leftBarButtonItem = left;
     webVC.navigationItem.rightBarButtonItem = right;
     webVC.hidesBottomBarWhenPushed = YES;
+    
+    //设置navigationItemView的titleview
+    UIView *titleView = ({
+        CGSize titleSize = [NSString sizeWithText:self.gallaryModel.title font:MYITTMFONTSIZE maxSize:CPMAXSIZE];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+        label.font = MYITTMFONTSIZE;
+        label.text = self.gallaryModel.title;
+        [view addSubview:label];
+        view;
+    });
+    [webVC.navigationItem setTitleView:titleView];
     
     [self presentViewController:naVC animated:YES completion:^{
         CPLog(@"modal");
@@ -423,9 +511,216 @@ static NSUInteger getCount = 10;
     [webVC.view addSubview:webView];
 
 }
+
 #pragma mark- <CPMiddleCollectionViewCellDelegate>
+#pragma mark 必备
+- (void)middleCollectionViewCellChooseNecessary:(CPMiddleCollectionViewCell *)cell
+{
+    //点击类型 
+    self.clickType = CPClickTypeMiddle;
+    
+    //获取缓存目录
+    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+    //拼接请求网址
+    NSString *host = @"http://cdn.4399sj.com";
+    NSString *path = @"/app/iphone/v2.1/special-detail.html?id=28&start=1&count=20";
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",host, path];
+    CPLog(@"GET地址%@",urlStr);
+    
+    NSString *fileID = [NSString stringWithFormat:@"%@-%@",vcGameCacheName,@"id=28"];
+    NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:fileID];
+    //连接服务器get数据
+    AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
+    httpMrg.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [httpMrg GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            //写入文件
+            NSError *error;
+            if ([responseObject writeToFile:vccachefilename options:NSDataWritingAtomic error:&error]) {
+                CPLog(@"写入缓存成功");
+                [self performSegueWithIdentifier:@"gameHome2vc" sender:fileID];
+            }else{
+                CPLog(@"写入缓存失败");
+            }
+        }else{
+            CPLog(@"获取数据为空");
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        CPLog(@"失败%@",error);
+    }];
 
 
+}
+
+- (void)middleCollectionViewCellChooseGift:(CPMiddleCollectionViewCell *)cell{
+}
+
+- (void)middleCollectionViewCellChooseForum:(CPMiddleCollectionViewCell *)cell
+{
+    UIViewController *webVC = [[UIViewController alloc] init];
+    
+    //自定义返回
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_normal"] style:UIBarButtonItemStyleBordered target:self action:@selector(back)];
+
+    //自定义导航栏字体
+    webVC.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:@"游戏论坛"];
+    
+    webVC.navigationItem.leftBarButtonItem = left;
+    webVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:webVC animated:YES];
+    
+    //get网址
+    NSString *host = @"http://bbs.4399.cn";
+    NSString *path = @"/m/?fromIOSNative=1";
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",host, path];
+    CPLog(@"urlstr = %@",urlstr);
+    
+    //创建URL
+    NSURL *url = [NSURL URLWithString:urlstr];
+ 
+    //添加uiwebview
+    UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.frame];
+    
+    //自动对页面进行缩放以适应屏幕
+    webView.scalesPageToFit = YES;
+    
+    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [webVC.view addSubview:webView];
+
+}
+
+- (void)middleCollectionViewCellChooseTimeFree:(CPMiddleCollectionViewCell *)cell
+{
+    //获取缓存目录
+    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    //拼接请求网址(限时免费)
+    NSString *host = @"http://cdn.4399sj.com";
+    NSString *path1 = @"/app/iphone/v2.1/coupon.html?type=1&start=1&count=20";
+    NSString *path2 = @"/app/iphone/v2.1/coupon.html?type=2&start=1&count=20";
+    
+    NSString *urlStr1 = [NSString stringWithFormat:@"%@%@",host, path1];
+    NSString *urlStr2 = [NSString stringWithFormat:@"%@%@",host, path2];
+    CPLog(@"GET地址%@",urlStr1);
+    
+    NSString *fileID1 = [NSString stringWithFormat:@"%@-%@",vcGameCacheName,@"type=1"];
+    NSString *fileID2 = [NSString stringWithFormat:@"%@-%@",vcGameCacheName,@"type=2"];
+    
+    NSString *vccachefilename1 = [cacheDirectory stringByAppendingPathComponent:fileID1];
+    NSString *vccachefilename2 = [cacheDirectory stringByAppendingPathComponent:fileID2];
+    
+    //segmented control 当前所选
+    NSArray *segmentArray = @[fileID1, fileID2];
+    
+    //连接服务器get数据
+    AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
+    httpMrg.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //限时免费
+    [httpMrg GET:urlStr1 parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            //写入文件
+            NSError *error;
+            if ([responseObject writeToFile:vccachefilename1 options:NSDataWritingAtomic error:&error]) {
+                CPLog(@"写入缓存成功");
+                [self performSegueWithIdentifier:@"gameHome2timeFree" sender:segmentArray];
+            }else{
+                CPLog(@"写入缓存失败");
+            }
+        }else{
+            CPLog(@"获取数据为空");
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        CPLog(@"失败%@",error);
+    }];
+    
+    //降价促销
+    [httpMrg GET:urlStr2 parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            //写入文件
+            NSError *error;
+            if ([responseObject writeToFile:vccachefilename2 options:NSDataWritingAtomic error:&error]) {
+                CPLog(@"写入缓存成功");
+            }else{
+                CPLog(@"写入缓存失败");
+            }
+        }else{
+            CPLog(@"获取数据为空");
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        CPLog(@"失败%@",error);
+    }];
+}
+
+#pragma mark 添加segue进行判断
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //获取目标控制起的vc类型代理
+    if ([segue.identifier isEqualToString:@"gameHome2vc"]) {
+        CPVCTableViewController *vcTableview = segue.destinationViewController;
+        vcTableview.clickID = sender;
+    
+        //设置navigationItemView的titleview
+        UIView *titleView = ({
+            CGSize titleSize = [NSString sizeWithText:self.gallaryModel.title font:MYITTMFONTSIZE maxSize:CPMAXSIZE];
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+            label.font = MYITTMFONTSIZE;
+            label.text = self.gallaryModel.title;
+            [view addSubview:label];
+            view;
+        });
+        
+        [vcTableview.navigationItem setTitleView:titleView];
+    }else if([segue.identifier isEqualToString:@"gameHome2timeFree"]){
+        CPTimeFreeTableVC *timeFreeVC = segue.destinationViewController;
+        timeFreeVC.segments = sender;
+    }else if ([segue.identifier isEqualToString:@"gameView2eachGame"]){
+        CPEachGameTableVC *eachgameVC = segue.destinationViewController;
+        eachgameVC.fileID = sender;
+        UIView *titleView = [[UIView alloc] init];
+        if (self.selectedNewGame) {
+            //新游推荐
+            titleView = ({
+                CGSize titleSize = [NSString sizeWithText:self.newlistModel.name font:MYITTMFONTSIZE maxSize:CPMAXSIZE];
+                UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+                label.font = MYITTMFONTSIZE;
+                label.text = self.newlistModel.name;
+                [view addSubview:label];
+                view;
+            });
+        }else{
+            //热榜游戏
+            titleView = ({
+                CGSize titleSize = [NSString sizeWithText:self.hotlistModel.name font:MYITTMFONTSIZE maxSize:CPMAXSIZE];
+                UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+                label.font = MYITTMFONTSIZE;
+                label.text = self.hotlistModel.name;
+                [view addSubview:label];
+                view;
+            });
+        }
+        [eachgameVC.navigationItem setTitleView:titleView];
+    }
+}
 
 
 #pragma mark UINavigationController
@@ -437,30 +732,14 @@ static NSUInteger getCount = 10;
 - (void)modalback
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        CPLog(@"modl back");
+        CPLog(@"modal back");
     }];
 }
 
 - (void)share
 {
-
-
+    
+    
 }
 
-
-#pragma mark 添加segue进行判断
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    //获取目标控制起的vc类型代理
-    if ([segue.identifier isEqualToString:@"gameHome2vc"]) {
-        //跳转到个人资料界面
-        CPVCTableViewController *vcTableview = segue.destinationViewController;
-        
-        CPGallaryModel *gallarymodel = sender;
-        
-        vcTableview.naviTitle = gallarymodel.title;
-        vcTableview.gallarymodel = gallarymodel;
-    }
-}
 @end
-  

@@ -12,9 +12,7 @@
 @interface CPVCTableViewController : UITableViewController
 
 /**
- *  传递过来的模型
+ *  跳转标识
  */
-@property (nonatomic, copy) NSString *naviTitle;
-
-@property (nonatomic, strong) CPGallaryModel *gallarymodel;
+@property (nonatomic, copy) NSString *clickID;
 @end

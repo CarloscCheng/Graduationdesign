@@ -29,6 +29,7 @@
     #import "MJRefresh.h"
     #import "AFNetworking/AFNetworking.h"
     #import "SDWebImage/UIImageView+WebCache.h"
+    #import <MJExtension.h>
 
 //判断是否为ios7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
@@ -65,7 +66,11 @@
 /**
  *  跳转固定控制器的VC模型缓存名称
  */
-#define vcGameCacheName @"vcGameListData"
+#define vcGameCacheName @"vcGameListData" //vcGameListData
+
+
+//状态栏和导航栏高度
+#define RECTSTATUSNAV [[UIApplication sharedApplication] statusBarFrame].size.height + 20
 #endif
 
 

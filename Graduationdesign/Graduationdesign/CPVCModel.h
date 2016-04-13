@@ -38,8 +38,6 @@
 
 + (instancetype)vcTopModelWithDict:(NSDictionary *)dict;
 - (instancetype)initVcTopModelWithDict:(NSDictionary *)dict;
-+ (instancetype)vcModel;
-
 @end
 
 
@@ -64,3 +62,5 @@
 + (instancetype)vcGameListWithDict:(NSDictionary *)dict;
 - (instancetype)initVcGameListWithDict:(NSDictionary *)dict;
 @end
+
+

@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 @class CPVCGameList;
+@class CPTimeFreeListModel;
+@class CPGameDetail;
+
 @interface CPGameTableViewCell : UITableViewCell
 
 + (instancetype)gameCellCreate:(UITableView *)tableview;
 
 @property (nonatomic, strong) CPVCGameList *gameList;
+@property (nonatomic, strong) CPTimeFreeListModel *timeFreeListModel;
 
+@property (nonatomic, strong) CPGameDetail *gameDetail;
 @end
 

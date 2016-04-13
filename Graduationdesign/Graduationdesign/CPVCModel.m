@@ -49,20 +49,6 @@
     return self;
 
 }
-
-+ (instancetype)vcModel
-{
-    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *cachefilename = [cacheDirectory stringByAppendingPathComponent:vcGameCacheName];
-    NSData *gameData = [NSData dataWithContentsOfFile:cachefilename];
-    
-    NSDictionary *gameDataDict = [NSJSONSerialization JSONObjectWithData:gameData options:NSJSONReadingMutableLeaves error:nil];
-    
-    CPVCGameModel *vcgameModel = [CPVCGameModel vcGameModelWithDict:gameDataDict];
-    CPVCTopModel *vcTopModel = [CPVCTopModel vcTopModelWithDict:vcgameModel.result];
-    
-    return vcTopModel;
-}
 @end
 
 @implementation CPVCGameList

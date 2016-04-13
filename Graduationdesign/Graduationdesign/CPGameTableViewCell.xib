@@ -25,7 +25,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                            <rect key="frame" x="80" y="10" width="171" height="20"/>
+                            <rect key="frame" x="80" y="10" width="150" height="20"/>
                         </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBd-i0-G3f">
@@ -102,7 +102,7 @@
                                     <rect key="frame" x="47" y="6" width="1" height="9"/>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="非中文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXQ-H4-Oym">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="非中文" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXQ-H4-Oym">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -128,7 +128,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="0XJ-j8-V6o"/>
@@ -139,7 +138,7 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                            <rect key="frame" x="80" y="50" width="171" height="20"/>
+                            <rect key="frame" x="80" y="50" width="150" height="20"/>
                             <mask key="subviews">
                                 <include reference="0XJ-j8-V6o"/>
                                 <include reference="VCn-HK-aqk"/>
@@ -149,15 +148,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRb-rg-BCR">
-                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.0" green="0.75294117650000003" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                            <rect key="frame" x="253" y="29" width="34" height="21"/>
-                        </variation>
-                    </label>
                 </subviews>
                 <variation key="default">
                     <mask key="subviews">
@@ -165,7 +155,6 @@
                         <exclude reference="DoA-yk-Zz1"/>
                         <exclude reference="fBd-i0-G3f"/>
                         <exclude reference="TW8-qw-hV3"/>
-                        <exclude reference="mRb-rg-BCR"/>
                     </mask>
                 </variation>
                 <variation key="heightClass=regular-widthClass=compact">
@@ -174,7 +163,6 @@
                         <include reference="DoA-yk-Zz1"/>
                         <include reference="fBd-i0-G3f"/>
                         <include reference="TW8-qw-hV3"/>
-                        <include reference="mRb-rg-BCR"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -183,11 +171,10 @@
                 <outlet property="gameImg" destination="5F5-2I-uVH" id="5Es-NM-mjQ"/>
                 <outlet property="gameLanguageLabel" destination="LXQ-H4-Oym" id="cjY-ty-Zip"/>
                 <outlet property="gameNameView" destination="DoA-yk-Zz1" id="xT1-4e-qwQ"/>
-                <outlet property="gamePriceLabel" destination="mRb-rg-BCR" id="oj2-8W-qdY"/>
                 <outlet property="gameSizeLabel" destination="NjY-9R-5V9" id="f77-Cy-3Fd"/>
                 <outlet property="starView" destination="fBd-i0-G3f" id="S3A-g9-i99"/>
             </connections>
-            <point key="canvasLocation" x="100" y="363"/>
+            <point key="canvasLocation" x="165" y="385"/>
         </tableViewCell>
     </objects>
     <resources>

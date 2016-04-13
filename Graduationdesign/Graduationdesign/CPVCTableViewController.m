@@ -15,10 +15,16 @@
 
 #define SECTIONS 2
 
+static NSString *gameCellID = @"gameCell";
+
 @interface CPVCTableViewController ()
 - (IBAction)back:(id)sender;
 
 @property (nonatomic, strong) NSArray *gameListArray;
+
+@property (nonatomic, strong) CPVCTopModel *vcTopModel;
+
+@property (nonatomic, weak) UITableViewCell *cell;
 @end
 
 @implementation CPVCTableViewController
@@ -26,61 +32,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //设置导航栏标题
-    self.navigationItem.titleView = [UIView navigationItemFontSize:MYITTMFONTSIZE WithTitle:self.gallarymodel.title];
     self.tableView.showsVerticalScrollIndicator = NO;
     
     //下拉刷新
     [self setupRefresh];
     CPLog(@"viewDidLoad");
-    
-    
-#pragma mark 页面需要进两次才能刷新数据
-//    [self setVCTableViewData:self.gallarymodel];
 }
-
-- (void)setVCTableViewData:(CPGallaryModel *)gallarymodel
-{
-    //获取缓存目录 
-    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:vcGameCacheName];
-    
-    
-    //拼接请求网址
-    NSString *host = @"http://cdn.4399sj.com";
-    
-    NSRange range = [gallarymodel.url rangeOfString:@"?"];
-    
-    NSString *path = [NSString stringWithFormat:@"/app/iphone/v2.1/special-detail.html?%@&start=1&count=20",[gallarymodel.url substringFromIndex:range.location + 1]];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@",host, path];
-    CPLog(@"GET地址%@",urlStr);
-    
-    //连接服务器get数据
-    AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
-    httpMrg.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [httpMrg GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        if (responseObject) {
-            //写入文件
-            NSError *error;
-            if ([responseObject writeToFile:vccachefilename options:NSDataWritingAtomic error:&error]) {
-                CPLog(@"写入缓存成功");
-            }else{
-                CPLog(@"写入缓存失败");
-            }
-        }else{
-            CPLog(@"获取数据为空");
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        CPLog(@"失败%@",error);
-    }];
-
-}
-
 #pragma mark- 刷新的方法
 - (void)setupRefresh
 {
@@ -105,12 +62,26 @@
 - (NSArray *)gameListArray
 {
     if (!_gameListArray) {
-        CPVCTopModel *vctopmodel = [CPVCTopModel vcModel];
-        _gameListArray = vctopmodel.list;
+        [self LoadVcModel:self.clickID];
+        _gameListArray = self.vcTopModel.list;
     }
     return _gameListArray;
 } 
 
+
+#pragma mark 加载模型数据
+- (void)LoadVcModel:(NSString *)fileId;
+{
+    NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *cachefilename = [cacheDirectory stringByAppendingPathComponent:fileId];
+    
+    NSData *gameData = [NSData dataWithContentsOfFile:cachefilename];
+    NSDictionary *gameDataDict = [NSJSONSerialization JSONObjectWithData:gameData options:NSJSONReadingMutableLeaves error:nil];
+    
+    CPVCGameModel *vcgameModel = [CPVCGameModel vcGameModelWithDict:gameDataDict];
+    CPVCTopModel *vcTopModel = [CPVCTopModel vcTopModelWithDict:vcgameModel.result];
+    self.vcTopModel = vcTopModel;
+}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -130,22 +101,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (indexPath.section == 0) {
         CPVideoTableViewCell *videoCell = [CPVideoTableViewCell videoCellCreate:tableView];
-        CPVCTopModel *topmodel = [CPVCTopModel vcModel];
+        CPVCTopModel *topmodel = self.vcTopModel;
         videoCell.vcTopModel = topmodel;
         
-        cell = videoCell;
+        self.cell = videoCell;
     }else if (indexPath.section == 1){
         CPGameTableViewCell *gameCell = [CPGameTableViewCell gameCellCreate:tableView];
-        
         CPVCGameList *gameList = self.gameListArray[indexPath.row];
+        CPLog(@"cell循环利用%p",gameCell);
         gameCell.gameList = gameList;
-        cell = gameCell;
+        self.cell = gameCell;
     }
-    return cell;
-}
+    return self.cell;
+} 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -166,7 +136,7 @@
     UIView *headerView = [[UIView alloc] init];
     if (section == 1) {
         CPCellHeaderView *cellheaderView = [CPCellHeaderView cellHeaderViewCreate];
-        cellheaderView.vcTopModel = [CPVCTopModel vcModel];
+        cellheaderView.vcTopModel = self.vcTopModel;
         headerView = cellheaderView;
     }
     return headerView;
