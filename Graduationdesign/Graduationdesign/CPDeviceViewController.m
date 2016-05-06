@@ -388,8 +388,6 @@
     return (group.isOpened ? group.info.count : 0);   
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CPCellFrame *cellframe = self.cellFrames[indexPath.section];

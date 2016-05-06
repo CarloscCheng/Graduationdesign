@@ -36,5 +36,5 @@
     self.gameDateLabel.textColor = [UIColor grayColor];
     self.gameDateLabel.text = [NSString stringWithFormat:@"上架时间 :%@",vcTopModel.date];
 }
-
+ 
 @end

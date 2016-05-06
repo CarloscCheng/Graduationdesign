@@ -26,7 +26,7 @@
 #define CPFEEDBACK @"反馈"
 #define CPSETTINGS @"设置"
 
-//记录是否为第一次显示中心界面
+//记录是否为第一次显示中心界面 
 static NSUInteger showTimes = 0;
 
 @interface CPCenterViewController ()<CPCenterViewDelegate,UITableViewDelegate,CPDataViewControllerDelegate,CPLoginViewControllerDelegate>
@@ -164,6 +164,10 @@ static NSUInteger showTimes = 0;
         CPLoginViewController *loginvc = segue.destinationViewController;
         loginvc.delegate = self;
     }else if ([segue.identifier isEqualToString:CPFEEDBACK]){
+    
+    }else if ([segue.identifier isEqualToString:@"c2feedback"]){
+    
+    }else if ([segue.identifier isEqualToString:@"c2settings"]){
     
     }
 }
@@ -347,7 +351,7 @@ static NSUInteger showTimes = 0;
 {
     CPLog(@"didSelectRowAtIndexPath%ld",(long)indexPath.row);
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    CPLog(@"cell====%@",cell.textLabel.text);
+    CPLog(@"cell====%@",cell.textLabel.text); 
     
     if ([cell.textLabel.text isEqualToString:CPSHOPPING]) {
         //我的商城
@@ -361,7 +365,8 @@ static NSUInteger showTimes = 0;
         //反馈
         [self performSegueWithIdentifier:@"c2feedback" sender:nil];
     }else if ([cell.textLabel.text isEqualToString:CPSETTINGS]){
-        //设置
+        //设置c2settings
+        [self performSegueWithIdentifier:@"c2settings" sender:nil];
     }
     
 }

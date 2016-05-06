@@ -12,9 +12,12 @@
 @interface CPEachHeaderView()
 
 @property (nonatomic, weak) UIView *headerView;
-@property (nonatomic, readonly) NSUInteger segmentsCount;
-@property (nonatomic, strong) NSMutableArray *segmentedArray;
+
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @end
+
+
+static NSInteger selectIndex = 0;
 
 @implementation CPEachHeaderView
 
@@ -22,16 +25,27 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.frame = frame;
-//        self.backgroundColor =[UIColor blueColor];
-        _segmentsCount = 1;
-        self.segmentedArray = [[NSMutableArray alloc] initWithObjects:@"游戏介绍", nil];
+        
+        //添加UISegmentedControl
+        self.segmentedControl = ({
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] init];//WithItems:self.segmentedArray];
+            [segmentedControl insertSegmentWithTitle:@"游戏介绍" atIndex:0 animated:NO];
+            segmentedControl.tintColor = [UIColor lightGrayColor];
+//            segmentedControl.selectedSegmentIndex = selectIndex;
+            
+            [self addSubview:segmentedControl];
+
+            [segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+            
+            segmentedControl;
+        });
     }
     return self;
 }
 
 + (instancetype)eachHeaderView
 {
-    return [[self alloc] initWithFrame:CGRectMake(10, 0, 300, 30)];
+    return [[self alloc] initWithFrame:CGRectMake(10, 0, 300, 50)];
 }
 
 //根据模型不同设置不同的headerView
@@ -43,23 +57,45 @@
     //游戏攻略模型
     CPGameStrategy *gameStrategy = [CPGameStrategy gameStrategyWithDict:gameResult.strategy];
     //游戏视频模型
-    CPGameVideo *gameVideo = [CPGameVideo gameVideoWithDict:gameResult.video]; 
+    CPGameVideo *gameVideo = [CPGameVideo gameVideoWithDict:gameResult.video];
+    
+    
+    
+    CGFloat padding = 10;
+    self.segmentedControl.frame = CGRectMake(0, padding, self.width, self.height - 2 * padding);
     
     if (gameStrategy.list.count != 0) {
-        _segmentsCount += 1;
-        [self.segmentedArray addObject:@"攻略"];
+        [self.segmentedControl insertSegmentWithTitle:@"攻略" atIndex:1 animated:NO];
     }
     if (gameVideo.list.count != 0) {
-        _segmentsCount += 1; 
-        [self.segmentedArray addObject:@"精彩视频"];
+        [self.segmentedControl insertSegmentWithTitle:@"精彩视频" atIndex:2 animated:NO];
     }
-    //添加UISegmentedControl
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:self.segmentedArray];
-    segmentedControl.frame = CGRectMake(0, 0, self.width, self.height);
-    segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.tintColor = [UIColor lightGrayColor];
-    [self addSubview:segmentedControl];
+
 }
 
+#pragma mark segmentedControl
+- (void)segmentedControlAction:(UISegmentedControl *)seg {
+    NSString *title = [seg titleForSegmentAtIndex:seg.selectedSegmentIndex];
+//    self.segmentedControl.selectedSegmentIndex = seg.selectedSegmentIndex;
+    CPLog(@"index = %ld",selectIndex);
+     
+    if ([title isEqualToString:@"游戏介绍"]) {
+        if ([self.delegate respondsToSelector:@selector(eachHeaderViewChooseGameDetail:)]) {
+            [self.delegate eachHeaderViewChooseGameDetail:self];
+        }
+        selectIndex = 0;
+    }else if ([title isEqualToString:@"攻略"]) {
+        if ([self.delegate respondsToSelector:@selector(eachHeaderViewChooseGameStrategy:)]) {
+            [self.delegate eachHeaderViewChooseGameStrategy:self];
+        }
+        selectIndex = 1;
+    }else if ([title isEqualToString:@"精彩视频"]) {
+        if ([self.delegate respondsToSelector:@selector(eachHeaderViewChooseGameVideo:)]) {
+            [self.delegate eachHeaderViewChooseGameVideo:self];
+        }
+        selectIndex = 2;
+    } 
+} 
 
+ 
 @end

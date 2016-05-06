@@ -44,7 +44,7 @@
             CPVCGameList *listmodel = [CPVCGameList vcGameListWithDict:dict];
             [listArray addObject:listmodel];
         }
-        self.list = listArray;
+        self.list = listArray; 
     }
     return self;
 

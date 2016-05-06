@@ -31,19 +31,14 @@
     NSString *httpUrl = @"https://api.heweather.com/x3/weather";
     NSString *httpArg = [NSString stringWithFormat:@"cityid=%@&key=%@",newcityid,MYKEY];
 
-    
     NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, httpArg];
-
     NSURL *url = [NSURL URLWithString: urlStr];
     
     // 默认就是GET请求
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval: 10];
     [request setHTTPMethod: @"GET"];
-//    [request addValue: @"3b436b23f7129c98d56c4da3f9bccad5" forHTTPHeaderField: @"apikey"];
-    
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     [connection start];
-
 }
 
 //下拉刷新
@@ -97,6 +92,14 @@
         [dict dictToPlistWithPlistName:@"weatherData.plist"];
         
     }
+}
+
+/**
+ *  请求错误(失败)的时候调用(请求超时\断网\没有网, 一般指客户端错误)
+ */
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    CPLog(@"连接失败%@",error);
 }
 
 - (void)setWeatherDataBlock:(void (^)(NSDictionary *dict))weatherDataBlock
@@ -313,13 +316,7 @@
     
 }
 
-/**
- *  请求错误(失败)的时候调用(请求超时\断网\没有网, 一般指客户端错误)
- */
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    CPLog(@"连接失败%@",error);
-}
+
 
 
 @end

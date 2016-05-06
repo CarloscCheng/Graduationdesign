@@ -310,7 +310,7 @@ static NSUInteger getCount = 10;
 {
     CPNewListModel *newlistmodel = [CPNewListModel newListModelWithDict:self.newlistArray[indexPath.row / 2]];
     CPHotListModel *hotlistmodel = [CPHotListModel hotListModelWithDict:self.hotlistArray[indexPath.row / 2]];
-    self.newlistModel = newlistmodel;
+    self.newlistModel = newlistmodel; 
     self.hotlistModel = hotlistmodel;
     
     NSString *host = @"http://cdn.4399sj.com";
@@ -318,6 +318,7 @@ static NSUInteger getCount = 10;
     NSString *fileID = [[NSString alloc] init];
     if (indexPath.row % 2 == 0) {
         //点击的是新游推荐
+        
         path = [NSString stringWithFormat:@"/app/iphone/v2.2/game.html?id=%ld",(long)newlistmodel.id];
         fileID = [NSString stringWithFormat:@"%@-%ld",vcGameCacheName, (long)newlistmodel.id];
         _selectedNewGame = YES;
@@ -415,8 +416,6 @@ static NSUInteger getCount = 10;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         CPLog(@"失败%@",error);
     }];
-    
-
 }
 
 - (void)topCollectionViewCell:(CPTopCollectionViewCell *)topCollectionViewCell WebArticleGallaryModel:(CPGallaryModel *)gallaryModel
@@ -442,7 +441,7 @@ static NSUInteger getCount = 10;
     //get网址
     NSRange range = [gallaryModel.url rangeOfString:@"?"];
     
-    NSString *host = @"http://cdn.4399sj.com/";
+    NSString *host = @"http://cdn.4399sj.com/"; 
     
     NSString *path = [NSString stringWithFormat:@"/service/iphone/v2.1/news.html?%@&gameId=0",[gallaryModel.url substringFromIndex:range.location + 1]];//@"/service/iphone/v2.1/news.html?id=619319&gameId=0";
     CPLog(@"id = %@",[gallaryModel.url substringToIndex:range.location]);
@@ -549,7 +548,7 @@ static NSUInteger getCount = 10;
             }
         }else{
             CPLog(@"获取数据为空");
-        }
+        } 
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         CPLog(@"失败%@",error);

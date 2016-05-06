@@ -24,6 +24,6 @@
     }else if([cGroup.infotitle isEqualToString:@"智能家庭论坛"]){
         _cellH = 80;
     }
-}
+} 
 
 @end

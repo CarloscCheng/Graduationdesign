@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class CPGameDetail;
+@class CPGameResult;
+@class CPGameDetailTableViewCell;
+
+@protocol CPGameDetailTableViewCellDelegate <NSObject>
+- (void)gameDetailTableViewCellClickPalyVideo:(CPGameDetailTableViewCell *)cell;
+@end
 
 @interface CPGameDetailTableViewCell : UITableViewCell
 
@@ -15,5 +21,8 @@
 
 @property (nonatomic, assign, getter=isScrollEnabled) BOOL scrollEnabled;
 @property (nonatomic, strong) CPGameDetail *gameDetailModel;
+@property (nonatomic, strong) CPGameResult *gameResultModel;
 
+
+@property (nonatomic, weak) id<CPGameDetailTableViewCellDelegate> delegate;
 @end

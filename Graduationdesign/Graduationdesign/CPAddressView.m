@@ -125,7 +125,6 @@
     }
     
     return _palceArray;
-    
 }
 
 #pragma mark - Table view data source

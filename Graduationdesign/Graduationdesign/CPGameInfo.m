@@ -87,7 +87,7 @@
     return self;
 
 }
-+ (instancetype)relatenewsWithDict:(NSDictionary *)dict
++ (instancetype)gameRelatenewsWithDict:(NSDictionary *)dict
 {
     return [[self alloc] initGameRelatenewsWithDict:dict];
 }
@@ -154,11 +154,33 @@
 
 @implementation CPGameVideoShow
 
+- (instancetype)initGameVideoShowWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
+
++ (instancetype)gameVideoShowWithDict:(NSDictionary *)dict
+{
+   return [[self alloc] initGameVideoShowWithDict:dict];
+}
+
 @end
 
-
 @implementation CPGameVideoList
-
+- (instancetype)initGameVideoListWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
++ (instancetype)gameVideoListWithDict:(NSDictionary *)dict
+{
+    return [[self alloc] initGameVideoListWithDict:dict];
+}
 @end
 
 
@@ -183,6 +205,18 @@
 
 
 @implementation CPGameStrategyList
+- (instancetype)initGameStrategyListWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+
+}
++ (instancetype)gameStrategyListWithDict:(NSDictionary *)dict
+{
+    return [[self alloc] initGameStrategyListWithDict:dict];
+}
 
 @end
 

@@ -137,6 +137,9 @@
 
 @property (nonatomic, copy) NSString *img;
 
+- (instancetype)initGameVideoShowWithDict:(NSDictionary *)dict;
++ (instancetype)gameVideoShowWithDict:(NSDictionary *)dict;
+
 @end
 
 @interface CPGameVideoList : NSObject
@@ -153,6 +156,9 @@
 
 @property (nonatomic, copy) NSString *img;
 
+- (instancetype)initGameVideoListWithDict:(NSDictionary *)dict;
++ (instancetype)gameVideoListWithDict:(NSDictionary *)dict;
+
 @end
 
 
@@ -167,7 +173,13 @@
 
 @end
 
-@interface CPGameStrategyList : NSObject
+@interface CPGameStrategyList : NSObject 
+
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *num;
+@property (nonatomic, copy) NSString *updateNum;
+@property (nonatomic, copy) NSString *type;
 
 @property (nonatomic, copy) NSString *id;
 
@@ -178,6 +190,9 @@
 @property (nonatomic, copy) NSString *time;
 
 @property (nonatomic, assign) NSInteger isDir;
+
+- (instancetype)initGameStrategyListWithDict:(NSDictionary *)dict;
++ (instancetype)gameStrategyListWithDict:(NSDictionary *)dict;
 
 @end
 
@@ -221,7 +236,7 @@
 @property (nonatomic, copy) NSString *url;
 
 - (instancetype)initGameRelatenewsWithDict:(NSDictionary *)dict;
-+ (instancetype)relatenewsWithDict:(NSDictionary *)dict;
++ (instancetype)gameRelatenewsWithDict:(NSDictionary *)dict;
 
 @end
 

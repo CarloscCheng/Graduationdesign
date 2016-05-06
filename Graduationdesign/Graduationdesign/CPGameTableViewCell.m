@@ -44,24 +44,23 @@
 /**
  *  游戏价格所在view
  */
-//@property (weak, nonatomic) IBOutlet UILabel *gamePriceLabel;
 @property (weak, nonatomic) UIView *gamePriceView;
 @property (strong, nonatomic) UIView *downView;
+
 @end
 
-static NSString *ID = @"game";
 @implementation CPGameTableViewCell
 
 + (instancetype)gameCellCreate:(UITableView *)tableview
 {
-    CPGameTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:ID];
+    CPGameTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:NSStringFromClass([CPGameTableViewCell class])];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CPGameTableViewCell" owner:nil options:nil] lastObject];
     }
     return cell; 
 }
 
-- (void)setGameList:(CPVCGameList *)gameList
+- (void)setGameList:(CPVCGameList *)gameList 
 {
     _gameList = gameList;
     

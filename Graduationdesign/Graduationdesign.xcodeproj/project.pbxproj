@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1405232A1CBFE97200F41F79 /* CPGallaryCollectionVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 140523281CBFE97200F41F79 /* CPGallaryCollectionVCell.m */; };
 		1405FBF31CBE907200AAD8E9 /* CPGameDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405FBF11CBE907200AAD8E9 /* CPGameDetailTableViewCell.m */; };
 		1405FBF41CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1405FBF21CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib */; };
 		140BF6AF1CB4D2300063E301 /* CPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 140BF6AE1CB4D2300063E301 /* CPTextView.m */; };
+		141ACFCE1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141ACFCD1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.m */; };
 		141BD3AB1CA576380062DC08 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BD3A91CA576380062DC08 /* Toast.m */; };
 		141E6E461C9A98C80035CA0A /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E6E441C9A98C80035CA0A /* MOBFoundation.framework */; };
 		141E6E471C9A98C80035CA0A /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E6E451C9A98C80035CA0A /* SMS_SDK.framework */; };
@@ -47,6 +49,8 @@
 		1444F1951CBD451100602BA4 /* CPEachGameTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1444F1941CBD451100602BA4 /* CPEachGameTableVC.m */; };
 		1444F19A1CBD495A00602BA4 /* UIView+Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 1444F1981CBD495A00602BA4 /* UIView+Action.m */; };
 		145675981CA8309600FA6161 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145675971CA8309600FA6161 /* ImageIO.framework */; };
+		1456BA091CBFF46A003CE6AF /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1456BA081CBFF46A003CE6AF /* Empty.xib */; };
+		1456BA0C1CBFF6E4003CE6AF /* CPPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1456BA0B1CBFF6E4003CE6AF /* CPPageControl.m */; };
 		146B24731CBC9AB400FC8258 /* CPTimeFreeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 146B24721CBC9AB400FC8258 /* CPTimeFreeTableVC.m */; };
 		146B24761CBC9D7300FC8258 /* CPTimeFreeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 146B24751CBC9D7300FC8258 /* CPTimeFreeModel.m */; };
 		146C42C41C9D803D005A3456 /* CPCodeShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C42C31C9D803D005A3456 /* CPCodeShowView.m */; };
@@ -62,6 +66,11 @@
 		148010F11C984F1B00E4BC7D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 148010F01C984F1B00E4BC7D /* libz.tbd */; };
 		148010F31C984F2900E4BC7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 148010F21C984F2900E4BC7D /* libstdc++.tbd */; };
 		148010F51C984F7500E4BC7D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 148010F41C984F7500E4BC7D /* libsqlite3.tbd */; };
+		1486B8851CC0870500033567 /* CPNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486B8841CC0870500033567 /* CPNewsTableViewCell.m */; };
+		1486B8881CC0B0CE00033567 /* CPReleateGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486B8871CC0B0CE00033567 /* CPReleateGameView.m */; };
+		149539251CC9FB1C0067BEAA /* CPSettingsTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 149539241CC9FB1C0067BEAA /* CPSettingsTableVC.m */; };
+		149539281CCA17C20067BEAA /* CPFileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 149539271CCA17C20067BEAA /* CPFileService.m */; };
+		149A5EA51CC338F000A4978F /* CPGameCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 149A5EA41CC338F000A4978F /* CPGameCellFrame.m */; };
 		14A5DF981C993227007E5A8F /* CPDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A5DF971C993227007E5A8F /* CPDeviceViewController.m */; };
 		14BCD5E61CA3ACB900093964 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BCD5E51CA3ACB900093964 /* CoreLocation.framework */; };
 		14BCD5E91CA4221400093964 /* CPDataGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BCD5E81CA4221400093964 /* CPDataGroup.m */; };
@@ -72,9 +81,22 @@
 		14C662181CBB5D4D003EC421 /* CPVCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C662171CBB5D4D003EC421 /* CPVCModel.m */; };
 		14C6621C1CBB8750003EC421 /* CPCellHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C6621B1CBB8750003EC421 /* CPCellHeaderView.m */; };
 		14C6621E1CBB876A003EC421 /* CPCellHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C6621D1CBB876A003EC421 /* CPCellHeaderView.xib */; };
+		14D6EBF91CCB7471000A35D6 /* CPAbstractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6EBF71CCB7471000A35D6 /* CPAbstractCell.m */; };
+		14D6EBFA1CCB7471000A35D6 /* CPAbstractCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D6EBF81CCB7471000A35D6 /* CPAbstractCell.xib */; };
+		14D6EBFE1CCBA161000A35D6 /* CPStrategyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6EBFC1CCBA161000A35D6 /* CPStrategyTableViewCell.m */; };
+		14D6EBFF1CCBA161000A35D6 /* CPStrategyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D6EBFD1CCBA161000A35D6 /* CPStrategyTableViewCell.xib */; };
+		14D6EC041CCBA3EE000A35D6 /* CPStrategyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6EC021CCBA3EE000A35D6 /* CPStrategyCell.m */; };
+		14D6EC051CCBA3EE000A35D6 /* CPStrategyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D6EC031CCBA3EE000A35D6 /* CPStrategyCell.xib */; };
+		14D6EC091CCBC2B9000A35D6 /* CPVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6EC071CCBC2B9000A35D6 /* CPVideoCell.m */; };
+		14D6EC0A1CCBC2B9000A35D6 /* CPVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D6EC081CCBC2B9000A35D6 /* CPVideoCell.xib */; };
+		14D6EC0E1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D6EC0C1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.m */; };
+		14D6EC0F1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D6EC0D1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.xib */; };
 		14D8B05A1CBAB3E100B982DE /* CPVCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D8B0591CBAB3E100B982DE /* CPVCTableViewController.m */; };
 		14D8B05E1CBABA6E00B982DE /* CPVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D8B05C1CBABA6E00B982DE /* CPVideoTableViewCell.m */; };
 		14D8B05F1CBABA6E00B982DE /* CPVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D8B05D1CBABA6E00B982DE /* CPVideoTableViewCell.xib */; };
+		14D9DF6A1CBF195D00105A63 /* CPGameDetailCellHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9DF691CBF195D00105A63 /* CPGameDetailCellHeaderView.m */; };
+		14D9DF6F1CBF20B200105A63 /* CPDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9DF6E1CBF20B200105A63 /* CPDetailTableViewCell.m */; };
+		14D9DF721CBF251B00105A63 /* CPGameDetailCellFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9DF711CBF251B00105A63 /* CPGameDetailCellFooterView.m */; };
 		14DBE0A01CB5F3DB0033B915 /* CPCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DBE09E1CB5F3DB0033B915 /* CPCollectionReusableView.m */; };
 		14DBE0A11CB5F3DB0033B915 /* CPCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14DBE09F1CB5F3DB0033B915 /* CPCollectionReusableView.xib */; };
 		14DE92461C9B06B000F2F085 /* CPRegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE92451C9B06B000F2F085 /* CPRegViewController.m */; };
@@ -191,11 +213,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140523271CBFE97200F41F79 /* CPGallaryCollectionVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGallaryCollectionVCell.h; sourceTree = "<group>"; };
+		140523281CBFE97200F41F79 /* CPGallaryCollectionVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGallaryCollectionVCell.m; sourceTree = "<group>"; };
 		1405FBF01CBE907200AAD8E9 /* CPGameDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGameDetailTableViewCell.h; sourceTree = "<group>"; };
 		1405FBF11CBE907200AAD8E9 /* CPGameDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGameDetailTableViewCell.m; sourceTree = "<group>"; };
 		1405FBF21CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPGameDetailTableViewCell.xib; sourceTree = "<group>"; };
 		140BF6AD1CB4D2300063E301 /* CPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextView.h; sourceTree = "<group>"; };
 		140BF6AE1CB4D2300063E301 /* CPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextView.m; sourceTree = "<group>"; };
+		141ACFCC1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPReleateGameCollectionVCell.h; sourceTree = "<group>"; };
+		141ACFCD1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPReleateGameCollectionVCell.m; sourceTree = "<group>"; };
 		141BD3A61CA575B80062DC08 /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		141BD3A71CA575B80062DC08 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		141BD3A81CA575B80062DC08 /* Font.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
@@ -274,6 +300,9 @@
 		1444F1981CBD495A00602BA4 /* UIView+Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Action.m"; sourceTree = "<group>"; };
 		1444F1991CBD495A00602BA4 /* UIView+Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Action.h"; sourceTree = "<group>"; };
 		145675971CA8309600FA6161 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		1456BA081CBFF46A003CE6AF /* Empty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
+		1456BA0A1CBFF6E4003CE6AF /* CPPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPageControl.h; sourceTree = "<group>"; };
+		1456BA0B1CBFF6E4003CE6AF /* CPPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPageControl.m; sourceTree = "<group>"; };
 		146B24711CBC9AB400FC8258 /* CPTimeFreeTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTimeFreeTableVC.h; sourceTree = "<group>"; };
 		146B24721CBC9AB400FC8258 /* CPTimeFreeTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTimeFreeTableVC.m; sourceTree = "<group>"; };
 		146B24741CBC9D7300FC8258 /* CPTimeFreeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTimeFreeModel.h; sourceTree = "<group>"; };
@@ -296,6 +325,16 @@
 		148010F01C984F1B00E4BC7D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		148010F21C984F2900E4BC7D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		148010F41C984F7500E4BC7D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1486B8831CC0870500033567 /* CPNewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNewsTableViewCell.h; sourceTree = "<group>"; };
+		1486B8841CC0870500033567 /* CPNewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNewsTableViewCell.m; sourceTree = "<group>"; };
+		1486B8861CC0B0CE00033567 /* CPReleateGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPReleateGameView.h; sourceTree = "<group>"; };
+		1486B8871CC0B0CE00033567 /* CPReleateGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPReleateGameView.m; sourceTree = "<group>"; };
+		149539231CC9FB1C0067BEAA /* CPSettingsTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingsTableVC.h; sourceTree = "<group>"; };
+		149539241CC9FB1C0067BEAA /* CPSettingsTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingsTableVC.m; sourceTree = "<group>"; };
+		149539261CCA17C20067BEAA /* CPFileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFileService.h; sourceTree = "<group>"; };
+		149539271CCA17C20067BEAA /* CPFileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFileService.m; sourceTree = "<group>"; };
+		149A5EA31CC338F000A4978F /* CPGameCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGameCellFrame.h; sourceTree = "<group>"; };
+		149A5EA41CC338F000A4978F /* CPGameCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGameCellFrame.m; sourceTree = "<group>"; };
 		14A5DF961C993227007E5A8F /* CPDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDeviceViewController.h; sourceTree = "<group>"; };
 		14A5DF971C993227007E5A8F /* CPDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDeviceViewController.m; sourceTree = "<group>"; };
 		14BCD5E51CA3ACB900093964 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -314,11 +353,32 @@
 		14C6621A1CBB8750003EC421 /* CPCellHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCellHeaderView.h; sourceTree = "<group>"; };
 		14C6621B1CBB8750003EC421 /* CPCellHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCellHeaderView.m; sourceTree = "<group>"; };
 		14C6621D1CBB876A003EC421 /* CPCellHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPCellHeaderView.xib; sourceTree = "<group>"; };
+		14D6EBF61CCB7471000A35D6 /* CPAbstractCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAbstractCell.h; sourceTree = "<group>"; };
+		14D6EBF71CCB7471000A35D6 /* CPAbstractCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAbstractCell.m; sourceTree = "<group>"; };
+		14D6EBF81CCB7471000A35D6 /* CPAbstractCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPAbstractCell.xib; sourceTree = "<group>"; };
+		14D6EBFB1CCBA161000A35D6 /* CPStrategyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStrategyTableViewCell.h; sourceTree = "<group>"; };
+		14D6EBFC1CCBA161000A35D6 /* CPStrategyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStrategyTableViewCell.m; sourceTree = "<group>"; };
+		14D6EBFD1CCBA161000A35D6 /* CPStrategyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPStrategyTableViewCell.xib; sourceTree = "<group>"; };
+		14D6EC011CCBA3EE000A35D6 /* CPStrategyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStrategyCell.h; sourceTree = "<group>"; };
+		14D6EC021CCBA3EE000A35D6 /* CPStrategyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStrategyCell.m; sourceTree = "<group>"; };
+		14D6EC031CCBA3EE000A35D6 /* CPStrategyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPStrategyCell.xib; sourceTree = "<group>"; };
+		14D6EC061CCBC2B9000A35D6 /* CPVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPVideoCell.h; sourceTree = "<group>"; };
+		14D6EC071CCBC2B9000A35D6 /* CPVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPVideoCell.m; sourceTree = "<group>"; };
+		14D6EC081CCBC2B9000A35D6 /* CPVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPVideoCell.xib; sourceTree = "<group>"; };
+		14D6EC0B1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPVideoCellTableViewCell.h; sourceTree = "<group>"; };
+		14D6EC0C1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPVideoCellTableViewCell.m; sourceTree = "<group>"; };
+		14D6EC0D1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPVideoCellTableViewCell.xib; sourceTree = "<group>"; };
 		14D8B0581CBAB3E100B982DE /* CPVCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPVCTableViewController.h; sourceTree = "<group>"; };
 		14D8B0591CBAB3E100B982DE /* CPVCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPVCTableViewController.m; sourceTree = "<group>"; };
 		14D8B05B1CBABA6E00B982DE /* CPVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPVideoTableViewCell.h; sourceTree = "<group>"; };
 		14D8B05C1CBABA6E00B982DE /* CPVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPVideoTableViewCell.m; sourceTree = "<group>"; };
 		14D8B05D1CBABA6E00B982DE /* CPVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPVideoTableViewCell.xib; sourceTree = "<group>"; };
+		14D9DF681CBF195D00105A63 /* CPGameDetailCellHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGameDetailCellHeaderView.h; sourceTree = "<group>"; };
+		14D9DF691CBF195D00105A63 /* CPGameDetailCellHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGameDetailCellHeaderView.m; sourceTree = "<group>"; };
+		14D9DF6D1CBF20B200105A63 /* CPDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetailTableViewCell.h; sourceTree = "<group>"; };
+		14D9DF6E1CBF20B200105A63 /* CPDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDetailTableViewCell.m; sourceTree = "<group>"; };
+		14D9DF701CBF251B00105A63 /* CPGameDetailCellFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGameDetailCellFooterView.h; sourceTree = "<group>"; };
+		14D9DF711CBF251B00105A63 /* CPGameDetailCellFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGameDetailCellFooterView.m; sourceTree = "<group>"; };
 		14DBE09D1CB5F3DB0033B915 /* CPCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCollectionReusableView.h; sourceTree = "<group>"; };
 		14DBE09E1CB5F3DB0033B915 /* CPCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCollectionReusableView.m; sourceTree = "<group>"; };
 		14DBE09F1CB5F3DB0033B915 /* CPCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -547,19 +607,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1405FBEE1CBE8DF200AAD8E9 /* GameDetails(游戏详情) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "GameDetails(游戏详情)";
-			sourceTree = "<group>";
-		};
 		1405FBEF1CBE903500AAD8E9 /* GameDetail */ = {
 			isa = PBXGroup;
 			children = (
-				1405FBF01CBE907200AAD8E9 /* CPGameDetailTableViewCell.h */,
-				1405FBF11CBE907200AAD8E9 /* CPGameDetailTableViewCell.m */,
-				1405FBF21CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib */,
+				14D6EBF61CCB7471000A35D6 /* CPAbstractCell.h */,
+				14D6EBF71CCB7471000A35D6 /* CPAbstractCell.m */,
+				14D6EBF81CCB7471000A35D6 /* CPAbstractCell.xib */,
+				14D9DF6C1CBF207C00105A63 /* GameDetailCell */,
+				142B3A461CC133F50090C696 /* Tableview(游戏攻略视频tableview) */,
+				14D9DF6D1CBF20B200105A63 /* CPDetailTableViewCell.h */,
+				14D9DF6E1CBF20B200105A63 /* CPDetailTableViewCell.m */,
+				1456BA081CBFF46A003CE6AF /* Empty.xib */,
+				14D9DF6B1CBF206E00105A63 /* GameDetailHeader */,
 			);
 			name = GameDetail;
 			sourceTree = "<group>";
@@ -712,6 +771,17 @@
 			name = "Feedback(反馈)";
 			sourceTree = "<group>";
 		};
+		142B3A461CC133F50090C696 /* Tableview(游戏攻略视频tableview) */ = {
+			isa = PBXGroup;
+			children = (
+				14D6EC001CCBA23A000A35D6 /* Strategy(攻略) */,
+				1405FBF01CBE907200AAD8E9 /* CPGameDetailTableViewCell.h */,
+				1405FBF11CBE907200AAD8E9 /* CPGameDetailTableViewCell.m */,
+				1405FBF21CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib */,
+			);
+			name = "Tableview(游戏攻略视频tableview)";
+			sourceTree = "<group>";
+		};
 		143D0D1B1CB76551002BC35E /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,10 +866,21 @@
 		1444F19D1CBD595900602BA4 /* EachGame(每个游戏详情) */ = {
 			isa = PBXGroup;
 			children = (
+				149A5EA31CC338F000A4978F /* CPGameCellFrame.h */,
+				149A5EA41CC338F000A4978F /* CPGameCellFrame.m */,
 				14C13D3A1CBDEA40001C6A25 /* CPGameInfo.h */,
 				14C13D3B1CBDEA40001C6A25 /* CPGameInfo.m */,
 			);
 			name = "EachGame(每个游戏详情)";
+			sourceTree = "<group>";
+		};
+		1456BA0D1CBFF6EB003CE6AF /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				1456BA0A1CBFF6E4003CE6AF /* CPPageControl.h */,
+				1456BA0B1CBFF6E4003CE6AF /* CPPageControl.m */,
+			);
+			name = PageControl;
 			sourceTree = "<group>";
 		};
 		146B246F1CBC9A6400FC8258 /* VCTableViewController */ = {
@@ -818,6 +899,44 @@
 				146B24721CBC9AB400FC8258 /* CPTimeFreeTableVC.m */,
 			);
 			name = TimeFreeTableVC;
+			sourceTree = "<group>";
+		};
+		1486B8891CC0B0F900033567 /* Gakkary(游戏截图) */ = {
+			isa = PBXGroup;
+			children = (
+				140523271CBFE97200F41F79 /* CPGallaryCollectionVCell.h */,
+				140523281CBFE97200F41F79 /* CPGallaryCollectionVCell.m */,
+			);
+			name = "Gakkary(游戏截图)";
+			sourceTree = "<group>";
+		};
+		1486B88A1CC0B11100033567 /* News(相关新闻) */ = {
+			isa = PBXGroup;
+			children = (
+				1486B8831CC0870500033567 /* CPNewsTableViewCell.h */,
+				1486B8841CC0870500033567 /* CPNewsTableViewCell.m */,
+			);
+			name = "News(相关新闻)";
+			sourceTree = "<group>";
+		};
+		1486B88B1CC0B11F00033567 /* Games(相关游戏) */ = {
+			isa = PBXGroup;
+			children = (
+				1486B8861CC0B0CE00033567 /* CPReleateGameView.h */,
+				1486B8871CC0B0CE00033567 /* CPReleateGameView.m */,
+				141ACFCC1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.h */,
+				141ACFCD1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.m */,
+			);
+			name = "Games(相关游戏)";
+			sourceTree = "<group>";
+		};
+		149539221CC9FAB50067BEAA /* Settings(设置) */ = {
+			isa = PBXGroup;
+			children = (
+				149539231CC9FB1C0067BEAA /* CPSettingsTableVC.h */,
+				149539241CC9FB1C0067BEAA /* CPSettingsTableVC.m */,
+			);
+			name = "Settings(设置)";
 			sourceTree = "<group>";
 		};
 		14BFD6041CA772D2006CC2BD /* Header_H */ = {
@@ -880,6 +999,25 @@
 			name = HeaderView;
 			sourceTree = "<group>";
 		};
+		14D6EC001CCBA23A000A35D6 /* Strategy(攻略) */ = {
+			isa = PBXGroup;
+			children = (
+				14D6EBFB1CCBA161000A35D6 /* CPStrategyTableViewCell.h */,
+				14D6EBFC1CCBA161000A35D6 /* CPStrategyTableViewCell.m */,
+				14D6EBFD1CCBA161000A35D6 /* CPStrategyTableViewCell.xib */,
+				14D6EC011CCBA3EE000A35D6 /* CPStrategyCell.h */,
+				14D6EC021CCBA3EE000A35D6 /* CPStrategyCell.m */,
+				14D6EC031CCBA3EE000A35D6 /* CPStrategyCell.xib */,
+				14D6EC0B1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.h */,
+				14D6EC0C1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.m */,
+				14D6EC0D1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.xib */,
+				14D6EC061CCBC2B9000A35D6 /* CPVideoCell.h */,
+				14D6EC071CCBC2B9000A35D6 /* CPVideoCell.m */,
+				14D6EC081CCBC2B9000A35D6 /* CPVideoCell.xib */,
+			);
+			name = "Strategy(攻略)";
+			sourceTree = "<group>";
+		};
 		14D8B0601CBABA8100B982DE /* CollectionReusableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +1037,28 @@
 				14C662131CBB5685003EC421 /* Top */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		14D9DF6B1CBF206E00105A63 /* GameDetailHeader */ = {
+			isa = PBXGroup;
+			children = (
+				14D9DF681CBF195D00105A63 /* CPGameDetailCellHeaderView.h */,
+				14D9DF691CBF195D00105A63 /* CPGameDetailCellHeaderView.m */,
+				14D9DF701CBF251B00105A63 /* CPGameDetailCellFooterView.h */,
+				14D9DF711CBF251B00105A63 /* CPGameDetailCellFooterView.m */,
+			);
+			name = GameDetailHeader;
+			sourceTree = "<group>";
+		};
+		14D9DF6C1CBF207C00105A63 /* GameDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				1456BA0D1CBFF6EB003CE6AF /* PageControl */,
+				1486B88B1CC0B11F00033567 /* Games(相关游戏) */,
+				1486B88A1CC0B11100033567 /* News(相关新闻) */,
+				1486B8891CC0B0F900033567 /* Gakkary(游戏截图) */,
+			);
+			name = GameDetailCell;
 			sourceTree = "<group>";
 		};
 		14DBE09A1CB5F3B00033B915 /* Top */ = {
@@ -1021,6 +1181,7 @@
 		6553D8781C813BFE00AF17F6 /* Center(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
+				149539221CC9FAB50067BEAA /* Settings(设置) */,
 				1422ECB01CB4CAD70060BDB1 /* Feedback(反馈) */,
 				14BFD6041CA772D2006CC2BD /* Header_H */,
 				1422ECAB1CB4B45C0060BDB1 /* View */,
@@ -1074,7 +1235,6 @@
 		6553D87C1C813C6800AF17F6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1405FBEE1CBE8DF200AAD8E9 /* GameDetails(游戏详情) */,
 				14C13D401CBE79E3001C6A25 /* CellHeaderView */,
 				14D8B0611CBABA8E00B982DE /* TableViewCell */,
 				14D8B0601CBABA8100B982DE /* CollectionReusableView */,
@@ -1159,6 +1319,8 @@
 				65561D5E1C8C079F0045AB18 /* NSDate+CPExtension.m */,
 				14FAAE001C9E7EFA00E9B191 /* UIButton+CPCountDown.h */,
 				14FAAE011C9E7EFA00E9B191 /* UIButton+CPCountDown.m */,
+				149539261CCA17C20067BEAA /* CPFileService.h */,
+				149539271CCA17C20067BEAA /* CPFileService.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1856,8 +2018,10 @@
 				65A9AFDC1C7C0ECA0046BE80 /* Images.xcassets in Resources */,
 				146C42C61C9D804F005A3456 /* CPCodeShowView.xib in Resources */,
 				14EB80671CB6BF080066DB5E /* CPTopImgCell.xib in Resources */,
+				1456BA091CBFF46A003CE6AF /* Empty.xib in Resources */,
 				141E6EF01C9A9D770035CA0A /* ShareSDK.bundle in Resources */,
 				65A9B0021C7C109F0046BE80 /* MBProgressHUD.bundle in Resources */,
+				14D6EC0F1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.xib in Resources */,
 				65647E061C7F481200ABF107 /* MJRefresh.bundle in Resources */,
 				14D8B05F1CBABA6E00B982DE /* CPVideoTableViewCell.xib in Resources */,
 				6521A20C1C7E95190003B189 /* CPTiygViewCell.xib in Resources */,
@@ -1867,13 +2031,17 @@
 				1405FBF41CBE907200AAD8E9 /* CPGameDetailTableViewCell.xib in Resources */,
 				6521A2161C7E955E0003B189 /* CPBlogViewCell.xib in Resources */,
 				6589A3781C82F46200A47A24 /* CPNewfeaturesController.xib in Resources */,
+				14D6EBFF1CCBA161000A35D6 /* CPStrategyTableViewCell.xib in Resources */,
 				147651351CB5532E0092AD7D /* CPTopCollectionViewCell.xib in Resources */,
 				147651301CB5531D0092AD7D /* CPMiddleCollectionViewCell.xib in Resources */,
 				65C7BA121C8890BF00453E15 /* CPAdressCell.xib in Resources */,
 				65516BC71C8ABEA2009DBEB3 /* AreaID.plist in Resources */,
 				141E6EE81C9A9D770035CA0A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				14C662121CBB567D003EC421 /* CPGameTableViewCell.xib in Resources */,
+				14D6EC0A1CCBC2B9000A35D6 /* CPVideoCell.xib in Resources */,
 				65E48B5A1C88527700158709 /* Address.plist in Resources */,
+				14D6EC051CCBA3EE000A35D6 /* CPStrategyCell.xib in Resources */,
+				14D6EBFA1CCB7471000A35D6 /* CPAbstractCell.xib in Resources */,
 				14C6621E1CBB876A003EC421 /* CPCellHeaderView.xib in Resources */,
 				65DD6F8C1C7D947A0065FA9B /* MydeviceList.plist in Resources */,
 				14FAADF91C9E35B700E9B191 /* CPDataViewCell.xib in Resources */,
@@ -1951,14 +2119,19 @@
 				65CA09A21C8FFC01009E85F9 /* CPShareDetailView.m in Sources */,
 				14EB804B1CB67BDE0066DB5E /* AFURLRequestSerialization.m in Sources */,
 				1476512F1CB5531D0092AD7D /* CPMiddleCollectionViewCell.m in Sources */,
+				1405232A1CBFE97200F41F79 /* CPGallaryCollectionVCell.m in Sources */,
 				65647E091C7F481200ABF107 /* MJRefreshFooterView.m in Sources */,
+				149A5EA51CC338F000A4978F /* CPGameCellFrame.m in Sources */,
 				65D03C0D1C7DE7D100F67349 /* CPHeaderView.m in Sources */,
+				14D9DF6F1CBF20B200105A63 /* CPDetailTableViewCell.m in Sources */,
 				14EB805C1CB6AE830066DB5E /* CPGameModel.m in Sources */,
 				146C42C41C9D803D005A3456 /* CPCodeShowView.m in Sources */,
 				14A5DF981C993227007E5A8F /* CPDeviceViewController.m in Sources */,
 				65647E0A1C7F481200ABF107 /* MJRefreshHeaderView.m in Sources */,
 				6536F82F1C8B274D0031D2B3 /* CPWeatherDataSV.m in Sources */,
 				14DBE0A01CB5F3DB0033B915 /* CPCollectionReusableView.m in Sources */,
+				14D6EC041CCBA3EE000A35D6 /* CPStrategyCell.m in Sources */,
+				14D6EC091CCBC2B9000A35D6 /* CPVideoCell.m in Sources */,
 				6521A2151C7E955E0003B189 /* CPBlogViewCell.m in Sources */,
 				657ABF281C834D2400A6921C /* CPTopShow.m in Sources */,
 				14C13D3C1CBDEA40001C6A25 /* CPGameInfo.m in Sources */,
@@ -1968,6 +2141,8 @@
 				143D0D3F1CB76552002BC35E /* SDImageCache.m in Sources */,
 				65A9B0011C7C109F0046BE80 /* MBProgressHUD+MJ.m in Sources */,
 				65A9B01D1C7C10A80046BE80 /* UIImage+ImageEffects.m in Sources */,
+				14D9DF721CBF251B00105A63 /* CPGameDetailCellFooterView.m in Sources */,
+				149539251CC9FB1C0067BEAA /* CPSettingsTableVC.m in Sources */,
 				65A9B0261C7C1EAB0046BE80 /* CPCenterViewController.m in Sources */,
 				65A9B01C1C7C10A80046BE80 /* SCLTimerDisplay.m in Sources */,
 				65FB92571C7E7C8E007E6BFD /* CPLifedataViewCell.m in Sources */,
@@ -1989,15 +2164,18 @@
 				143D0D4B1CB76552002BC35E /* UIImageView+WebCache.m in Sources */,
 				14C662111CBB567D003EC421 /* CPGameTableViewCell.m in Sources */,
 				654008971C83E95600D2A072 /* UIView+Extension.m in Sources */,
+				149539281CCA17C20067BEAA /* CPFileService.m in Sources */,
 				65A9B01A1C7C10A80046BE80 /* SCLSwitchView.m in Sources */,
 				6547E2961C8ACF1500DCF5EA /* CPAreaIDModel.m in Sources */,
 				65A9AFD01C7C0ECA0046BE80 /* main.m in Sources */,
 				14FAADF81C9E35B700E9B191 /* CPDataViewCell.m in Sources */,
 				143D0D481CB76552002BC35E /* UIImage+MultiFormat.m in Sources */,
 				65C7BA1B1C88919F00453E15 /* CPAdressModel.m in Sources */,
+				1486B8881CC0B0CE00033567 /* CPReleateGameView.m in Sources */,
 				65647E0D1C7F481200ABF107 /* UIView+MJExtension.m in Sources */,
 				65DD6F8F1C7D9B4C0065FA9B /* CPDeviceGroup.m in Sources */,
 				6521A2101C7E95420003B189 /* CPDlistViewCell.m in Sources */,
+				14D6EC0E1CCBC7B3000A35D6 /* CPVideoCellTableViewCell.m in Sources */,
 				6521A20B1C7E95190003B189 /* CPTiygViewCell.m in Sources */,
 				65D827731C7CB0420062F38E /* CPMiddleView.m in Sources */,
 				65647E071C7F481200ABF107 /* MJRefreshBaseView.m in Sources */,
@@ -2008,6 +2186,7 @@
 				143D0D471CB76552002BC35E /* UIImage+GIF.m in Sources */,
 				65DD6F921C7D9B6B0065FA9B /* CPDeviceList.m in Sources */,
 				143D0D431CB76552002BC35E /* SDWebImageDownloaderOperation.m in Sources */,
+				1456BA0C1CBFF6E4003CE6AF /* CPPageControl.m in Sources */,
 				14BCD5E91CA4221400093964 /* CPDataGroup.m in Sources */,
 				65CE0D361C8D5A1300D6A193 /* CPWDataMiddleView.m in Sources */,
 				6521A21E1C7EA7F50003B189 /* CPTotalCell.m in Sources */,
@@ -2039,15 +2218,20 @@
 				65664C0B1C7C4B3E00E68744 /* CPData.m in Sources */,
 				65DB71671C8B17CF0023E542 /* CPWeatherDataVC.m in Sources */,
 				146B24731CBC9AB400FC8258 /* CPTimeFreeTableVC.m in Sources */,
+				14D9DF6A1CBF195D00105A63 /* CPGameDetailCellHeaderView.m in Sources */,
 				14C662181CBB5D4D003EC421 /* CPVCModel.m in Sources */,
 				143D0D451CB76552002BC35E /* SDWebImagePrefetcher.m in Sources */,
 				65A9AFFA1C7C10010046BE80 /* CPTabBarController.m in Sources */,
+				14D6EBFE1CCBA161000A35D6 /* CPStrategyTableViewCell.m in Sources */,
 				14FAAE021C9E7EFA00E9B191 /* UIButton+CPCountDown.m in Sources */,
 				14C13D3F1CBE79D8001C6A25 /* CPEachHeaderView.m in Sources */,
 				65A9B0291C7C222A0046BE80 /* CPCenterView.m in Sources */,
+				1486B8851CC0870500033567 /* CPNewsTableViewCell.m in Sources */,
 				14D8B05E1CBABA6E00B982DE /* CPVideoTableViewCell.m in Sources */,
+				141ACFCE1CC0C98E00BBBC02 /* CPReleateGameCollectionVCell.m in Sources */,
 				65266C291C888465009D043B /* YZAddressPicker.m in Sources */,
 				143D0D401CB76552002BC35E /* SDWebImageCompat.m in Sources */,
+				14D6EBF91CCB7471000A35D6 /* CPAbstractCell.m in Sources */,
 				65647E0C1C7F481200ABF107 /* UIScrollView+MJRefresh.m in Sources */,
 				140BF6AF1CB4D2300063E301 /* CPTextView.m in Sources */,
 				147651391CB5533F0092AD7D /* CPBottomCollectionViewCell.m in Sources */,

@@ -12,6 +12,7 @@
 #import "CPGameModel.h"
 #import "CPVCModel.h"
 #import "CPCellHeaderView.h"
+#import "CPEachGameTableVC.h"
 
 #define SECTIONS 2
 
@@ -24,7 +25,10 @@ static NSString *gameCellID = @"gameCell";
 
 @property (nonatomic, strong) CPVCTopModel *vcTopModel;
 
-@property (nonatomic, weak) UITableViewCell *cell;
+@property (nonatomic, strong) UITableViewCell *cell;
+ 
+
+@property (nonatomic, strong) CPVCGameList *gamelist;
 @end
 
 @implementation CPVCTableViewController
@@ -80,6 +84,7 @@ static NSString *gameCellID = @"gameCell";
     
     CPVCGameModel *vcgameModel = [CPVCGameModel vcGameModelWithDict:gameDataDict];
     CPVCTopModel *vcTopModel = [CPVCTopModel vcTopModelWithDict:vcgameModel.result];
+    
     self.vcTopModel = vcTopModel;
 }
 
@@ -158,6 +163,80 @@ static NSString *gameCellID = @"gameCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CPLog(@"===%ld,%ld",indexPath.row, indexPath.section);
+    if (indexPath.section == 1) {
+        CPVCGameList *gameList = self.gameListArray[indexPath.row];
+        self.gamelist = gameList;
+        
+        NSString *host = @"http://cdn.4399sj.com";
+        NSString *path = [[NSString alloc] init];
+        NSString *fileID = [[NSString alloc] init];
+        
+        path = [NSString stringWithFormat:@"/app/iphone/v2.2/game.html?id=%ld",(long)gameList.id];
+        fileID = [NSString stringWithFormat:@"%@-%ld",vcGameCacheName, (long)gameList.id];
+        
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@",host, path];
+        CPLog(@"请求的数据地址%@",urlStr);
+        
+        //获取缓存目录
+        NSString* cacheDirectory  = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *vccachefilename = [cacheDirectory stringByAppendingPathComponent:fileID];
+        
+        //连接服务器get数据
+        AFHTTPSessionManager *httpMrg = [AFHTTPSessionManager manager];
+        httpMrg.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [httpMrg GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            if (responseObject) {
+                //写入文件
+                NSError *error;
+                if ([responseObject writeToFile:vccachefilename options:NSDataWritingAtomic error:&error]) {
+                    CPLog(@"写入缓存成功");
+                    [self performSegueWithIdentifier:@"vcTableView2eachGame" sender:fileID];
+                    
+                }else{
+                    CPLog(@"写入缓存失败");
+                }
+            }else{
+                CPLog(@"获取数据为空");
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            CPLog(@"失败%@",error);
+        }];
+
+    
+    }
+}
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"vcTableView2eachGame"]) {
+        CPEachGameTableVC *eachgameVC = segue.destinationViewController;
+        eachgameVC.fileID = sender;
+        UIView *titleView = [[UIView alloc] init];
+        //新游推荐
+        titleView = ({
+            CGSize titleSize = [NSString sizeWithText:self.gamelist.name font:MYITTMFONTSIZE maxSize:CPMAXSIZE];
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+            label.font = MYITTMFONTSIZE;
+            label.text = self.gamelist.name;
+            [view addSubview:label];
+            view;
+        });
+        
+        [eachgameVC.navigationItem setTitleView:titleView];
+    }
 }
 
 

@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface CPAreaIDModel : NSObject
 
 @property (strong,nonatomic) NSDictionary *areaidDict;

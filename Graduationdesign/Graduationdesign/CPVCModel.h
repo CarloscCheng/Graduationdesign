@@ -42,7 +42,7 @@
 
 
 
-@interface CPVCGameList : NSObject
+@interface CPVCGameList : NSObject 
 
 @property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *category;
@@ -56,7 +56,7 @@
 @property (nonatomic, copy) NSString *crack;
 @property (nonatomic, copy) NSString *language;
 @property (nonatomic, copy) NSString *downloadUrl;
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *name; 
 
 
 + (instancetype)vcGameListWithDict:(NSDictionary *)dict;

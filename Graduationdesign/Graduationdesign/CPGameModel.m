@@ -51,7 +51,7 @@
     NSString *cachefilename = [cacheDirectory stringByAppendingPathComponent:gameCacheName];
     NSData *gameData = [NSData dataWithContentsOfFile:cachefilename];
     
-    NSDictionary *gameDataDict = [NSJSONSerialization JSONObjectWithData:gameData options:NSJSONReadingMutableLeaves error:nil];
+    NSDictionary *gameDataDict = [NSJSONSerialization JSONObjectWithData:gameData options:NSJSONReadingMutableLeaves error:nil]; 
     
     CPGameModel *gameModel = [CPGameModel gameModelWithDict:gameDataDict];
     CPSortModel *sortModel = [CPSortModel sortModelWithDict:gameModel.result];

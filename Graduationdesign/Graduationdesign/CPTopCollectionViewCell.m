@@ -34,7 +34,7 @@ static NSString *imgIdentifier = @"imgCell";
     UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.myTopCollectionView.collectionViewLayout = flowLayout;
-    
+     
     // 设置行之间间隔
     flowLayout.minimumLineSpacing = 0;
     

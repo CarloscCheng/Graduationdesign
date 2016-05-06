@@ -29,7 +29,10 @@
     #import "MJRefresh.h"
     #import "AFNetworking/AFNetworking.h"
     #import "SDWebImage/UIImageView+WebCache.h"
+    #import "SDWebImage/UIButton+WebCache.h"
     #import <MJExtension.h>
+    #import "UIView+Action.h"
+    #import <MediaPlayer/MediaPlayer.h>
 
 //判断是否为ios7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)

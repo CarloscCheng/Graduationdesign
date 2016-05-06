@@ -118,8 +118,8 @@
 
 
 #pragma mark 按钮事件
-- (void)personalMiddleisClicked:(UIButton *)sender
-{
+- (void)personalMiddleisClicked:(UIButton *)sender{
+    
 }
 
 - (void)integralisClicked:(UIButton *)sender
